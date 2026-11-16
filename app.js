@@ -127,11 +127,29 @@
   let settings = { sound: true };
   try { Object.assign(settings, JSON.parse(localStorage.getItem(SET_KEY) || "{}")); } catch (e) {}
   function saveSettings() { try { localStorage.setItem(SET_KEY, JSON.stringify(settings)); } catch (e) {} }
-  const SFX = {};
-  ["tap", "gotit", "notyet", "great", "genius"].forEach((n) => { const a = new Audio("sound/" + n + ".mp3"); a.preload = "auto"; SFX[n] = a; });
+  // 効果音は小さめの音量で、Web Audio を使って鳴らす。
+  // iPhone・iPad（Safari 16.4以降）は "ambient" にして、消音スイッチがONのときは鳴らないようにする。
+  const SFX_NAMES = ["tap", "gotit", "notyet", "great", "genius"];
+  const SFX_VOL = 0.3;
+  try { if (navigator.audioSession) navigator.audioSession.type = "ambient"; } catch (e) {}
+  let actx = null, gain = null; const BUF = {}, FALLBACK = {};
+  function initAudio() {
+    if (actx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) { SFX_NAMES.forEach((n) => { const a = new Audio("sound/" + n + ".mp3"); a.preload = "auto"; a.volume = SFX_VOL; FALLBACK[n] = a; }); actx = "none"; return; }
+    actx = new AC(); gain = actx.createGain(); gain.gain.value = SFX_VOL; gain.connect(actx.destination);
+    SFX_NAMES.forEach((n) => fetch("sound/" + n + ".mp3").then((r) => r.arrayBuffer()).then((b) => new Promise((ok, ng) => actx.decodeAudioData(b, ok, ng))).then((buf) => (BUF[n] = buf)).catch(() => {}));
+  }
+  // 最初にさわったときに準備する（ブラウザの決まりで、さわる前は音を鳴らせない）
+  ["pointerdown", "keydown"].forEach((ev) => window.addEventListener(ev, () => { if (settings.sound) initAudio(); if (actx && actx !== "none" && actx.state === "suspended") actx.resume(); }, { capture: true }));
   function sfx(name) {
-    if (!settings.sound || !SFX[name]) return;
-    try { const a = SFX[name].cloneNode(); a.play().catch(() => {}); } catch (e) {}
+    if (!settings.sound) return;
+    initAudio();
+    try {
+      if (actx === "none") { const a = FALLBACK[name].cloneNode(); a.volume = SFX_VOL; a.play().catch(() => {}); return; }
+      if (!BUF[name]) return;
+      const src = actx.createBufferSource(); src.buffer = BUF[name]; src.connect(gain); src.start();
+    } catch (e) {}
   }
 
   /* ---------- 読み上げ ---------- */
@@ -154,7 +172,7 @@
   function openSheet(id) {
     const it = ITEMS[id]; if (!it) return;
     const sh = $("sheet");
-    sh.innerHTML = `<div class="small muted">${esc(it.pos)}${it.src === "おまけ" ? '　<span class="tag">おまけ</span>' : ""}</div>
+    sh.innerHTML = `<div class="small muted">${esc(it.pos)}</div>
       <div class="word" id="sheetWord" lang="en">${esc(it.word)}</div>
       <div class="mean">${esc(it.ja)}</div>
       ${it.forms ? `<div class="forms"><b>不規則動詞の活用</b><span lang="en">${esc(it.forms)}</span><div class="small muted">原形 – 過去形 – 過去分詞</div></div>` : ""}
@@ -202,7 +220,7 @@
   }
 
   /* ---------- 学習の回 ---------- */
-  function startSession(chosen) { // chosen：メニューで選んだ場面（なければ順番に）
+  function startSession(chosen, practice) { // chosen：メニューで選んだ場面（なければ順番に）。practice：「もう一回」の練習（記録しない）
     const scenes = chosen || nextScenes();
     const newIds = chosen ? scenes.flatMap((s) => s.items.map((i) => i.id)) : scenes.flatMap((s) => s.items.map((i) => i.id)).filter((id) => !state.items[id]);
     const review = chosen ? [] : dueItems().filter((id) => !newIds.includes(id)).slice(0, MAX_REVIEW);
@@ -210,7 +228,7 @@
     scenes.forEach((s) => steps.push({ k: "scene", phase: 0, s }));
     shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい語と復習の語をまぜる
     steps.push({ k: "summary", phase: 3 });
-    session = { steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id) };
+    session = { steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id), practice: !!practice };
     step();
   }
   function quit() {
@@ -246,8 +264,10 @@
         <div class="row">
           <button type="button" class="chip" id="sayAll">${ICON.speak}全部を読む</button>
           <button type="button" class="chip" id="jaBtn" aria-pressed="false">訳を見る</button>
+          <button type="button" class="chip" id="clozeBtn" aria-pressed="false">穴うめ</button>
         </div>
-        <div>${s.lines.map((l, i) => `<div class="line">
+        <div class="small muted" id="clozeHint" hidden>日本語訳を見て、空いているところに入る英語を考えよう。空欄をタップすると答えが出ます。</div>
+        <div id="lines">${s.lines.map((l, i) => `<div class="line">
             ${conv ? `<div class="sp ${esc(l.sp)}" aria-label="${esc(l.sp)}さん">${esc(l.sp)}</div>` : ""}
             <div class="body"><div class="en" lang="en">${sceneHTML(l.en)}</div><div class="ja" hidden>${esc(l.ja)}</div></div>
             <button type="button" class="say" data-line="${i}" aria-label="この文を読む">${ICON.speak}</button></div>`).join("")}</div>
@@ -257,11 +277,26 @@
       <div class="gram"><b>📘 文法：${esc(s.grammar.name)}</b>${esc(s.grammar.text)}</div>`);
     $("sayAll").onclick = () => speak(s.lines.map((l) => plain(l.en)).join(" "));
     main.querySelectorAll(".say").forEach((b) => (b.onclick = () => speak(plain(s.lines[b.dataset.line].en))));
+    let jaOn = false, cloze = false;
+    const drawJa = () => main.querySelectorAll("#lines .ja").forEach((j) => (j.hidden = !(jaOn || cloze)));
     $("jaBtn").onclick = function () {
-      const on = this.getAttribute("aria-pressed") !== "true";
-      this.setAttribute("aria-pressed", on); this.textContent = on ? "訳をかくす" : "訳を見る";
-      main.querySelectorAll(".ja").forEach((j) => (j.hidden = !on));
+      jaOn = !jaOn;
+      this.setAttribute("aria-pressed", jaOn); this.textContent = jaOn ? "訳をかくす" : "訳を見る";
+      drawJa();
     };
+    $("clozeBtn").onclick = function () {
+      cloze = !cloze;
+      this.setAttribute("aria-pressed", cloze);
+      $("lines").classList.toggle("cloze", cloze);
+      $("clozeHint").hidden = !cloze;
+      main.querySelectorAll("#lines .w").forEach((w) => { w.classList.remove("open"); w.setAttribute("aria-label", cloze ? "空欄（タップで答え）" : ""); if (!cloze) w.removeAttribute("aria-label"); });
+      drawJa();
+    };
+    // 穴うめ中は、空欄をタップすると答えを出す（もう一度タップで意味の説明）
+    $("lines").addEventListener("click", (e) => {
+      const w = e.target.closest(".w"); if (!w || !cloze || w.classList.contains("open")) return;
+      e.stopPropagation(); w.classList.add("open"); w.removeAttribute("aria-label");
+    }, true);
     setBottom([{ label: isReview ? "一覧にもどる" : "次へ", sfx: "tap", onClick: onNext }]);
   }
 
@@ -278,7 +313,7 @@
     setBottom([{ label: "意味を見る", sfx: "tap", onClick: reveal }]);
     function reveal() {
       $("ans").innerHTML = `<div class="ans">
-          <div class="small muted">${esc(it.pos)}${it.src === "おまけ" ? '　<span class="tag">おまけ</span>' : ""}</div>
+          <div class="small muted">${esc(it.pos)}</div>
           <div class="word" lang="en">${esc(it.word)}</div>
           <div class="mean">${esc(it.ja)}</div>
           <div class="ja">${esc(it.check.ja)}</div>
@@ -290,7 +325,7 @@
                  { label: "Got it!", cls: "ok", sfx: "gotit", onClick: () => answer(true) }]);
     }
     function answer(ok) {
-      if (!st.retry && !session.answered[st.id]) { record(st.id, ok); session.answered[st.id] = ok ? "ok" : "ng"; }
+      if (!st.retry && !session.answered[st.id]) { if (!session.practice) record(st.id, ok); session.answered[st.id] = ok ? "ok" : "ng"; }
       if (!ok && !session.retried[st.id]) {
         session.retried[st.id] = true;
         if (!session.wrong.includes(st.id)) session.wrong.push(st.id);
@@ -313,11 +348,12 @@
         <div class="stat"><div class="k">Got it!</div><div class="v">${ok}<span class="small">／${all}語</span></div></div>
         <div class="stat"><div class="k">読んだ場面</div><div class="v">${session.scenes.length}<span class="small">場面</span></div></div>
       </div>
-      <div class="small muted">「Not yet」の語は、明日からの確認にまぜて出ます。「Got it!」の語は、日をあけてまた出ます。</div></div>
+      <div class="small muted">${session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の語は、明日からの確認にまぜて出ます。「Got it!」の語は、日をあけてまた出ます。"}</div></div>
       ${wrong.length ? `<div class="card"><h2>Not yet の語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
         `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}`);
     setTop("まとめ", null, null);
-    setBottom([{ label: "メニューへ", onClick: menu }]);
+    const again = session.scenes.map((id) => DATA.scenes.find((s) => s.id === id)).filter(Boolean);
+    setBottom([{ label: "もう一回", cls: "sub", sfx: "tap", onClick: () => startSession(again, true) }, { label: "メニューへ", onClick: menu }]);
   }
 
   /* ---------- そのほかの画面 ---------- */
@@ -358,7 +394,7 @@
 
   function help() {
     setTop("はじめての人へ", menu, null);
-    show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
+    show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。「穴うめ」を押すと、覚える語が空欄になって日本語訳が出るので、入る英語を考えてから空欄をタップして答えを確かめよう。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
       <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「Got it!」（わかった）か「Not yet」（まだ）</b>を選びます。正直に選ぶほど、よく覚えられます。「Not yet」の語は、その回の最後にもう一度出ます。</div>
       <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の語は翌日に、「Got it!」の語は 1日→3日→7日→14日→30日 と間をあけて、また出ます。1回は約15分です。</div>
       <div class="card"><h2>ホーム画面に入れる</h2><b>Android（Chrome）</b>：右上の「⋮」→「アプリをインストール」（または「ホーム画面に追加」）。<br><b>iPhone（Safari）</b>：共有ボタン（□↑）→「ホーム画面に追加」。<br>入れたあとは、電波がなくても使えます。</div>
@@ -375,7 +411,7 @@
           <button type="button" class="chip" id="sOn" aria-pressed="${settings.sound}">ON</button>
           <button type="button" class="chip" id="sOff" aria-pressed="${!settings.sound}">OFF</button>
         </div>
-        <div class="small muted">端末の音量が0のときや、マナーモードのときは、ONでも鳴らないことがあります。</div></div>`);
+        <div class="small muted">効果音は小さめの音で鳴ります。iPhone・iPad は、消音（マナー）モードのときは鳴りません。Android は、アプリから消音モードかどうかがわからないため、マナーモードでも鳴ることがあります。鳴らしたくないときは OFF にしてください。</div></div>`);
       $("sOn").onclick = () => { settings.sound = true; saveSettings(); sfx("tap"); draw(); };
       $("sOff").onclick = () => { settings.sound = false; saveSettings(); draw(); };
     };
@@ -386,7 +422,7 @@
     setTop("このアプリについて", menu, null);
     show(`<div class="card"><h2>${APP}</h2>
       <p>英検準2級〜2級の範囲を目安にしています。日本英語検定協会とは関係ありません。</p>
-      <p>覚える語は、英検準2級向けの単語・熟語・会話表現から選んでいます。「おまけ」の印がある語は、使い分けを知るために加えた語です。</p>
+      <p>覚える語は、英検準2級向けの単語・熟語・会話表現から選んでいます。使い分けを知るために、少しだけほかの語も加えています。</p>
       <p>英文と和訳はすべてこのアプリのために作ったものです。読み上げは端末の機能を使います。</p>
       <p class="small muted">版：${esc(DATA.version)}（準2級 場面1〜${DATA.scenes.length}）</p></div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
