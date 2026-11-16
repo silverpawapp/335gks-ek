@@ -331,15 +331,23 @@
     const c = DATA.categories.find((x) => x.id === catId);
     progress.hidden = true;
     setTop(c.name, categoryList, null, CAT_ICON[c.id]);
-    show(`<div class="small muted" style="margin-bottom:8px">場面を選ぶと、その場面を読んで、意味の確認をします。</div>` +
+    const wordHTML = (it) => {
+      const r = state.items[it.id];
+      const cls = !r ? "wd" : r.box === 0 ? "wd weak" : "wd done";
+      return `<span class="${cls}" lang="en">${esc(it.word)}</span>`;
+    };
+    show(`<div class="small muted" style="margin-bottom:8px">場面を選ぶと、その場面を読んで、意味の確認をします。<br>
+      <span class="wd done">緑の字</span>＝Got it!　<span class="wd weak">赤の字</span>＝Not yet　<span class="wd">灰色</span>＝まだ学んでいない</div>` +
       DATA.scenes.filter((s) => s.cat === catId).map((s) => {
         const done = sceneDone(s);
-        return `<button type="button" class="scene-btn" data-s="${s.id}">
-          <span>${typeIcon(s.type)}${esc(s.title)}</span><span class="small ${done ? "done-mark" : "muted"}">${done ? "済" : "まだ"}</span></button>`;
+        return `<button type="button" class="scene-btn scene-item" data-s="${s.id}">
+          <span class="sc-top"><span><span class="sc-no">${Number(s.id.slice(1))}</span>${typeIcon(s.type)}${esc(s.title)}</span><span class="small ${done ? "done-mark" : "muted"}">${done ? "済" : "まだ"}</span></span>
+          <span class="sc-words">${s.items.map(wordHTML).join('<span class="sep"> / </span>')}</span></button>`;
       }).join(""));
     main.querySelectorAll(".scene-btn").forEach((b) => (b.onclick = () => { sfx("tap"); startSession([DATA.scenes.find((x) => x.id === b.dataset.s)]); }));
     setBottom([]);
   }
+
   function help() {
     setTop("はじめての人へ", menu, null);
     show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
