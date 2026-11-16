@@ -142,3 +142,4 @@ footer#bottom .spacer{flex:1}
 .search{width:100%;min-height:48px;font-size:18px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-family:var(--en);margin-bottom:6px}
 .hit-btn{gap:2px}
 .w.hit{outline:3px solid var(--focus);outline-offset:2px}
+.tag.review{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink);margin-bottom:6px}

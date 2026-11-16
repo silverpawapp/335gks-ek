@@ -4,7 +4,7 @@
   const APP = "場面で覚える英単語";
   const LS_KEY = "bamen.v1";
   const MAX_NEW = 10;    // 1回に新しく覚える語は10まで
-  const MAX_REVIEW = 10; // 1回にまぜる復習の語は10まで
+  const MAX_TOTAL = 25;  // 1回に確認する語は、復習と新しい語をあわせて25まで（復習を先に入れ、残りを新しい語にする）
   const INTERVALS = [1, 3, 7, 30]; // Got it! が続いたときの次の復習までの日数。30日後の復習でも Got it! なら、もう復習に出さない（done）
   const NEVER = "9999-12-31";
   const $ = (id) => document.getElementById(id);
@@ -47,20 +47,31 @@
     state.items[id] = r;
     saveState();
   }
+  // 今日 Not yet にした語を、同じ日のやり直し（もう一度・もう一回）で Got it! にできたら、Got it! の状態にする
+  function upgradeToday(id) {
+    const r = state.items[id];
+    if (!r || r.done || r.box !== 0 || r.last !== today()) return;
+    r.box = 1; r.due = addDays(INTERVALS[0]); r.ok++;
+    saveState();
+  }
   function dueItems() {
     const t = today();
     return Object.keys(state.items).filter((id) => ITEMS[id] && state.items[id].due <= t)
       .sort((a, b) => state.items[a].due < state.items[b].due ? -1 : 1);
   }
   function sceneDone(s) { return s.items.every((it) => state.items[it.id]); }
-  function nextScenes() { // 新しい語が MAX_NEW をこえない数だけ、順に場面を選ぶ
+  // 今回の復習の語（古い順に、最大 MAX_TOTAL）
+  function reviewToday() { return dueItems().slice(0, MAX_TOTAL); }
+  function nextScenes() { // 新しい語が「MAX_NEW」と「25−復習の数」の小さいほうをこえない数だけ、順に場面を選ぶ
+    const limit = Math.min(MAX_NEW, MAX_TOTAL - reviewToday().length);
     const out = []; let n = 0;
+    if (limit <= 0) return out;
     for (const s of DATA.scenes) {
       if (sceneDone(s)) continue;
       const k = s.items.filter((i) => !state.items[i.id]).length;
-      if (out.length && n + k > MAX_NEW) break;
+      if (n + k > limit && (out.length || limit < MAX_NEW)) break;
       out.push(s); n += k;
-      if (n >= MAX_NEW) break;
+      if (n >= limit) break;
     }
     return out;
   }
@@ -214,7 +225,7 @@
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
           <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、${rest ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due && rest ? "（復習の語もまぜて出ます）" : ""} → Not yet の語をもう一度 の順に進みます。` : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due ? `（復習の語${Math.min(due, MAX_TOTAL)}語${nextScenes().length ? "もまぜて" : "だけ"}）` : ""} → Not yet の語をもう一度 の順に進みます。確認は1回25語までで、復習の語を先に入れます。` : "今日の学習はおわりです。また明日！"}</div>
       </div>
       <div class="menu-list">
         <button type="button" id="mScenes">${ICON.menuScenes}場面を選ぶ</button>
@@ -233,12 +244,12 @@
   function startSession(chosen, practice) { // chosen：メニューで選んだ場面（なければ順番に）。practice：「もう一回」の練習（記録しない）
     const scenes = chosen || nextScenes();
     const newIds = chosen ? scenes.flatMap((s) => s.items.map((i) => i.id)) : scenes.flatMap((s) => s.items.map((i) => i.id)).filter((id) => !state.items[id]);
-    const review = chosen ? [] : dueItems().filter((id) => !newIds.includes(id)).slice(0, MAX_REVIEW);
+    const review = chosen ? [] : reviewToday().filter((id) => !newIds.includes(id));
     const steps = [];
     scenes.forEach((s) => steps.push({ k: "scene", phase: 0, s }));
     shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい語と復習の語をまぜる
     steps.push({ k: "summary", phase: 3 });
-    session = { steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id), practice: !!practice };
+    session = { review: new Set(review), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id), practice: !!practice };
     step();
   }
   function quit() {
@@ -314,7 +325,7 @@
   function checkScreen(st) {
     const it = ITEMS[st.id];
     show(`<div class="card">
-        <div class="small muted">太字の語は、どんな意味？ 考えてから「意味を見る」を押そう。</div>
+        ${session.review.has(st.id) ? '<span class="tag review">復習</span>' : ""}<div class="small muted">太字の語は、どんな意味？ 考えてから「意味を見る」を押そう。</div>
         <div class="q-en" lang="en">${checkHTML(it.check.en)}</div>
         <div class="row"><button type="button" class="chip" id="sayQ">${ICON.speak}読む</button></div>
         <div id="ans"></div>
@@ -335,7 +346,10 @@
                  { label: "Got it!", cls: "ok", sfx: "gotit", onClick: () => answer(true) }]);
     }
     function answer(ok) {
-      if (!st.retry && !session.answered[st.id]) { if (!session.practice) record(st.id, ok); session.answered[st.id] = ok ? "ok" : "ng"; }
+      const first = !st.retry && !session.answered[st.id];
+      if (first) session.answered[st.id] = ok ? "ok" : "ng";
+      if (first && !session.practice) record(st.id, ok);
+      else if (ok) upgradeToday(st.id); // やり直し（もう一度・もう一回）で Got it! → 今日の Not yet を Got it! にする
       if (!ok && !session.retried[st.id]) {
         session.retried[st.id] = true;
         if (!session.wrong.includes(st.id)) session.wrong.push(st.id);
