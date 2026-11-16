@@ -107,3 +107,4 @@ textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,monospace;fo
 .cheer.genius{font-size:40px}
 .scene-btn .ico{margin-right:8px;width:22px;height:22px;vertical-align:-5px}
 .done-mark{font-weight:700;color:var(--primary-ink);background:var(--primary);border-radius:8px;padding:0 8px}
+.filebtn{display:inline-flex;align-items:center;cursor:pointer}

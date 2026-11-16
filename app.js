@@ -375,32 +375,76 @@
   function backup() {
     setTop("記録のバックアップ", menu, null);
     const txt = JSON.stringify(state);
-    show(`<div class="card"><h2>書き出す</h2><div class="small muted">下の文字をコピーして、メモなどに貼り付けて保存します。</div>
+    const fname = "bamen-kiroku-" + today() + ".json";
+    const canShare = (() => { try { return !!(navigator.canShare && navigator.canShare({ files: [new File(["{}"], "a.json", { type: "application/json" })] })); } catch (e) { return false; } })();
+    show(`<div class="card"><h2>記録の守り</h2><div class="small" id="persistMsg">確かめています…</div></div>
+      <div class="card"><h2>ファイルに保存する</h2>
+        <div class="small muted">記録をファイルにして保存します。スマホを買いかえるときや、ブラウザのデータを消す前に使います。月に1回くらい保存しておくと安心です。</div>
+        <div class="row"><button type="button" class="chip" id="dlBtn">ファイルに保存</button>
+        ${canShare ? `<button type="button" class="chip" id="shareBtn">Googleドライブなどに保存</button>` : ""}</div>
+        <div class="small muted">前回の保存：<span id="lastBk">${settings.lastBackup ? esc(settings.lastBackup) : "まだ"}</span></div></div>
+      <div class="card"><h2>ファイルから読み込む</h2>
+        <div class="small muted">保存したファイルを選ぶと、今の記録と入れかわります。</div>
+        <div class="row"><label class="chip filebtn">ファイルを選ぶ<input type="file" id="fileIn" accept=".json,application/json" hidden></label></div></div>
+      <div class="card"><h2>文字で保存・読み込み</h2>
+        <div class="small muted">ファイルが使えないときは、下の文字をコピーして、メモなどに貼り付けて保存します。</div>
         <textarea id="outTxt" readonly>${esc(txt)}</textarea>
-        <div class="row"><button type="button" class="chip" id="copyBtn">コピーする</button></div></div>
-      <div class="card"><h2>読み込む</h2><div class="small muted">保存しておいた文字を貼り付けて「読み込む」を押すと、今の記録と入れかわります。</div>
+        <div class="row"><button type="button" class="chip" id="copyBtn">コピーする</button></div>
+        <div class="small muted">保存しておいた文字を貼り付けて「読み込む」を押すと、今の記録と入れかわります。</div>
         <textarea id="inTxt" placeholder="ここに貼り付け"></textarea>
         <div class="row"><button type="button" class="chip" id="loadBtn">読み込む</button></div></div>`);
+    persistStatus().then((m) => { const el = $("persistMsg"); if (el) el.innerHTML = m; });
+    const saved = () => { settings.lastBackup = today(); saveSettings(); const el = $("lastBk"); if (el) el.textContent = settings.lastBackup; };
+    $("dlBtn").onclick = () => {
+      const url = URL.createObjectURL(new Blob([txt], { type: "application/json" }));
+      const a = document.createElement("a"); a.href = url; a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      saved(); toast("保存しました（「ダウンロード」に入ります）");
+    };
+    if (canShare) $("shareBtn").onclick = async () => {
+      try { await navigator.share({ files: [new File([txt], fname, { type: "application/json" })], title: "場面で覚える英単語の記録" }); saved(); toast("保存しました"); }
+      catch (e) { if (e && e.name !== "AbortError") toast("保存できませんでした"); }
+    };
     $("copyBtn").onclick = async () => {
-      try { await navigator.clipboard.writeText(txt); toast("コピーしました"); }
+      try { await navigator.clipboard.writeText(txt); saved(); toast("コピーしました"); }
       catch (e) { const t = $("outTxt"); t.focus(); t.select(); toast("選んだ文字を長押ししてコピーしてください"); }
     };
-    $("loadBtn").onclick = () => {
-      let s; try { s = JSON.parse($("inTxt").value); } catch (e) { toast("文字の形がちがいます"); return; }
+    const load = (text) => {
+      let s; try { s = JSON.parse(text); } catch (e) { toast("このアプリの記録ではありません"); return; }
       if (!s || typeof s.items !== "object") { toast("このアプリの記録ではありません"); return; }
       modal("今の記録を、読み込んだ記録と入れかえますか？", [
         { label: "入れかえる", onClick: () => { state = s; saveState(); toast("読み込みました"); menu(); } },
         { label: "やめる", cls: "sub" }]);
     };
-    setBottom([{ label: "メニューへ", onClick: menu }]);
+    $("fileIn").onchange = (ev) => { const f = ev.target.files[0]; if (!f) return; f.text().then(load); ev.target.value = ""; };
+    $("loadBtn").onclick = () => load($("inTxt").value);
+    setBottom([{ label: "メニューへ", sfx: "tap", onClick: menu }]);
   }
 
+
   function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+  /* ---------- 記録を自動で消さないよう、ブラウザにたのむ ---------- */
+  async function askPersist() {
+    try { if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch (e) {}
+  }
+  async function persistStatus() {
+    try {
+      if (navigator.storage && navigator.storage.persisted) {
+        if (await navigator.storage.persisted()) return "✓ この端末では、記録を<b>自動で消さない</b>設定になっています。ただし、ブラウザのデータを自分で消したときや、スマホを買いかえたときは消えるので、ファイルにも保存しておきましょう。";
+        await askPersist();
+        if (await navigator.storage.persisted()) return "✓ この端末では、記録を<b>自動で消さない</b>設定になりました。";
+        return "この端末では、記録を自動で消さない設定にできませんでした。ホーム画面にアプリを入れると、できることがあります。ファイルにも保存しておきましょう。";
+      }
+    } catch (e) {}
+    return "この端末では、記録を守る設定は使えません。ファイルに保存しておきましょう。";
+  }
 
   /* ---------- 起動 ---------- */
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeSheet(); } });
   fetch("data/scenes.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((d) => {
     DATA = d;
+    askPersist();
     d.scenes.forEach((s) => s.items.forEach((it) => { ITEMS[it.id] = it; ITEM_SCENE[it.id] = s.id; }));
     menu();
   }).catch(() => {
