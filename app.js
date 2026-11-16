@@ -5,7 +5,8 @@
   const LS_KEY = "bamen.v1";
   const MAX_NEW = 10;    // 1回に新しく覚える語は10まで
   const MAX_REVIEW = 10; // 1回にまぜる復習の語は10まで
-  const INTERVALS = [1, 3, 7, 14, 30]; // ○が続いたときの次の復習までの日数
+  const INTERVALS = [1, 3, 7, 30]; // Got it! が続いたときの次の復習までの日数。30日後の復習でも Got it! なら、もう復習に出さない（done）
+  const NEVER = "9999-12-31";
   const $ = (id) => document.getElementById(id);
   const main = $("main"), bottom = $("bottom"), where = $("where"), progress = $("progress");
   let DATA = null, ITEMS = {}, ITEM_SCENE = {};
@@ -16,9 +17,14 @@
   function loadState() {
     try {
       const s = JSON.parse(localStorage.getItem(LS_KEY) || "null");
-      if (s && typeof s === "object" && s.items) return s;
+      if (s && typeof s === "object" && s.items) return migrate(s);
     } catch (e) {}
     return { v: 1, items: {} };
+  }
+  // 以前の間隔（1・3・7・14・30日）の記録を、今の間隔（1・3・7・30日）に合わせる
+  function migrate(s) {
+    Object.values(s.items).forEach((r) => { if (!r.done && r.box > INTERVALS.length) r.box = INTERVALS.length; });
+    return s;
   }
   function saveState() {
     try { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
@@ -32,8 +38,11 @@
   function addDays(n) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return dayStr(d); }
   function record(id, ok) {
     const r = state.items[id] || { box: 0, ok: 0, ng: 0 };
-    if (ok) { r.box = Math.min(r.box + 1, INTERVALS.length); r.due = addDays(INTERVALS[r.box - 1]); r.ok++; }
-    else { r.box = 0; r.due = addDays(1); r.ng++; }
+    if (ok) {
+      if (r.done || r.box >= INTERVALS.length) { r.done = true; r.due = NEVER; } // 30日後の復習も Got it! → 卒業
+      else { r.box++; r.due = addDays(INTERVALS[r.box - 1]); }
+      r.ok++;
+    } else { r.box = 0; r.done = false; r.due = addDays(1); r.ng++; }
     r.last = today();
     state.items[id] = r;
     saveState();
@@ -198,15 +207,12 @@
     setTop(APP, null, null);
     const due = dueItems().length, rest = DATA.scenes.filter((s) => !sceneDone(s)).length;
     const learned = Object.keys(state.items).filter((id) => ITEMS[id]).length;
-    const strong = Object.keys(state.items).filter((id) => ITEMS[id] && state.items[id].box >= 3).length;
     const canStart = due > 0 || rest > 0;
     show(`<div class="card">
         <span class="tag">準2級</span>
         <div class="stats">
-          <div class="stat"><div class="k">今日の復習</div><div class="v">${due}<span class="small">語</span></div></div>
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
-          <div class="stat"><div class="k">学んだ語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
-          <div class="stat"><div class="k">よく覚えている語</div><div class="v">${strong}<span class="small">語</span></div></div>
+          <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
         <div class="small muted">${canStart ? `「はじめる」で、${rest ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due && rest ? "（復習の語もまぜて出ます）" : ""} → Not yet の語をもう一度 の順に進みます。` : "今日の学習はおわりです。また明日！"}</div>
       </div>
@@ -449,7 +455,7 @@
     setTop("はじめての人へ", menu, null);
     show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。「穴うめ」を押すと、覚える語が空欄になって日本語訳が出るので、入る英語を考えてから空欄をタップして答えを確かめよう。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
       <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「Got it!」（わかった）か「Not yet」（まだ）</b>を選びます。正直に選ぶほど、よく覚えられます。「Not yet」の語は、その回の最後にもう一度出ます。</div>
-      <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の語は翌日に、「Got it!」の語は 1日→3日→7日→14日→30日 と間をあけて、また出ます。1回は約15分です。</div>
+      <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の語は翌日に、「Got it!」の語は 1日→3日→7日→30日 と間をあけて、また出ます。30日後にも「Got it!」なら、もう復習には出ません。1回は約15分です。</div>
       <div class="card"><h2>ホーム画面に入れる</h2><b>Android（Chrome）</b>：右上の「⋮」→「アプリをインストール」（または「ホーム画面に追加」）。<br><b>iPhone（Safari）</b>：共有ボタン（□↑）→「ホーム画面に追加」。<br>入れたあとは、電波がなくても使えます。</div>
       <div class="card"><h2>記録について</h2>記録はこの端末の中だけに保存されます。ブラウザのデータを消すと記録も消えるので、ときどき「記録のバックアップ」をしておきましょう。</div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
@@ -521,7 +527,7 @@
       let s; try { s = JSON.parse(text); } catch (e) { toast("このアプリの記録ではありません"); return; }
       if (!s || typeof s.items !== "object") { toast("このアプリの記録ではありません"); return; }
       modal("今の記録を、読み込んだ記録と入れかえますか？", [
-        { label: "入れかえる", onClick: () => { state = s; saveState(); toast("読み込みました"); menu(); } },
+        { label: "入れかえる", onClick: () => { state = migrate(s); saveState(); toast("読み込みました"); menu(); } },
         { label: "やめる", cls: "sub" }]);
     };
     $("fileIn").onchange = (ev) => { const f = ev.target.files[0]; if (!f) return; f.text().then(load); ev.target.value = ""; };
