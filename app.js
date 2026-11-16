@@ -157,6 +157,7 @@
     sh.innerHTML = `<div class="small muted">${esc(it.pos)}${it.src === "おまけ" ? '　<span class="tag">おまけ</span>' : ""}</div>
       <div class="word" id="sheetWord" lang="en">${esc(it.word)}</div>
       <div class="mean">${esc(it.ja)}</div>
+      ${it.forms ? `<div class="forms"><b>不規則動詞の活用</b><span lang="en">${esc(it.forms)}</span><div class="small muted">原形 – 過去形 – 過去分詞</div></div>` : ""}
       ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
       <div class="row"><button type="button" class="chip" id="sheetSay">${ICON.speak}読む</button>
       <button type="button" class="chip" id="sheetClose">とじる</button></div>`;
@@ -241,7 +242,7 @@
   function sceneScreen(s, onNext, isReview) {
     const conv = s.type === "会話";
     show(`<div class="card">
-        <span class="tag">${typeIcon(s.type)}${esc(s.type)}</span><span class="small muted">場面${Number(s.id.slice(1))}</span>
+        <span class="tag">${typeIcon(s.type)}${esc(s.type)}</span><span class="small muted">${s.code}</span>
         <div class="row">
           <button type="button" class="chip" id="sayAll">${ICON.speak}全部を読む</button>
           <button type="button" class="chip" id="jaBtn" aria-pressed="false">訳を見る</button>
@@ -281,6 +282,7 @@
           <div class="word" lang="en">${esc(it.word)}</div>
           <div class="mean">${esc(it.ja)}</div>
           <div class="ja">${esc(it.check.ja)}</div>
+          ${it.forms ? `<div class="forms"><b>不規則動詞の活用</b><span lang="en">${esc(it.forms)}</span><div class="small muted">原形 – 過去形 – 過去分詞</div></div>` : ""}
           ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
 </div>`;
       $("ans").scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -347,7 +349,7 @@
       DATA.scenes.filter((s) => s.cat === catId).map((s) => {
         const done = sceneDone(s);
         return `<button type="button" class="scene-btn scene-item" data-s="${s.id}">
-          <span class="sc-top"><span><span class="sc-no">${Number(s.id.slice(1))}</span>${typeIcon(s.type)}${esc(s.title)}</span><span class="small ${done ? "done-mark" : "muted"}">${done ? "済" : "まだ"}</span></span>
+          <span class="sc-top"><span><span class="sc-no">${s.code}</span>${typeIcon(s.type)}${esc(s.title)}</span><span class="small ${done ? "done-mark" : "muted"}">${done ? "済" : "まだ"}</span></span>
           <span class="sc-words">${s.items.map(wordHTML).join('<span class="sep"> / </span>')}</span></button>`;
       }).join(""));
     main.querySelectorAll(".scene-btn").forEach((b) => (b.onclick = () => { sfx("tap"); startSession([DATA.scenes.find((x) => x.id === b.dataset.s)]); }));
@@ -461,6 +463,11 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeSheet(); } });
   fetch("data/scenes.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((d) => {
     DATA = d;
+    // 場面の番号：カテゴリーの順にアルファベット（A〜）＋カテゴリー内の連番（001〜）
+    d.categories.forEach((c, ci) => {
+      const L = String.fromCharCode(65 + ci);
+      d.scenes.filter((s) => s.cat === c.id).forEach((s, i) => { s.code = L + String(i + 1).padStart(3, "0"); });
+    });
     askPersist();
     d.scenes.forEach((s) => s.items.forEach((it) => { ITEMS[it.id] = it; ITEM_SCENE[it.id] = s.id; }));
     menu();

@@ -113,9 +113,9 @@ textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,monospace;fo
 .other b{display:block;font-size:16px;color:var(--muted)}
 footer#bottom{flex-wrap:wrap}
 .hint{flex:0 0 100%;text-align:center;font-size:14px;color:var(--muted);opacity:.85;margin:-4px 0 -2px}
-.scene-item{position:relative;flex-direction:column;align-items:stretch;gap:2px;padding:16px 14px 8px}
+.scene-item{position:relative;flex-direction:column;align-items:stretch;gap:2px;padding:8px 14px}
 .sc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.sc-no{position:absolute;top:5px;left:9px;font-size:12px;line-height:1;font-weight:400;font-variant-numeric:tabular-nums;color:var(--muted)}
+.sc-no{display:inline-block;min-width:3.4em;font-family:var(--en);font-size:14px;font-weight:400;font-variant-numeric:tabular-nums;color:var(--muted);vertical-align:2px}
 .sc-words{font-family:var(--en);font-size:14px;font-weight:400;line-height:1.5;color:var(--muted);padding-left:0}
 .wd{color:var(--muted)}
 .wd.done{color:var(--ok)}
@@ -123,3 +123,6 @@ footer#bottom{flex-wrap:wrap}
 .sep{color:var(--line)}
 .menu-list button{display:flex;align-items:center;gap:10px}
 .menu-list button .ico{width:22px;height:22px;color:var(--muted)}
+.forms{background:var(--gram-soft);border-radius:10px;padding:8px 10px;margin:8px 0}
+.forms b{display:block;font-size:16px;color:var(--gram)}
+.forms span{font-family:var(--en);font-size:20px;font-weight:700}
