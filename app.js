@@ -3,8 +3,8 @@
 (function () {
   const APP = "場面で覚える英単語";
   const LS_KEY = "bamen.v1";
-  const SCENES_PER_SESSION = 4;
-  const MAX_REVIEW = 30;
+  const MAX_NEW = 10;    // 1回に新しく覚える語は10まで
+  const MAX_REVIEW = 10; // 1回にまぜる復習の語は10まで
   const INTERVALS = [1, 3, 7, 14, 30]; // ○が続いたときの次の復習までの日数
   const $ = (id) => document.getElementById(id);
   const main = $("main"), bottom = $("bottom"), where = $("where"), progress = $("progress");
@@ -44,7 +44,17 @@
       .sort((a, b) => state.items[a].due < state.items[b].due ? -1 : 1);
   }
   function sceneDone(s) { return s.items.every((it) => state.items[it.id]); }
-  function nextScenes() { return DATA.scenes.filter((s) => !sceneDone(s)).slice(0, SCENES_PER_SESSION); }
+  function nextScenes() { // 新しい語が MAX_NEW をこえない数だけ、順に場面を選ぶ
+    const out = []; let n = 0;
+    for (const s of DATA.scenes) {
+      if (sceneDone(s)) continue;
+      const k = s.items.filter((i) => !state.items[i.id]).length;
+      if (out.length && n + k > MAX_NEW) break;
+      out.push(s); n += k;
+      if (n >= MAX_NEW) break;
+    }
+    return out;
+  }
 
   /* ---------- 表示の部品 ---------- */
   const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -53,8 +63,8 @@
   }
   function checkHTML(en) { return esc(en).replace(/\{([^{}|]+)\}([.,!?;:]*)/g, '<span class="nw"><b>$1</b>$2</span>'); }
   function plain(en) { return en.replace(/\{([^{}|]+)(\|[^{}]+)?\}/g, "$1"); }
-  function setTop(text, back, menu) {
-    where.textContent = text;
+  function setTop(text, back, menu, icon) {
+    where.innerHTML = (icon || "") + esc(text);
     $("backBtn").hidden = !back; $("backBtn").onclick = back || null;
     $("menuBtn").hidden = !menu; $("menuBtn").onclick = menu || null;
   }
@@ -62,7 +72,8 @@
     bottom.innerHTML = "";
     buttons.forEach((b) => {
       const el = document.createElement("button");
-      el.type = "button"; el.className = "big " + (b.cls || ""); el.textContent = b.label; el.onclick = b.onClick;
+      el.type = "button"; el.className = "big " + (b.cls || ""); el.textContent = b.label;
+      el.onclick = () => { if (b.sfx) sfx(b.sfx); b.onClick(); };
       bottom.appendChild(el);
     });
   }
@@ -79,6 +90,41 @@
       box.appendChild(el);
     });
     m.hidden = false; box.querySelector("button").focus();
+  }
+
+  /* ---------- アイコン（線だけのシンプルな形） ---------- */
+  const SVG = (d) => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const ICON = {
+    speak: SVG('<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4.5 4.5 0 0 1 0 6"/><path d="M19.5 6a8.5 8.5 0 0 1 0 12"/>'),
+    "会話": SVG('<path d="M3 4h12v8H8l-4 3v-3H3z"/><path d="M15 8h6v8h-1v3l-3.5-3H11v-2"/>'),
+    "メッセージ": SVG('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 9h5M9.5 12.5h5"/><path d="M11 18.5h2"/>'),
+    "メール": SVG('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>'),
+    "お知らせ": SVG('<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>'),
+    "記事": SVG('<path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 9h4v8a2 2 0 0 1-2 2h-2"/><path d="M7 9h6M7 12.5h6M7 16h4"/>'),
+  };
+  const typeIcon = (t) => ICON[t] || "";
+  const CAT_ICON = {
+    home: SVG('<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/>'),
+    school1: SVG('<path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/>'),
+    school2: SVG('<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4"/><path d="M12 13v4M8 20h8"/>'),
+    hobby: SVG('<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16M12 4a12 12 0 0 0 0 16"/>'),
+    shop: SVG('<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'),
+    travel: SVG('<path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>'),
+    health: SVG('<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/><path d="M12 10v4M10 12h4"/>'),
+    contact: SVG('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>'),
+    town: SVG('<path d="M3 20h18"/><path d="M5 20V9l5-3v14"/><path d="M10 20V4h9v16"/><path d="M13 8h3M13 12h3M13 16h3"/>'),
+  };
+
+  /* ---------- 効果音（設定でOFFにできる） ---------- */
+  const SET_KEY = "bamen.settings";
+  let settings = { sound: true };
+  try { Object.assign(settings, JSON.parse(localStorage.getItem(SET_KEY) || "{}")); } catch (e) {}
+  function saveSettings() { try { localStorage.setItem(SET_KEY, JSON.stringify(settings)); } catch (e) {} }
+  const SFX = {};
+  ["tap", "gotit", "notyet", "great", "genius"].forEach((n) => { const a = new Audio("sound/" + n + ".mp3"); a.preload = "auto"; SFX[n] = a; });
+  function sfx(name) {
+    if (!settings.sound || !SFX[name]) return;
+    try { const a = SFX[name].cloneNode(); a.play().catch(() => {}); } catch (e) {}
   }
 
   /* ---------- 読み上げ ---------- */
@@ -104,7 +150,7 @@
     sh.innerHTML = `<div class="small muted">${esc(it.pos)}${it.src === "おまけ" ? '　<span class="tag">おまけ</span>' : ""}</div>
       <div class="word" id="sheetWord" lang="en">${esc(it.word)}</div>
       <div class="mean">${esc(it.ja)}</div>
-      <div class="row"><button type="button" class="chip" id="sheetSay">🔊 読む</button>
+      <div class="row"><button type="button" class="chip" id="sheetSay">${ICON.speak}読む</button>
       <button type="button" class="chip" id="sheetClose">とじる</button></div>`;
     sh.hidden = false;
     $("sheetSay").onclick = () => speak(it.word.replace(/～/g, "").replace(/\.\.\.,/g, ""));
@@ -132,27 +178,28 @@
           <div class="stat"><div class="k">学んだ語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
           <div class="stat"><div class="k">よく覚えている語</div><div class="v">${strong}<span class="small">語</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、復習 → 新しい場面（${Math.min(rest, SCENES_PER_SESSION)}つ）→ 確認 の順に進みます（約15分）。` : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `「はじめる」で、${rest ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due && rest ? "（復習の語もまぜて出ます）" : ""} → Not yet の語をもう一度 の順に進みます。` : "今日の学習はおわりです。また明日！"}</div>
       </div>
       <div class="menu-list">
-        <button type="button" id="mScenes">📖 読んだ場面をもう一度見る</button>
+        <button type="button" id="mScenes">📖 場面を選ぶ</button>
         <button type="button" id="mHelp">🔰 はじめての人へ・使い方</button>
         <button type="button" id="mBackup">💾 記録のバックアップ</button>
+        <button type="button" id="mSettings">⚙️ 設定（効果音）</button>
         <button type="button" id="mAbout">ℹ️ このアプリについて</button>
       </div>`);
-    $("mScenes").onclick = sceneList; $("mHelp").onclick = help; $("mBackup").onclick = backup; $("mAbout").onclick = about;
-    setBottom(canStart ? [{ label: "はじめる", onClick: startSession }] : []);
+    const go = (f) => () => { sfx("tap"); f(); };
+    $("mScenes").onclick = go(categoryList); $("mHelp").onclick = go(help); $("mBackup").onclick = go(backup); $("mSettings").onclick = go(settingsScreen); $("mAbout").onclick = go(about);
+    setBottom(canStart ? [{ label: "はじめる", sfx: "tap", onClick: () => startSession() }] : []);
   }
 
   /* ---------- 学習の回 ---------- */
-  function startSession() {
-    const review = shuffle(dueItems().slice(0, MAX_REVIEW));
-    const scenes = nextScenes();
+  function startSession(chosen) { // chosen：メニューで選んだ場面（なければ順番に）
+    const scenes = chosen || nextScenes();
+    const newIds = chosen ? scenes.flatMap((s) => s.items.map((i) => i.id)) : scenes.flatMap((s) => s.items.map((i) => i.id)).filter((id) => !state.items[id]);
+    const review = chosen ? [] : dueItems().filter((id) => !newIds.includes(id)).slice(0, MAX_REVIEW);
     const steps = [];
-    review.forEach((id) => steps.push({ k: "check", phase: 0, id }));
-    scenes.forEach((s) => steps.push({ k: "scene", phase: 1, s }));
-    shuffle(scenes.flatMap((s) => s.items.map((i) => i.id)).filter((id) => !state.items[id]))
-      .forEach((id) => steps.push({ k: "check", phase: 2, id }));
+    scenes.forEach((s) => steps.push({ k: "scene", phase: 0, s }));
+    shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい語と復習の語をまぜる
     steps.push({ k: "summary", phase: 3 });
     session = { steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id) };
     step();
@@ -163,7 +210,7 @@
   }
   function showProgress() {
     const st = session.steps[session.i];
-    const names = ["復習", "読む", "確認", "まとめ"];
+    const names = ["読む", "確認", "もう一度", "まとめ"];
     const has = [0, 1, 2, 3].filter((p) => session.steps.some((s) => s.phase === p));
     const same = session.steps.filter((s) => s.phase === st.phase && s.k !== "summary");
     const n = same.indexOf(st) + 1;
@@ -176,7 +223,7 @@
     closeSheet();
     const st = session.steps[session.i];
     showProgress();
-    setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : "意味の確認", null, quit);
+    setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : "意味の確認", null, quit, st.k === "scene" ? typeIcon(st.s.type) : "");
     if (st.k === "scene") sceneScreen(st.s, () => next());
     else if (st.k === "check") checkScreen(st);
     else summary();
@@ -186,15 +233,15 @@
   function sceneScreen(s, onNext, isReview) {
     const conv = s.type === "会話";
     show(`<div class="card">
-        <span class="tag">${esc(s.type)}</span><span class="small muted">場面${Number(s.id.slice(1))}</span>
+        <span class="tag">${typeIcon(s.type)}${esc(s.type)}</span><span class="small muted">場面${Number(s.id.slice(1))}</span>
         <div class="row">
-          <button type="button" class="chip" id="sayAll">🔊 全部を読む</button>
+          <button type="button" class="chip" id="sayAll">${ICON.speak}全部を読む</button>
           <button type="button" class="chip" id="jaBtn" aria-pressed="false">訳を見る</button>
         </div>
         <div>${s.lines.map((l, i) => `<div class="line">
             ${conv ? `<div class="sp ${esc(l.sp)}" aria-label="${esc(l.sp)}さん">${esc(l.sp)}</div>` : ""}
             <div class="body"><div class="en" lang="en">${sceneHTML(l.en)}</div><div class="ja" hidden>${esc(l.ja)}</div></div>
-            <button type="button" class="say" data-line="${i}" aria-label="この文を読む">🔊</button></div>`).join("")}</div>
+            <button type="button" class="say" data-line="${i}" aria-label="この文を読む">${ICON.speak}</button></div>`).join("")}</div>
       </div>
       <div class="small muted">色のついた語をタップすると、意味が出ます。</div>
       <div class="note"><b>💡 ポイント</b>${esc(s.note)}</div>
@@ -206,7 +253,7 @@
       this.setAttribute("aria-pressed", on); this.textContent = on ? "訳をかくす" : "訳を見る";
       main.querySelectorAll(".ja").forEach((j) => (j.hidden = !on));
     };
-    setBottom([{ label: isReview ? "一覧にもどる" : "次へ", onClick: onNext }]);
+    setBottom([{ label: isReview ? "一覧にもどる" : "次へ", sfx: "tap", onClick: onNext }]);
   }
 
   /* 意味の確認の画面 */
@@ -215,21 +262,21 @@
     show(`<div class="card">
         <div class="small muted">太字の語は、どんな意味？ 考えてから「意味を見る」を押そう。</div>
         <div class="q-en" lang="en">${checkHTML(it.check.en)}</div>
-        <div class="row"><button type="button" class="chip" id="sayQ">🔊 読む</button></div>
+        <div class="row"><button type="button" class="chip" id="sayQ">${ICON.speak}読む</button></div>
         <div id="ans"></div>
       </div>`);
     $("sayQ").onclick = () => speak(plain(it.check.en));
-    setBottom([{ label: "意味を見る", onClick: reveal }]);
+    setBottom([{ label: "意味を見る", sfx: "tap", onClick: reveal }]);
     function reveal() {
       $("ans").innerHTML = `<div class="ans">
           <div class="small muted">${esc(it.pos)}${it.src === "おまけ" ? '　<span class="tag">おまけ</span>' : ""}</div>
           <div class="word" lang="en">${esc(it.word)}</div>
           <div class="mean">${esc(it.ja)}</div>
           <div class="ja">${esc(it.check.ja)}</div>
-          <div class="small muted" style="margin-top:6px">わかったかどうか、自分で選ぼう。</div></div>`;
+          <div class="small muted" style="margin-top:6px">わかったら「Got it!」、まだなら「Not yet」を選ぼう。</div></div>`;
       $("ans").scrollIntoView({ behavior: "smooth", block: "nearest" });
-      setBottom([{ label: "× わからない", cls: "ng", onClick: () => answer(false) },
-                 { label: "○ わかった", cls: "ok", onClick: () => answer(true) }]);
+      setBottom([{ label: "Not yet", cls: "ng", sfx: "notyet", onClick: () => answer(false) },
+                 { label: "Got it!", cls: "ok", sfx: "gotit", onClick: () => answer(true) }]);
     }
     function answer(ok) {
       if (!st.retry && !session.answered[st.id]) { record(st.id, ok); session.answered[st.id] = ok ? "ok" : "ng"; }
@@ -237,7 +284,7 @@
         session.retried[st.id] = true;
         if (!session.wrong.includes(st.id)) session.wrong.push(st.id);
         const sumIdx = session.steps.findIndex((s) => s.k === "summary");
-        session.steps.splice(sumIdx, 0, { k: "check", phase: 2, id: st.id, retry: true });
+        session.steps.splice(sumIdx, 0, { k: "check", phase: 2, id: st.id, retry: true }); // 最後にもう一度
       }
       next();
     }
@@ -247,43 +294,74 @@
     const ok = Object.values(session.answered).filter((v) => v === "ok").length;
     const all = Object.keys(session.answered).length;
     const wrong = session.wrong.map((id) => ITEMS[id]);
-    show(`<h2>おつかれさま！</h2>
+    const genius = all > 0 && ok === all;
+    sfx(genius ? "genius" : "great");
+    show(`<div class="cheer${genius ? " genius" : ""}">${genius ? "天才！？" : "すごい！頑張ったね！"}</div>
+      ${genius ? `<div class="small muted" style="text-align:center;margin-bottom:10px">全部 Got it! でクリア！</div>` : ""}
       <div class="card"><div class="stats">
-        <div class="stat"><div class="k">わかった</div><div class="v">${ok}<span class="small">／${all}語</span></div></div>
+        <div class="stat"><div class="k">Got it!</div><div class="v">${ok}<span class="small">／${all}語</span></div></div>
         <div class="stat"><div class="k">読んだ場面</div><div class="v">${session.scenes.length}<span class="small">場面</span></div></div>
       </div>
-      <div class="small muted">わからなかった語は、明日の復習に出ます。わかった語は、日をあけてまた出ます。</div></div>
-      ${wrong.length ? `<div class="card"><h2>単語ノートに書こう</h2><ul class="list">${wrong.map((w) =>
+      <div class="small muted">「Not yet」の語は、明日からの確認にまぜて出ます。「Got it!」の語は、日をあけてまた出ます。</div></div>
+      ${wrong.length ? `<div class="card"><h2>Not yet の語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
         `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}`);
     setTop("まとめ", null, null);
     setBottom([{ label: "メニューへ", onClick: menu }]);
   }
 
   /* ---------- そのほかの画面 ---------- */
-  function sceneList() {
+  /* 場面を選ぶ：カテゴリー → 場面 */
+  function categoryList() {
     progress.hidden = true;
-    setTop("読んだ場面", menu, null);
-    show(`<div class="small muted" style="margin-bottom:8px">確認まで終えた場面を、もう一度読めます。</div>` +
-      DATA.scenes.map((s) => {
-        const done = sceneDone(s);
-        return `<button type="button" class="scene-btn" data-s="${s.id}" ${done ? "" : "disabled"}>
-          <span>${Number(s.id.slice(1))}. ${esc(s.title)}</span><span class="small muted">${done ? esc(s.type) : "まだ"}</span></button>`;
+    setTop("場面を選ぶ", menu, null);
+    show(`<div class="small muted" style="margin-bottom:8px">カテゴリーを選ぶと、その中の場面が出ます。</div>` +
+      DATA.categories.map((c) => {
+        const list = DATA.scenes.filter((s) => s.cat === c.id);
+        const done = list.filter(sceneDone).length;
+        return `<button type="button" class="scene-btn" data-c="${c.id}" ${list.length ? "" : "disabled"}>
+          <span>${CAT_ICON[c.id] || ""}${esc(c.name)}</span><span class="small muted">${done}／${list.length}場面</span></button>`;
       }).join(""));
-    main.querySelectorAll(".scene-btn:not([disabled])").forEach((b) => (b.onclick = () => {
-      const s = DATA.scenes.find((x) => x.id === b.dataset.s);
-      setTop(s.title, sceneList, null);
-      sceneScreen(s, sceneList, true);
-    }));
+    main.querySelectorAll(".scene-btn:not([disabled])").forEach((b) => (b.onclick = () => { sfx("tap"); sceneList(b.dataset.c); }));
+    setBottom([]);
+  }
+  function sceneList(catId) {
+    const c = DATA.categories.find((x) => x.id === catId);
+    progress.hidden = true;
+    setTop(c.name, categoryList, null, CAT_ICON[c.id]);
+    show(`<div class="small muted" style="margin-bottom:8px">場面を選ぶと、その場面を読んで、意味の確認をします。</div>` +
+      DATA.scenes.filter((s) => s.cat === catId).map((s) => {
+        const done = sceneDone(s);
+        return `<button type="button" class="scene-btn" data-s="${s.id}">
+          <span>${typeIcon(s.type)}${esc(s.title)}</span><span class="small ${done ? "done-mark" : "muted"}">${done ? "済" : "まだ"}</span></button>`;
+      }).join(""));
+    main.querySelectorAll(".scene-btn").forEach((b) => (b.onclick = () => { sfx("tap"); startSession([DATA.scenes.find((x) => x.id === b.dataset.s)]); }));
     setBottom([]);
   }
   function help() {
     setTop("はじめての人へ", menu, null);
-    show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。🔊で読み上げ、「訳を見る」で日本語訳が出ます。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
-      <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「○ わかった」「× わからない」</b>を選びます。正直に選ぶほど、よく覚えられます。</div>
-      <div class="card"><h2>3. 毎日つづける</h2>わからなかった語は翌日に、わかった語は 1日→3日→7日→14日→30日 と間をあけて、また出ます。1回は約15分です。</div>
+    show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
+      <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「Got it!」（わかった）か「Not yet」（まだ）</b>を選びます。正直に選ぶほど、よく覚えられます。「Not yet」の語は、その回の最後にもう一度出ます。</div>
+      <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の語は翌日に、「Got it!」の語は 1日→3日→7日→14日→30日 と間をあけて、また出ます。1回は約15分です。</div>
       <div class="card"><h2>ホーム画面に入れる</h2><b>Android（Chrome）</b>：右上の「⋮」→「アプリをインストール」（または「ホーム画面に追加」）。<br><b>iPhone（Safari）</b>：共有ボタン（□↑）→「ホーム画面に追加」。<br>入れたあとは、電波がなくても使えます。</div>
       <div class="card"><h2>記録について</h2>記録はこの端末の中だけに保存されます。ブラウザのデータを消すと記録も消えるので、ときどき「記録のバックアップ」をしておきましょう。</div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
+  }
+  function settingsScreen() {
+    progress.hidden = true;
+    setTop("設定", menu, null);
+    const draw = () => {
+      show(`<div class="card"><h2>効果音</h2>
+        <div class="small muted">ボタンを押したときや、練習が終わったときの音です。</div>
+        <div class="row">
+          <button type="button" class="chip" id="sOn" aria-pressed="${settings.sound}">ON</button>
+          <button type="button" class="chip" id="sOff" aria-pressed="${!settings.sound}">OFF</button>
+        </div>
+        <div class="small muted">端末の音量が0のときや、マナーモードのときは、ONでも鳴らないことがあります。</div></div>`);
+      $("sOn").onclick = () => { settings.sound = true; saveSettings(); sfx("tap"); draw(); };
+      $("sOff").onclick = () => { settings.sound = false; saveSettings(); draw(); };
+    };
+    draw();
+    setBottom([{ label: "メニューへ", sfx: "tap", onClick: menu }]);
   }
   function about() {
     setTop("このアプリについて", menu, null);
@@ -342,7 +420,8 @@
         });
       }).catch(() => {});
       let reloaded = false;
-      navigator.serviceWorker.addEventListener("controllerchange", () => { if (!reloaded) { reloaded = true; location.reload(); } });
+      const hadController = !!navigator.serviceWorker.controller; // はじめて開いたときは開き直さない
+      navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !reloaded) { reloaded = true; location.reload(); } });
     });
   }
 })();

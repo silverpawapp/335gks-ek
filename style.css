@@ -1,6 +1,6 @@
 :root{
   --bg:#edf0f5; --surface:#ffffff; --surface2:#f5f7fb; --ink:#1b2335; --muted:#586379; --line:#d3d9e5;
-  --accent:#d98a06; --accent-ink:#6b4300; --accent-soft:#fff0cf; --focus:#2d6cc6;
+  --primary:#a8e6cf; --primary-ink:#0f3d2e; --accent:#d98a06; --accent-ink:#6b4300; --accent-soft:#fff0cf; --focus:#2d6cc6;
   --ok:#1f7a4a; --ok-soft:#dcf2e5; --ng:#b3261e; --ng-soft:#fbe1de; --gram:#2d5fa8; --gram-soft:#e2ecfa;
   --en:"Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
   --ja:"BIZ UDPGothic", "BIZ UDPゴシック", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
@@ -9,7 +9,7 @@
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#0d1221; --surface:#151c2f; --surface2:#1b2339; --ink:#e6eaf3; --muted:#9ba5ba; --line:#2a3550;
-    --accent:#f5b52e; --accent-ink:#ffd98a; --accent-soft:#3a2c10; --focus:#8fbaf5;
+    --primary:#7fd6b2; --primary-ink:#0a2a1f; --accent:#f5b52e; --accent-ink:#ffd98a; --accent-soft:#3a2c10; --focus:#8fbaf5;
     --ok:#6fd39a; --ok-soft:#173826; --ng:#ff9a8f; --ng-soft:#40201d; --gram:#9cc1f5; --gram-soft:#1a2b47;
   }
 }
@@ -27,18 +27,17 @@ header#top{flex:0 0 56px;display:flex;align-items:center;gap:8px;padding:0 12px}
 #progress[hidden]{display:none}
 .steps{display:flex;gap:6px;align-items:center}
 .steps span{flex:1;text-align:center;border-radius:8px;padding:2px 0;background:var(--surface2);border:1px solid var(--line)}
-.steps span.now{background:var(--accent);border-color:var(--accent);color:#1b1200}
+.steps span.now{background:var(--primary);border-color:var(--primary);color:var(--primary-ink)}
 .steps span.done{color:var(--muted);text-decoration:line-through}
 .count{text-align:right;margin-top:2px}
 main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 16px 16px}
 main:focus{outline:none}
 footer#bottom{flex:0 0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px}
 footer#bottom:empty{display:none}
-.big{flex:1;min-height:56px;border:0;border-radius:14px;background:var(--accent);color:#1b1200;font-size:20px;font-weight:700;cursor:pointer}
+.big{flex:1;min-height:56px;border:0;border-radius:14px;background:var(--primary);color:var(--primary-ink);font-size:20px;font-weight:700;cursor:pointer}
 .big.sub{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
-.big.ok{background:var(--ok);color:#fff}
-.big.ng{background:var(--ng);color:#fff}
-@media (prefers-color-scheme: dark){.big.ok,.big.ng{color:#0d1221}}
+.big.ok{background:var(--primary);color:var(--primary-ink)}
+.big.ng{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 12px}
 h1{font-family:var(--head);font-size:26px;margin:8px 0 4px;line-height:1.4}
 h2{font-family:var(--head);font-size:22px;margin:0 0 8px;line-height:1.4}
@@ -96,6 +95,15 @@ textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,monospace;fo
 .modal .btns{display:flex;gap:10px;margin-top:14px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(100px + env(safe-area-inset-bottom));background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;font-size:16px;font-weight:700;z-index:40;max-width:90%}
 .update{position:fixed;top:calc(8px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:var(--accent-soft);color:var(--accent-ink);border:1px solid var(--accent);border-radius:12px;padding:8px 12px;font-size:16px;font-weight:700;display:flex;gap:10px;align-items:center;z-index:50}
-.update button{min-height:40px;border:0;border-radius:10px;background:var(--accent);color:#1b1200;font-weight:700;padding:0 12px}
+.update button{min-height:40px;border:0;border-radius:10px;background:var(--primary);color:var(--primary-ink);font-weight:700;padding:0 12px}
 .nw{white-space:nowrap}
 .nw .w{white-space:normal}
+.ico{width:1.15em;height:1.15em;vertical-align:-0.2em;flex:0 0 auto}
+.say .ico{width:22px;height:22px;vertical-align:middle}
+.chip .ico{margin-right:4px}
+.tag .ico{margin-right:4px;width:1em;height:1em;vertical-align:-0.12em}
+#where .ico{margin-right:6px}
+.cheer{font-family:var(--head);font-size:30px;font-weight:700;text-align:center;margin:18px 0 12px;padding:16px;border-radius:16px;background:var(--primary);color:var(--primary-ink)}
+.cheer.genius{font-size:40px}
+.scene-btn .ico{margin-right:8px;width:22px;height:22px;vertical-align:-5px}
+.done-mark{font-weight:700;color:var(--primary-ink);background:var(--primary);border-radius:8px;padding:0 8px}
