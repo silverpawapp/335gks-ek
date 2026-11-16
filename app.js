@@ -66,7 +66,7 @@
   function setTop(text, back, menu, icon) {
     where.innerHTML = (icon || "") + esc(text);
     $("backBtn").hidden = !back; $("backBtn").onclick = back || null;
-    $("menuBtn").hidden = !menu; $("menuBtn").onclick = menu || null; $("menuBtn").textContent = "メニュー";
+    $("menuBtn").hidden = !menu; $("menuBtn").onclick = menu || null; $("menuBtn").textContent = "メニュー"; $("menuBtn").classList.remove("primary");
   }
   function setBottom(buttons) {
     bottom.innerHTML = "";
@@ -108,6 +108,7 @@
     menuHelp: SVG('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17.5v.01"/>'),
     menuBackup: SVG('<path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>'),
     menuSettings: SVG('<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>'),
+    menuSearch: SVG('<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>'),
     menuAbout: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.01"/>'),
     "記事": SVG('<path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 9h4v8a2 2 0 0 1-2 2h-2"/><path d="M7 9h6M7 12.5h6M7 16h4"/>'),
   };
@@ -211,13 +212,14 @@
       </div>
       <div class="menu-list">
         <button type="button" id="mScenes">${ICON.menuScenes}場面を選ぶ</button>
+        <button type="button" id="mSearch">${ICON.menuSearch}単語をさがす</button>
         <button type="button" id="mHelp">${ICON.menuHelp}はじめての人へ・使い方</button>
         <button type="button" id="mBackup">${ICON.menuBackup}記録のバックアップ</button>
         <button type="button" id="mSettings">${ICON.menuSettings}設定（効果音）</button>
         <button type="button" id="mAbout">${ICON.menuAbout}このアプリについて</button>
       </div>`);
     const go = (f) => () => { sfx("tap"); f(); };
-    $("mScenes").onclick = go(categoryList); $("mHelp").onclick = go(help); $("mBackup").onclick = go(backup); $("mSettings").onclick = go(settingsScreen); $("mAbout").onclick = go(about);
+    $("mScenes").onclick = go(categoryList); $("mSearch").onclick = go(() => search()); $("mHelp").onclick = go(help); $("mBackup").onclick = go(backup); $("mSettings").onclick = go(settingsScreen); $("mAbout").onclick = go(about);
     setBottom(canStart ? [{ label: "はじめる", sfx: "tap", onClick: () => startSession() }] : []);
   }
 
@@ -243,7 +245,7 @@
     const has = [0, 1, 2, 3].filter((p) => session.steps.some((s) => s.phase === p));
     const same = session.steps.filter((s) => s.phase === st.phase && s.k !== "summary");
     const n = same.indexOf(st) + 1;
-    progress.innerHTML = `<div class="steps">${has.map((p) => `<span class="${p === st.phase ? "now" : p < st.phase ? "done" : ""}">${p < st.phase ? ICON.check : ""}${names[p]}</span>`).join("")}</div>` +
+    progress.innerHTML = `<div class="steps">${has.map((p) => `<span class="${p === st.phase ? (p === 3 ? "now last" : "now") : p < st.phase ? "done" : ""}">${p < st.phase ? ICON.check : ""}${names[p]}</span>`).join("")}</div>` +
       (same.length ? `<div class="count">${n}／${same.length}${st.retry ? "（もう一度）" : ""}</div>` : "");
     progress.hidden = false;
   }
@@ -259,7 +261,7 @@
   }
 
   /* 場面を読む画面 */
-  function sceneScreen(s, onNext, isReview) {
+  function sceneScreen(s, onNext, isReview, backLabel) {
     const conv = s.type === "会話";
     show(`<div class="card">
         <span class="tag">${typeIcon(s.type)}${esc(s.type)}</span><span class="small muted">${s.code}</span>
@@ -299,7 +301,7 @@
       const w = e.target.closest(".w"); if (!w || !cloze || w.classList.contains("open")) return;
       e.stopPropagation(); w.classList.add("open"); w.removeAttribute("aria-label");
     }, true);
-    setBottom([{ label: isReview ? "一覧にもどる" : "次へ", sfx: "tap", onClick: onNext }]);
+    setBottom([{ label: backLabel || (isReview ? "一覧にもどる" : "次へ"), sfx: "tap", onClick: onNext }]);
   }
 
   /* 意味の確認の画面 */
@@ -353,7 +355,7 @@
       <div class="small muted">${session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の語は、明日からの確認にまぜて出ます。「Got it!」の語は、日をあけてまた出ます。"}</div></div>
       ${wrong.length ? `<div class="card"><h2>Not yet の語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
         `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}`);
-    setTop("まとめ", null, () => { sfx("tap"); menu(); }); $("menuBtn").textContent = "メニューへ";
+    setTop("まとめ", null, () => { sfx("tap"); menu(); }); $("menuBtn").textContent = "メニューへ"; $("menuBtn").classList.add("primary");
     const again = session.scenes.map((id) => DATA.scenes.find((s) => s.id === id)).filter(Boolean);
     setBottom([{ label: "もう一回", cls: "sub", sfx: "tap", delay: 1000, onClick: () => startSession(again, true) }, { spacer: true }]);
   }
@@ -392,6 +394,55 @@
       }).join(""));
     main.querySelectorAll(".scene-btn").forEach((b) => (b.onclick = () => { sfx("tap"); startSession([DATA.scenes.find((x) => x.id === b.dataset.s)]); }));
     setBottom([]);
+  }
+
+  /* 単語をさがす（英語で）：結果をタップすると、その場面を開いて語の所へ移動する */
+  let lastQuery = "";
+  const norm = (s) => s.toLowerCase().replace(/[～…]/g, " ").replace(/\s+/g, " ").trim();
+  function search() {
+    progress.hidden = true;
+    setTop("単語をさがす", menu, null);
+    show(`<div class="card">
+        <input type="search" id="q" class="search" placeholder="英語で入力（例：borrow）" autocomplete="off" autocapitalize="off" spellcheck="false" lang="en" value="${esc(lastQuery)}">
+        <div class="small muted">はじめの数文字だけでも見つかります。過去形などでもさがせます（例：went → go）。</div>
+      </div><div id="res"></div>`);
+    const q = $("q");
+    const draw = () => {
+      lastQuery = q.value; const k = norm(q.value);
+      if (!k) { $("res").innerHTML = ""; return; }
+      const hits = [];
+      // 過去形・過去分詞で入力したときは原形でもさがす（went → go、broke into → break into）
+      const IRR = DATA.irregular || {};
+      const ks = k.split(" "), alt = IRR[ks[0]] ? [IRR[ks[0]]].concat(ks.slice(1)).join(" ") : null;
+      Object.values(ITEMS).forEach((it) => {
+        const w = norm(it.word), f = norm(it.forms || "");
+        const words = w.split(" ");
+        const rank = w.startsWith(k) ? 0 : words.some((x) => x.startsWith(k)) ? 1 : f.split(/[\s–/]+/).some((x) => x && x.startsWith(k)) ? 2 :
+          alt && words.some((x, i) => { const r = words.slice(i).join(" "); return r === alt || r.startsWith(alt + " "); }) ? 2 : w.includes(k) ? 3 : -1;
+        if (rank >= 0) hits.push({ it, rank });
+      });
+      hits.sort((a, b) => a.rank - b.rank || a.it.word.localeCompare(b.it.word));
+      $("res").innerHTML = hits.length ? `<div class="small muted" style="margin:4px 0 8px">${hits.length}件${hits.length > 50 ? "（はじめの50件）" : ""}</div>` + hits.slice(0, 50).map(({ it }) => {
+        const s = DATA.scenes.find((x) => x.id === ITEM_SCENE[it.id]), r = state.items[it.id];
+        const st = !r ? '<span class="small muted">まだ</span>' : r.box === 0 ? '<span class="wd weak small">Not yet</span>' : '<span class="small done-mark">済</span>';
+        return `<button type="button" class="scene-btn scene-item hit-btn" data-id="${it.id}">
+            <span class="sc-top"><span lang="en">${esc(it.word)}</span>${st}</span>
+            <span class="small">${esc(it.ja)}</span>
+            <span class="small muted"><span class="sc-no">${s.code}</span>${esc(s.title)}</span></button>`;
+      }).join("") : '<div class="small muted">見つかりませんでした。つづりを確かめてみてね。</div>';
+      main.querySelectorAll(".hit-btn").forEach((b) => (b.onclick = () => { sfx("tap"); openFromSearch(b.dataset.id); }));
+    };
+    q.oninput = draw; draw();
+    setTimeout(() => q.focus(), 50);
+    setBottom([]);
+  }
+  function openFromSearch(id) {
+    const s = DATA.scenes.find((x) => x.id === ITEM_SCENE[id]);
+    progress.hidden = true;
+    setTop(s.title, () => search(), null, typeIcon(s.type));
+    sceneScreen(s, () => search(), true, "さがす画面にもどる");
+    const w = main.querySelector(`#lines .w[data-id="${id}"]`);
+    if (w) { w.classList.add("hit"); setTimeout(() => w.scrollIntoView({ behavior: "smooth", block: "center" }), 100); }
   }
 
   function help() {

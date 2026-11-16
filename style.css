@@ -1,6 +1,6 @@
 :root{
   --bg:#edf0f5; --surface:#ffffff; --surface2:#f5f7fb; --ink:#1b2335; --muted:#586379; --line:#d3d9e5;
-  --primary:#a8e6cf; --primary-ink:#0f3d2e; --accent:#d98a06; --accent-ink:#6b4300; --accent-soft:#fff0cf; --focus:#2d6cc6;
+  --primary:#a8e6cf; --primary-ink:#0f3d2e; --accent:#d98a06; --accent-ink:#6b4300; --accent-soft:#fff0cf; --focus:#2d6cc6; --primary-soft:#e2f6ed; --gray-strong:#5b6470;
   --ok:#1f7a4a; --ok-soft:#dcf2e5; --ng:#b3261e; --ng-soft:#fbe1de; --gram:#2d5fa8; --gram-soft:#e2ecfa;
   --en:"Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
   --ja:"BIZ UDPGothic", "BIZ UDPゴシック", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
@@ -9,7 +9,7 @@
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#0d1221; --surface:#151c2f; --surface2:#1b2339; --ink:#e6eaf3; --muted:#9ba5ba; --line:#2a3550;
-    --primary:#7fd6b2; --primary-ink:#0a2a1f; --accent:#f5b52e; --accent-ink:#ffd98a; --accent-soft:#3a2c10; --focus:#8fbaf5;
+    --primary:#7fd6b2; --primary-ink:#0a2a1f; --accent:#f5b52e; --accent-ink:#ffd98a; --accent-soft:#3a2c10; --focus:#8fbaf5; --primary-soft:#1d3f33; --gray-strong:#aab2bd;
     --ok:#6fd39a; --ok-soft:#173826; --ng:#ff9a8f; --ng-soft:#40201d; --gram:#9cc1f5; --gram-soft:#1a2b47;
   }
 }
@@ -133,3 +133,12 @@ footer#bottom{flex-wrap:wrap}
 
 footer#bottom .spacer{flex:1}
 .big:disabled{opacity:.45}
+
+/* まとめ：見出しタブはうすいミント、右上の「メニューへ」はミントで目立たせる */
+.steps span.now.last{background:var(--gray-strong);border-color:var(--gray-strong);color:var(--surface)}
+.topbtn.primary{background:var(--primary);border-color:var(--primary);color:var(--primary-ink)}
+
+/* 単語をさがす */
+.search{width:100%;min-height:48px;font-size:18px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-family:var(--en);margin-bottom:6px}
+.hit-btn{gap:2px}
+.w.hit{outline:3px solid var(--focus);outline-offset:2px}
