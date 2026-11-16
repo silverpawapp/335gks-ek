@@ -71,6 +71,7 @@
   function setBottom(buttons) {
     bottom.innerHTML = "";
     buttons.forEach((b) => {
+      if (b.hint) { const h = document.createElement("div"); h.className = "hint"; h.textContent = b.hint; bottom.appendChild(h); return; }
       const el = document.createElement("button");
       el.type = "button"; el.className = "big " + (b.cls || ""); el.textContent = b.label;
       el.onclick = () => { if (b.sfx) sfx(b.sfx); b.onClick(); };
@@ -150,6 +151,7 @@
     sh.innerHTML = `<div class="small muted">${esc(it.pos)}${it.src === "おまけ" ? '　<span class="tag">おまけ</span>' : ""}</div>
       <div class="word" id="sheetWord" lang="en">${esc(it.word)}</div>
       <div class="mean">${esc(it.ja)}</div>
+      ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
       <div class="row"><button type="button" class="chip" id="sheetSay">${ICON.speak}読む</button>
       <button type="button" class="chip" id="sheetClose">とじる</button></div>`;
     sh.hidden = false;
@@ -171,7 +173,7 @@
     const strong = Object.keys(state.items).filter((id) => ITEMS[id] && state.items[id].box >= 3).length;
     const canStart = due > 0 || rest > 0;
     show(`<div class="card">
-        <span class="tag">準2級</span><span class="tag">試作版</span>
+        <span class="tag">準2級</span>
         <div class="stats">
           <div class="stat"><div class="k">今日の復習</div><div class="v">${due}<span class="small">語</span></div></div>
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
@@ -273,9 +275,10 @@
           <div class="word" lang="en">${esc(it.word)}</div>
           <div class="mean">${esc(it.ja)}</div>
           <div class="ja">${esc(it.check.ja)}</div>
-          <div class="small muted" style="margin-top:6px">わかったら「Got it!」、まだなら「Not yet」を選ぼう。</div></div>`;
+          ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
+</div>`;
       $("ans").scrollIntoView({ behavior: "smooth", block: "nearest" });
-      setBottom([{ label: "Not yet", cls: "ng", sfx: "notyet", onClick: () => answer(false) },
+      setBottom([{ hint: "わかったら「Got it!」、まだなら「Not yet」を選ぼう。" }, { label: "Not yet", cls: "ng", sfx: "notyet", onClick: () => answer(false) },
                  { label: "Got it!", cls: "ok", sfx: "gotit", onClick: () => answer(true) }]);
     }
     function answer(ok) {
@@ -369,7 +372,7 @@
       <p>英検準2級〜2級の範囲を目安にしています。日本英語検定協会とは関係ありません。</p>
       <p>覚える語は、英検準2級向けの単語・熟語・会話表現から選んでいます。「おまけ」の印がある語は、使い分けを知るために加えた語です。</p>
       <p>英文と和訳はすべてこのアプリのために作ったものです。読み上げは端末の機能を使います。</p>
-      <p class="small muted">版：${esc(DATA.version)}（試作版・準2級 場面1〜${DATA.scenes.length}）</p></div>`);
+      <p class="small muted">版：${esc(DATA.version)}（準2級 場面1〜${DATA.scenes.length}）</p></div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
   }
   function backup() {

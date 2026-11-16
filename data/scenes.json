@@ -84,6 +84,7 @@
      "pos": "動詞",
      "ja": "（持っていくために）借りる",
      "src": "おまけ",
+     "other": "",
      "check": {
       "en": "I {borrowed} three books from the library.",
       "ja": "図書館で本を3冊借りた。"
@@ -95,6 +96,7 @@
      "pos": "形容詞",
      "ja": "（電池が）切れた",
      "src": "単語",
+     "other": "死んだ（いちばん基本の意味）／（植物が）かれた",
      "check": {
       "en": "The battery in this remote is {dead}.",
       "ja": "このリモコンの電池が切れている。"
@@ -106,6 +108,7 @@
      "pos": "動詞",
      "ja": "貸す",
      "src": "単語",
+     "other": "lend ～ a hand＝～を手伝う",
      "check": {
       "en": "Could you {lend} me 500 yen? I'll pay you back tomorrow.",
       "ja": "500円貸してくれない？ 明日返すから。"
@@ -117,6 +120,7 @@
      "pos": "会話の表現",
      "ja": "（だめだったけど）でもありがとう",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: Sorry, I don't know the way. B: OK. {Thanks anyway}.",
       "ja": "A：ごめんなさい、道がわからないんです。　B：そうですか。でもありがとう。"
@@ -163,6 +167,7 @@
      "pos": "会話の表現",
      "ja": "疲れているみたいだね",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "You {look tired}. Did you stay up late?",
       "ja": "疲れてるみたいだね。夜ふかししたの？"
@@ -174,6 +179,7 @@
      "pos": "会話の表現",
      "ja": "どうしたの？・何があったの？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "Your bike is broken! {What happened}?",
       "ja": "自転車がこわれてる！ 何があったの？"
@@ -185,6 +191,7 @@
      "pos": "熟語",
      "ja": "（遠いところを）ずっと・はるばる",
      "src": "熟語",
+     "other": "完全に・全面的に（I agree with you all the way.＝全面的に賛成だよ）",
      "check": {
       "en": "She came {all the way} from Hokkaido to see us.",
       "ja": "彼女は私たちに会いに、はるばる北海道から来てくれた。"
@@ -196,6 +203,7 @@
      "pos": "熟語",
      "ja": "間に合う・うまくいく",
      "src": "熟語",
+     "other": "（会などに）来られる・都合がつく（I can't make it to the party.＝パーティーに行けない）／成功する",
      "check": {
       "en": "The movie starts at seven. Can we {make it}?",
       "ja": "映画は7時に始まるよ。間に合う？"
@@ -242,6 +250,7 @@
      "pos": "動詞",
      "ja": "（いなくて）さみしく思う",
      "src": "おまけ",
+     "other": "（乗り物に）乗りおくれる／見のがす／（的を）はずす",
      "check": {
       "en": "I'll {miss} this town when I move.",
       "ja": "引っ越したら、この町が恋しくなるだろうな。"
@@ -253,6 +262,7 @@
      "pos": "前置詞",
      "ja": "～なしで・～がいないと",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "I can't sleep {without} my pillow.",
       "ja": "自分のまくらがないと眠れない。"
@@ -264,6 +274,7 @@
      "pos": "会話の表現",
      "ja": "（私に）知らせて",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "If you need any help, {let me know}.",
       "ja": "手伝いが必要なら知らせてね。"
@@ -275,6 +286,7 @@
      "pos": "会話の表現",
      "ja": "～によろしく伝えて",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{Say hello to} your sister for me.",
       "ja": "お姉さんによろしく伝えてね。"
@@ -321,6 +333,7 @@
      "pos": "会話の表現",
      "ja": "（店員が）いらっしゃいませ・何かお探しですか",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: {May I help you}? B: No, thanks. I'm just looking.",
       "ja": "A：何かお探しですか？　B：いいえ、見ているだけです。"
@@ -332,6 +345,7 @@
      "pos": "形容詞",
      "ja": "（服などが）きつい",
      "src": "単語",
+     "other": "（予定が）ぎっしりの／（お金が）きびしい",
      "check": {
       "en": "These jeans are too {tight}. I can't sit down!",
       "ja": "このジーンズはきつすぎる。座れないよ！"
@@ -343,6 +357,7 @@
      "pos": "動詞",
      "ja": "（サイズが）合う",
      "src": "単語",
+     "other": "（形容詞）健康な・体の調子がいい（keep fit＝体を健康に保つ）",
      "check": {
       "en": "My old shoes don't {fit} me anymore.",
       "ja": "古いくつはもうサイズが合わない。"
@@ -354,6 +369,7 @@
      "pos": "会話の表現",
      "ja": "（買い物で）これにします",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "This bag is nice, and it's on sale. {I'll take it}.",
       "ja": "このかばん、いいな。セール中だし。これにします。"
@@ -400,6 +416,7 @@
      "pos": "会話の表現",
      "ja": "～をどう思う？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{What do you think of} my new haircut?",
       "ja": "新しい髪型、どう思う？"
@@ -411,6 +428,7 @@
      "pos": "動詞",
      "ja": "（人に）似合う",
      "src": "単語",
+     "other": "（名詞）スーツ",
      "check": {
       "en": "Short hair really {suits} her.",
       "ja": "短い髪が彼女によく似合う。"
@@ -422,6 +440,7 @@
      "pos": "形容詞",
      "ja": "流行の・おしゃれな",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "My aunt always wears {fashionable} clothes.",
       "ja": "おばはいつもおしゃれな服を着ている。"
@@ -433,6 +452,7 @@
      "pos": "動詞",
      "ja": "（色・柄が）合う",
      "src": "おまけ",
+     "other": "（名詞）試合／マッチ（火をつける道具）",
      "check": {
       "en": "Your bag {matches} your coat.",
       "ja": "バッグがコートと合ってるね。"
@@ -479,6 +499,7 @@
      "pos": "名詞・動詞",
      "ja": "修理（する）",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "My bike is at the shop for {repairs}.",
       "ja": "自転車は修理でお店に出している。"
@@ -490,6 +511,7 @@
      "pos": "形容詞",
      "ja": "（期限が）～までの",
      "src": "単語",
+     "other": "～する予定で（The train is due at five.＝電車は5時に着く予定だ）／due to ～＝～が原因で",
      "check": {
       "en": "The report is {due} next Monday.",
       "ja": "レポートの期限は来週の月曜日だ。"
@@ -501,6 +523,7 @@
      "pos": "動詞",
      "ja": "返す・戻る",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Please {return} the key when you leave.",
       "ja": "帰るときにかぎを返してください。"
@@ -512,6 +535,7 @@
      "pos": "名詞",
      "ja": "料金（入場料・手数料など）",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "The entrance {fee} is 500 yen for adults.",
       "ja": "入場料は大人500円です。"
@@ -558,6 +582,7 @@
      "pos": "会話の表現",
      "ja": "まだです",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: Have you eaten lunch? B: {Not yet}.",
       "ja": "A：お昼食べた？　B：まだ。"
@@ -569,6 +594,7 @@
      "pos": "熟語",
      "ja": "～を後回しにする・延期する",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "Don't {put off} your homework until Sunday night.",
       "ja": "宿題を日曜の夜まで後回しにしないで。"
@@ -580,6 +606,7 @@
      "pos": "熟語",
      "ja": "～を提出する",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "Please {hand in} your test when you finish.",
       "ja": "終わったらテストを提出してください。"
@@ -591,6 +618,7 @@
      "pos": "熟語",
      "ja": "～に集中する",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "I can't {concentrate on} reading when the TV is on.",
       "ja": "テレビがついていると、読書に集中できない。"
@@ -637,6 +665,7 @@
      "pos": "動詞",
      "ja": "（行事などを）準備する・計画する",
      "src": "単語",
+     "other": "整理する・きちんと並べる",
      "check": {
       "en": "Our class {organized} a party for our teacher.",
       "ja": "私たちのクラスは先生のためにパーティーを準備した。"
@@ -648,6 +677,7 @@
      "pos": "動詞",
      "ja": "祝う",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "We {celebrated} my grandma's 80th birthday.",
       "ja": "祖母の80歳の誕生日を祝った。"
@@ -659,6 +689,7 @@
      "pos": "会話の表現",
      "ja": "手伝って",
      "src": "会話",
+     "other": "give ～ a big hand＝～に大きな拍手をおくる",
      "check": {
       "en": "This box is heavy. Can you {give me a hand}?",
       "ja": "この箱、重いんだ。手伝ってくれる？"
@@ -670,6 +701,7 @@
      "pos": "副詞",
      "ja": "こっそり・ひそかに",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "He {secretly} practiced the song for weeks.",
       "ja": "彼は何週間もこっそりその歌を練習した。"
@@ -716,6 +748,7 @@
      "pos": "会話の表現",
      "ja": "具合が悪そうだね",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{You don't look well}. Did you catch a cold?",
       "ja": "具合が悪そうだね。かぜをひいたの？"
@@ -727,6 +760,7 @@
      "pos": "会話の表現",
      "ja": "あまり・そうでもない",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: Are you hungry? B: {Not really}. I had a big breakfast.",
       "ja": "A：おなかすいてる？　B：あんまり。朝ごはんをたくさん食べたから。"
@@ -738,6 +772,7 @@
      "pos": "会話の表現",
      "ja": "頭が痛い",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{I have a headache}, so I'm going to bed early.",
       "ja": "頭が痛いから、早く寝るね。"
@@ -749,6 +784,7 @@
      "pos": "熟語",
      "ja": "～したほうがいい（強め）",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "It's going to rain. You{'d better} take an umbrella.",
       "ja": "雨が降りそうだよ。かさを持っていったほうがいいよ。"
@@ -795,6 +831,7 @@
      "pos": "会話の表現",
      "ja": "～を教えてもらえますか？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{Can you tell me} what time the store opens?",
       "ja": "お店が何時に開くか教えてもらえますか？"
@@ -806,6 +843,7 @@
      "pos": "副詞",
      "ja": "まっすぐに",
      "src": "単語",
+     "other": "（形容詞）まっすぐな／続けて（three days straight＝3日続けて）",
      "check": {
       "en": "Go {straight} home after school.",
       "ja": "放課後はまっすぐ家に帰りなさい。"
@@ -817,6 +855,7 @@
      "pos": "会話の表現",
      "ja": "（距離が）どのくらい～？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{How far} is your house from school?",
       "ja": "君の家は学校からどのくらい遠いの？"
@@ -828,6 +867,7 @@
      "pos": "熟語",
      "ja": "角を曲がってすぐ・もうすぐ",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "Winter vacation is {just around the corner}.",
       "ja": "冬休みはもうすぐだ。"
@@ -869,6 +909,7 @@
      "pos": "動詞",
      "ja": "リサイクルする",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "We {recycle} cans and newspapers at home.",
       "ja": "家では缶と新聞をリサイクルしている。"
@@ -880,6 +921,7 @@
      "pos": "名詞",
      "ja": "製品",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "This store sells {products} from all over the world.",
       "ja": "この店は世界中の製品を売っている。"
@@ -891,6 +933,7 @@
      "pos": "動詞",
      "ja": "減らす",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Let's {reduce} the number of plastic bags we use.",
       "ja": "使うレジ袋の数を減らそう。"
@@ -902,6 +945,7 @@
      "pos": "名詞",
      "ja": "環境",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Riding a bike is good for the {environment}.",
       "ja": "自転車に乗ることは環境によい。"
@@ -948,6 +992,7 @@
      "pos": "会話の表現",
      "ja": "それは残念だね",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: I can't go to the concert. B: Oh, {that's too bad}.",
       "ja": "A：コンサートに行けなくなったんだ。　B：えー、それは残念だね。"
@@ -959,6 +1004,7 @@
      "pos": "名詞",
      "ja": "チームの仲間",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "My {teammates} gave me a birthday card.",
       "ja": "チームの仲間が誕生日カードをくれた。"
@@ -970,6 +1016,7 @@
      "pos": "名詞",
      "ja": "トーナメント（勝ち抜き戦）",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Our team won the tennis {tournament}.",
       "ja": "私たちのチームはテニスのトーナメントで優勝した。"
@@ -981,6 +1028,7 @@
      "pos": "会話の表現",
      "ja": "全力をつくすよ・がんばります",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "The test is tomorrow, but {I'll do my best}.",
       "ja": "テストは明日だけど、全力でがんばるよ。"
@@ -1027,6 +1075,7 @@
      "pos": "会話の表現",
      "ja": "どうしたの？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "You look sad. {What's wrong}?",
       "ja": "悲しそうだね。どうしたの？"
@@ -1038,6 +1087,7 @@
      "pos": "熟語",
      "ja": "～を探す",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "I'm {looking for} a birthday present for my mom.",
       "ja": "母の誕生日プレゼントを探している。"
@@ -1049,6 +1099,7 @@
      "pos": "副詞",
      "ja": "どこでも・あちこち",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "There were people {everywhere} at the festival.",
       "ja": "お祭りは、どこも人でいっぱいだった。"
@@ -1060,6 +1111,7 @@
      "pos": "会話の表現",
      "ja": "ここにあった・はい、どうぞ",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: Where's the remote? B: {Here it is}, under the cushion.",
       "ja": "A：リモコンどこ？　B：ここにあるよ、クッションの下。"
@@ -1106,6 +1158,7 @@
      "pos": "動詞",
      "ja": "決める",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "I {decided} to join the art club.",
       "ja": "美術部に入ることに決めた。"
@@ -1117,6 +1170,7 @@
      "pos": "動詞",
      "ja": "（いくつかの中から）選ぶ",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "You can {choose} any color you like.",
       "ja": "好きな色をどれでも選べるよ。"
@@ -1128,6 +1182,7 @@
      "pos": "会話の表現",
      "ja": "楽しそうだね",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: Let's go camping this weekend. B: {That sounds like fun}!",
       "ja": "A：今週末キャンプに行こうよ。　B：楽しそう！"
@@ -1139,6 +1194,7 @@
      "pos": "熟語",
      "ja": "だから～",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "I missed the bus. {That's why} I was late.",
       "ja": "バスに乗りおくれたんだ。だから遅刻したんだよ。"
@@ -1185,6 +1241,7 @@
      "pos": "会話の表現",
      "ja": "（放送で）～のみなさんにお知らせします",
      "src": "会話",
+     "other": "（名詞）注意・注目（pay attention＝注意する）",
      "check": {
       "en": "{Attention}, passengers. The train will arrive in five minutes.",
       "ja": "乗客のみなさまにお知らせします。電車はあと5分で到着します。"
@@ -1196,6 +1253,7 @@
      "pos": "熟語",
      "ja": "～のために（理由）",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "The train was late {because of} the snow.",
       "ja": "雪のために電車がおくれた。"
@@ -1207,6 +1265,7 @@
      "pos": "熟語",
      "ja": "いつものように",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "He was late {as usual}.",
       "ja": "彼はいつものようにおくれてきた。"
@@ -1218,6 +1277,7 @@
      "pos": "形容詞",
      "ja": "いつもの・ふつうの・定期的な",
      "src": "単語",
+     "other": "（飲み物などのサイズの）レギュラー・Mサイズ／規則正しい",
      "check": {
       "en": "Our {regular} practice starts at four.",
       "ja": "いつもの練習は4時に始まる。"
@@ -1264,6 +1324,7 @@
      "pos": "副詞",
      "ja": "最近",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "I've been really busy {lately}.",
       "ja": "最近すごく忙しい。"
@@ -1275,6 +1336,7 @@
      "pos": "動詞",
      "ja": "すすめる",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Can you {recommend} a good book?",
       "ja": "いい本をすすめてくれる？"
@@ -1286,6 +1348,7 @@
      "pos": "会話の表現",
      "ja": "どんな種類の～？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{What kind of} music do you like?",
       "ja": "どんな音楽が好き？"
@@ -1297,6 +1360,7 @@
      "pos": "名詞",
      "ja": "コメディ・喜劇",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "We laughed a lot at the {comedy} show.",
       "ja": "お笑いのショーでたくさん笑った。"
@@ -1343,6 +1407,7 @@
      "pos": "名詞",
      "ja": "（ホテル・席などの）予約",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "I'd like to make a {reservation} for four people at seven.",
       "ja": "7時に4人で予約したいのですが。"
@@ -1354,6 +1419,7 @@
      "pos": "副詞",
      "ja": "残念ながら",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "{Unfortunately}, the tickets were sold out.",
       "ja": "残念ながら、チケットは売り切れだった。"
@@ -1365,6 +1431,7 @@
      "pos": "形容詞",
      "ja": "可能な・ありうる",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Is it {possible} to finish this by tomorrow?",
       "ja": "明日までにこれを終えることはできますか？"
@@ -1376,6 +1443,7 @@
      "pos": "メールの表現",
      "ja": "よろしくお願いします（メールの結び）",
      "src": "おまけ",
+     "other": "",
      "check": {
       "en": "Thank you for your help. {Best regards}, Yuki",
       "ja": "手伝ってくれてありがとう。よろしくお願いします。ユキより"
@@ -1427,6 +1495,7 @@
      "pos": "名詞",
      "ja": "（病院・人と会う）予約・約束",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "I have an {appointment} with the doctor at ten.",
       "ja": "10時に医者の予約がある。"
@@ -1438,6 +1507,7 @@
      "pos": "会話の表現",
      "ja": "～はどう？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{How about} going to the beach this weekend?",
       "ja": "今週末、海に行くのはどう？"
@@ -1449,6 +1519,7 @@
      "pos": "動詞",
      "ja": "（予定などが）都合がいい・うまくいく",
      "src": "おまけ",
+     "other": "働く（いちばん基本の意味）／（機械が）動く（The TV doesn't work.＝テレビがつかない）",
      "check": {
       "en": "Does three o'clock {work} for you?",
       "ja": "3時で都合はいい？"
@@ -1460,6 +1531,7 @@
      "pos": "会話の表現",
      "ja": "いいね",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: Let's meet at the station at ten. B: {Sounds good}.",
       "ja": "A：10時に駅で会おう。　B：いいね。"
@@ -1506,6 +1578,7 @@
      "pos": "熟語",
      "ja": "以前は～だった",
      "src": "熟語",
+     "other": "be used to ～ は「～に慣れている」という別の言い方。まちがえやすいので注意",
      "check": {
       "en": "There {used to} be a big tree here.",
       "ja": "ここには以前、大きな木があった。"
@@ -1517,6 +1590,7 @@
      "pos": "熟語",
      "ja": "～をこわがる",
      "src": "熟語",
+     "other": "I'm afraid ～.＝（残念ですが）～です（ていねいに断るときの言い方）",
      "check": {
       "en": "My little brother {is afraid of} the dark.",
       "ja": "弟は暗いところをこわがる。"
@@ -1528,6 +1602,7 @@
      "pos": "熟語",
      "ja": "～をほこりに思う",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "Your parents must {be proud of} you.",
       "ja": "ご両親はきっと君をほこりに思っているよ。"
@@ -1539,6 +1614,7 @@
      "pos": "熟語",
      "ja": "（～を）あきらめる・やめる",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "The puzzle was too hard, so I {gave up}.",
       "ja": "パズルが難しすぎて、あきらめた。"
@@ -1585,6 +1661,7 @@
      "pos": "会話の表現",
      "ja": "（電話で）こちらは～です",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "Hello, {this is} Mika. Can I speak to Ken?",
       "ja": "もしもし、ミカです。ケンくんはいますか？"
@@ -1596,6 +1673,7 @@
      "pos": "会話の表現",
      "ja": "伝言をうかがいましょうか？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "He's in a meeting now. {May I take a message}?",
       "ja": "彼は今、会議中です。伝言をうかがいましょうか？"
@@ -1607,6 +1685,7 @@
      "pos": "会話の表現",
      "ja": "あとでかけ直します",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "I'm on the train now. {I'll call back later}.",
       "ja": "今、電車の中なんだ。あとでかけ直すね。"
@@ -1653,6 +1732,7 @@
      "pos": "名詞",
      "ja": "シェフ・料理長",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "The {chef} at this restaurant is from France.",
       "ja": "このレストランのシェフはフランス出身だ。"
@@ -1664,6 +1744,7 @@
      "pos": "名詞",
      "ja": "地域（の人々）",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Our {community} has a summer festival every year.",
       "ja": "私たちの地域では毎年夏祭りがある。"
@@ -1675,6 +1756,7 @@
      "pos": "動詞",
      "ja": "出席する・参加する",
      "src": "単語",
+     "other": "（学校などに）通う（attend school）",
      "check": {
       "en": "More than 100 people {attended} the meeting.",
       "ja": "100人以上がその会に出席した。"
@@ -1686,6 +1768,7 @@
      "pos": "形容詞",
      "ja": "（席・品物が）空いている・手に入る",
      "src": "単語",
+     "other": "（人が）手があいている・都合がつく（Are you available tomorrow?＝明日あいてる？）",
      "check": {
       "en": "Are there any seats {available} for tonight's show?",
       "ja": "今夜のショーに空いている席はありますか？"
@@ -1697,6 +1780,7 @@
      "pos": "熟語",
      "ja": "前もって",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "Please buy your tickets {in advance}.",
       "ja": "チケットは前もって買ってください。"
@@ -1743,6 +1827,7 @@
      "pos": "会話の表現",
      "ja": "質問してもいいですか？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "Excuse me, Ms. Green. {Can I ask you a question}?",
       "ja": "すみません、グリーン先生。質問してもいいですか？"
@@ -1754,6 +1839,7 @@
      "pos": "会話の表現",
      "ja": "ええと（考えるとき）",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "A: What time is it? B: {Let me see}... It's almost five.",
       "ja": "A：今何時？　B：ええと…もうすぐ5時だよ。"
@@ -1765,6 +1851,7 @@
      "pos": "動詞",
      "ja": "説明する",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Can you {explain} the rules of the game?",
       "ja": "そのゲームのルールを説明してくれる？"
@@ -1776,6 +1863,7 @@
      "pos": "会話の表現",
      "ja": "ゆっくりでいいよ",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "There's no hurry. {Take your time}.",
       "ja": "急がなくていいよ。ゆっくりでいいからね。"
@@ -1817,6 +1905,7 @@
      "pos": "熟語",
      "ja": "～に参加する",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "Over 50 countries {took part in} the event.",
       "ja": "50か国以上がそのイベントに参加した。"
@@ -1828,6 +1917,7 @@
      "pos": "名詞",
      "ja": "量",
      "src": "単語",
+     "other": "合計（の金額）",
      "check": {
       "en": "Drink a large {amount} of water on hot days.",
       "ja": "暑い日は水をたくさん飲もう。"
@@ -1839,6 +1929,7 @@
      "pos": "名詞",
      "ja": "ごみ",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Please take out the {trash} on Monday morning.",
       "ja": "月曜の朝、ごみを出してね。"
@@ -1850,6 +1941,7 @@
      "pos": "動詞",
      "ja": "さける・～しないようにする",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "I try to {avoid} eating too much sugar.",
       "ja": "砂糖をとりすぎないようにしている。"
@@ -1896,6 +1988,7 @@
      "pos": "形容詞",
      "ja": "伝統的な",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Sumo is a {traditional} Japanese sport.",
       "ja": "相撲は日本の伝統的なスポーツだ。"
@@ -1907,6 +2000,7 @@
      "pos": "名詞・動詞",
      "ja": "経験（する）",
      "src": "単語",
+     "other": "",
      "check": {
       "en": "Working at the zoo was a wonderful {experience}.",
       "ja": "動物園で働いたのは、すばらしい経験だった。"
@@ -1918,6 +2012,7 @@
      "pos": "会話の表現",
      "ja": "感謝します・ありがとうございます",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "Thanks for helping me move. {I appreciate it}.",
       "ja": "引っ越しを手伝ってくれてありがとう。感謝してるよ。"
@@ -1929,6 +2024,7 @@
      "pos": "熟語",
      "ja": "～を楽しみにする",
      "src": "熟語",
+     "other": "",
      "check": {
       "en": "We're {looking forward to} the school trip.",
       "ja": "私たちは修学旅行を楽しみにしている。"
@@ -1985,6 +2081,7 @@
      "pos": "会話の表現",
      "ja": "～する準備はできた？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{Are you ready to} go? The bus is coming.",
       "ja": "出かける準備はできた？ バスが来るよ。"
@@ -1996,6 +2093,7 @@
      "pos": "会話の表現",
      "ja": "何になさいますか？・何がほしいですか？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "{What would you like} for your birthday?",
       "ja": "誕生日には何がほしい？"
@@ -2007,6 +2105,7 @@
      "pos": "会話の表現",
      "ja": "ほかに何か（ありますか）？",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "Here's your coffee. {Anything else}?",
       "ja": "コーヒーをどうぞ。ほかにご注文はありますか？"
@@ -2018,6 +2117,7 @@
      "pos": "会話の表現",
      "ja": "以上です・それで全部です",
      "src": "会話",
+     "other": "",
      "check": {
       "en": "Two hamburgers, please. {That's all}.",
       "ja": "ハンバーガーを2つください。以上です。"
