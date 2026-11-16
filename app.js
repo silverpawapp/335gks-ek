@@ -66,15 +66,17 @@
   function setTop(text, back, menu, icon) {
     where.innerHTML = (icon || "") + esc(text);
     $("backBtn").hidden = !back; $("backBtn").onclick = back || null;
-    $("menuBtn").hidden = !menu; $("menuBtn").onclick = menu || null;
+    $("menuBtn").hidden = !menu; $("menuBtn").onclick = menu || null; $("menuBtn").textContent = "メニュー";
   }
   function setBottom(buttons) {
     bottom.innerHTML = "";
     buttons.forEach((b) => {
       if (b.hint) { const h = document.createElement("div"); h.className = "hint"; h.textContent = b.hint; bottom.appendChild(h); return; }
+      if (b.spacer) { const s = document.createElement("div"); s.className = "spacer"; bottom.appendChild(s); return; }
       const el = document.createElement("button");
       el.type = "button"; el.className = "big " + (b.cls || ""); el.textContent = b.label;
       el.onclick = () => { if (b.sfx) sfx(b.sfx); b.onClick(); };
+      if (b.delay) { el.disabled = true; setTimeout(() => (el.disabled = false), b.delay); } // 連打でうっかり押さないように
       bottom.appendChild(el);
     });
   }
@@ -351,9 +353,9 @@
       <div class="small muted">${session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の語は、明日からの確認にまぜて出ます。「Got it!」の語は、日をあけてまた出ます。"}</div></div>
       ${wrong.length ? `<div class="card"><h2>Not yet の語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
         `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}`);
-    setTop("まとめ", null, null);
+    setTop("まとめ", null, () => { sfx("tap"); menu(); }); $("menuBtn").textContent = "メニューへ";
     const again = session.scenes.map((id) => DATA.scenes.find((s) => s.id === id)).filter(Boolean);
-    setBottom([{ label: "もう一回", cls: "sub", sfx: "tap", onClick: () => startSession(again, true) }, { label: "メニューへ", onClick: menu }]);
+    setBottom([{ label: "もう一回", cls: "sub", sfx: "tap", delay: 1000, onClick: () => startSession(again, true) }, { spacer: true }]);
   }
 
   /* ---------- そのほかの画面 ---------- */

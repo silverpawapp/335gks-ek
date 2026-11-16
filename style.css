@@ -130,3 +130,6 @@ footer#bottom{flex-wrap:wrap}
 /* 穴うめ：語を見えなくして空欄にする（幅はそのまま） */
 .cloze .w{color:transparent;background:var(--surface);border:0;border-bottom:2px solid var(--ink);border-radius:0;user-select:none}
 .cloze .w.open{color:var(--accent-ink);background:var(--accent-soft);border-bottom:2px solid var(--accent);border-radius:4px}
+
+footer#bottom .spacer{flex:1}
+.big:disabled{opacity:.45}
