@@ -272,13 +272,14 @@
     const st = session.steps[session.i];
     showProgress();
     setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : "意味の確認", null, quit, st.k === "scene" ? typeIcon(st.s.type) : "");
-    if (st.k === "scene") sceneScreen(st.s, () => next());
+    const prevScene = session.i > 0 && session.steps[session.i - 1].k === "scene";
+    if (st.k === "scene") sceneScreen(st.s, () => next(), false, null, prevScene ? () => { session.i--; step(); } : null);
     else if (st.k === "check") checkScreen(st);
     else summary();
   }
 
   /* 場面を読む画面 */
-  function sceneScreen(s, onNext, isReview, backLabel) {
+  function sceneScreen(s, onNext, isReview, backLabel, onPrev) {
     const conv = s.type === "会話";
     show(`<div class="card">
         <span class="tag">${typeIcon(s.type)}${esc(s.type)}</span><span class="small muted">${s.code}</span>
@@ -318,7 +319,8 @@
       const w = e.target.closest(".w"); if (!w || !cloze || w.classList.contains("open")) return;
       e.stopPropagation(); w.classList.add("open"); w.removeAttribute("aria-label");
     }, true);
-    setBottom([{ label: backLabel || (isReview ? "一覧にもどる" : "次へ"), sfx: "tap", onClick: onNext }]);
+    const nextBtn = { label: backLabel || (isReview ? "一覧にもどる" : "次へ"), sfx: "tap", onClick: onNext };
+    setBottom(onPrev ? [{ label: "もどる", cls: "sub back", sfx: "tap", onClick: onPrev }, nextBtn] : [nextBtn]); // 2つ目からの場面は、前の場面にもどれる
   }
 
   /* 意味の確認の画面 */

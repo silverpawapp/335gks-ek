@@ -143,3 +143,4 @@ footer#bottom .spacer{flex:1}
 .hit-btn{gap:2px}
 .w.hit{outline:3px solid var(--focus);outline-offset:2px}
 .tag.review{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink);margin-bottom:6px}
+footer#bottom .big.back{flex:0 0 32%}
