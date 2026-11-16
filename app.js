@@ -101,6 +101,12 @@
     "メッセージ": SVG('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 9h5M9.5 12.5h5"/><path d="M11 18.5h2"/>'),
     "メール": SVG('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>'),
     "お知らせ": SVG('<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>'),
+    check: SVG('<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M7.5 12.5l3 3 6-6.5"/>'),
+    menuScenes: SVG('<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>'),
+    menuHelp: SVG('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17.5v.01"/>'),
+    menuBackup: SVG('<path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>'),
+    menuSettings: SVG('<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>'),
+    menuAbout: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.01"/>'),
     "記事": SVG('<path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 9h4v8a2 2 0 0 1-2 2h-2"/><path d="M7 9h6M7 12.5h6M7 16h4"/>'),
   };
   const typeIcon = (t) => ICON[t] || "";
@@ -183,11 +189,11 @@
         <div class="small muted">${canStart ? `「はじめる」で、${rest ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due && rest ? "（復習の語もまぜて出ます）" : ""} → Not yet の語をもう一度 の順に進みます。` : "今日の学習はおわりです。また明日！"}</div>
       </div>
       <div class="menu-list">
-        <button type="button" id="mScenes">📖 場面を選ぶ</button>
-        <button type="button" id="mHelp">🔰 はじめての人へ・使い方</button>
-        <button type="button" id="mBackup">💾 記録のバックアップ</button>
-        <button type="button" id="mSettings">⚙️ 設定（効果音）</button>
-        <button type="button" id="mAbout">ℹ️ このアプリについて</button>
+        <button type="button" id="mScenes">${ICON.menuScenes}場面を選ぶ</button>
+        <button type="button" id="mHelp">${ICON.menuHelp}はじめての人へ・使い方</button>
+        <button type="button" id="mBackup">${ICON.menuBackup}記録のバックアップ</button>
+        <button type="button" id="mSettings">${ICON.menuSettings}設定（効果音）</button>
+        <button type="button" id="mAbout">${ICON.menuAbout}このアプリについて</button>
       </div>`);
     const go = (f) => () => { sfx("tap"); f(); };
     $("mScenes").onclick = go(categoryList); $("mHelp").onclick = go(help); $("mBackup").onclick = go(backup); $("mSettings").onclick = go(settingsScreen); $("mAbout").onclick = go(about);
@@ -216,7 +222,7 @@
     const has = [0, 1, 2, 3].filter((p) => session.steps.some((s) => s.phase === p));
     const same = session.steps.filter((s) => s.phase === st.phase && s.k !== "summary");
     const n = same.indexOf(st) + 1;
-    progress.innerHTML = `<div class="steps">${has.map((p) => `<span class="${p === st.phase ? "now" : p < st.phase ? "done" : ""}">${names[p]}</span>`).join("")}</div>` +
+    progress.innerHTML = `<div class="steps">${has.map((p) => `<span class="${p === st.phase ? "now" : p < st.phase ? "done" : ""}">${p < st.phase ? ICON.check : ""}${names[p]}</span>`).join("")}</div>` +
       (same.length ? `<div class="count">${n}／${same.length}${st.retry ? "（もう一度）" : ""}</div>` : "");
     progress.hidden = false;
   }

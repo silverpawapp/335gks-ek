@@ -10572,6 +10572,3958 @@
      }
     }
    ]
+  },
+  {
+   "id": "S126",
+   "cat": "home",
+   "type": "会話",
+   "title": "おじいちゃんの子どものころ",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Grandpa, where did you {grow up|grow_up}?",
+     "ja": "おじいちゃん、どこで育ったの？"
+    },
+    {
+     "sp": "B",
+     "en": "In the {countryside|countryside}. {In the past|in_the_past}, there were no convenience stores near my house.",
+     "ja": "いなかだよ。昔は、家の近くにコンビニなんてなかったんだ。"
+    },
+    {
+     "sp": "A",
+     "en": "Really? What did you do {for fun|for_fun}?",
+     "ja": "本当？ 何をして遊んでたの？"
+    },
+    {
+     "sp": "B",
+     "en": "I caught fish in the river. I have many happy {memories|memory}.",
+     "ja": "川で魚をとったよ。楽しい思い出がたくさんあるなあ。"
+    }
+   ],
+   "note": "grow up は「育つ・大人になる」。countryside は「いなか・田園地帯」。for fun は「楽しみで・遊びで」。",
+   "grammar": {
+    "name": "there were ～",
+    "text": "「～があった」。there is／are の過去形。後ろの名詞が複数なら were。"
+   },
+   "items": [
+    {
+     "id": "grow_up",
+     "word": "grow up",
+     "pos": "熟語",
+     "ja": "育つ・大人になる",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I {grew up} in Osaka.",
+      "ja": "私は大阪で育った。"
+     }
+    },
+    {
+     "id": "countryside",
+     "word": "countryside",
+     "pos": "名詞",
+     "ja": "いなか・田園地帯",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "We drove through the beautiful {countryside}.",
+      "ja": "美しい田園地帯を車で走った。"
+     }
+    },
+    {
+     "id": "in_the_past",
+     "word": "in the past",
+     "pos": "熟語",
+     "ja": "昔は・過去に",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{In the past}, people didn't have phones.",
+      "ja": "昔は、人々は電話を持っていなかった。"
+     }
+    },
+    {
+     "id": "for_fun",
+     "word": "for fun",
+     "pos": "熟語",
+     "ja": "楽しみで・遊びで",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I draw pictures {for fun}.",
+      "ja": "楽しみで絵をかいている。"
+     }
+    },
+    {
+     "id": "memory",
+     "word": "memory",
+     "pos": "名詞",
+     "ja": "思い出・記憶",
+     "src": "単語",
+     "other": "記憶力（have a good memory＝記憶力がいい）／（パソコンの）メモリー",
+     "check": {
+      "en": "I have good {memories} of my school trip.",
+      "ja": "修学旅行にはいい思い出がある。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S127",
+   "cat": "home",
+   "type": "会話",
+   "title": "そっくりな兄弟",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "You really {take after|take_after} your father.",
+     "ja": "本当にお父さんに似てるね。"
+    },
+    {
+     "sp": "B",
+     "en": "Everyone says so. My brother and I also look {alike|alike}.",
+     "ja": "みんなにそう言われる。兄とぼくもそっくりなんだ。"
+    },
+    {
+     "sp": "A",
+     "en": "Yes! In photos, I can't {tell|tell_from} you {from|tell_from} your brother.",
+     "ja": "そうだね！ 写真だと、君とお兄さんの見分けがつかないよ。"
+    },
+    {
+     "sp": "B",
+     "en": "Our mom says we {look like|look_like} twins.",
+     "ja": "母さんは、ふたごみたいだって言うよ。"
+    }
+   ],
+   "note": "take after ～ は「（親など）に似ている」。alike は「にている」で、名詞の前には置かない（look alike のように使う）。tell A from B は「AとBを見分ける」。",
+   "grammar": {
+    "name": "look like ～",
+    "text": "「～のように見える・～ににている」。like のあとは名詞。look のあとが形容詞なら like は付けない（look happy）。"
+   },
+   "items": [
+    {
+     "id": "take_after",
+     "word": "take after ～",
+     "pos": "熟語",
+     "ja": "（親など）に似ている",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "She {takes after} her mother.",
+      "ja": "彼女は母親に似ている。"
+     }
+    },
+    {
+     "id": "alike",
+     "word": "alike",
+     "pos": "形容詞",
+     "ja": "にている",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The two cups look {alike}.",
+      "ja": "その2つのカップはそっくりだ。"
+     }
+    },
+    {
+     "id": "tell_from",
+     "word": "tell A from B",
+     "pos": "熟語",
+     "ja": "AとBを見分ける",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Can you {tell} salt {from} sugar just by looking?",
+      "ja": "見ただけで塩と砂糖を見分けられる？"
+     }
+    },
+    {
+     "id": "look_like",
+     "word": "look like ～",
+     "pos": "熟語",
+     "ja": "～のように見える・～ににている",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "That cloud {looks like} a rabbit.",
+      "ja": "あの雲はうさぎみたいだ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S128",
+   "cat": "home",
+   "type": "会話",
+   "title": "寒い部屋",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "It's cold in here. Shall I {turn on|turn_on} the {heater|heater}?",
+     "ja": "ここ、寒いね。ヒーターをつけようか？"
+    },
+    {
+     "sp": "B",
+     "en": "{I'm all right|im_all_right}. I'm wearing a sweater.",
+     "ja": "だいじょうぶ。セーターを着てるから。"
+    },
+    {
+     "sp": "A",
+     "en": "OK. But don't forget to {turn it off|turn_off} when you go to bed.",
+     "ja": "わかった。でも、ねるときは消すのを忘れないでね。"
+    }
+   ],
+   "note": "turn on ～ は「（電気・機械を）つける」、turn off ～ は「消す」。it などは turn it off のように間に入る。",
+   "grammar": {
+    "name": "don't forget to ～",
+    "text": "「～するのを忘れないで」。forget to ～ は「（これから）～するのを忘れる」。"
+   },
+   "items": [
+    {
+     "id": "turn_on",
+     "word": "turn on ～",
+     "pos": "熟語",
+     "ja": "（電気・機械を）つける",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{Turn on} the TV, please.",
+      "ja": "テレビをつけて。"
+     }
+    },
+    {
+     "id": "heater",
+     "word": "heater",
+     "pos": "名詞",
+     "ja": "ヒーター・暖房器具",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {heater} in my room is broken.",
+      "ja": "私の部屋のヒーターがこわれている。"
+     }
+    },
+    {
+     "id": "im_all_right",
+     "word": "I'm all right.",
+     "pos": "会話の表現",
+     "ja": "だいじょうぶです",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "A: You fell! B: Don't worry. {I'm all right}.",
+      "ja": "A：ころんだね！　B：心配しないで。だいじょうぶ。"
+     }
+    },
+    {
+     "id": "turn_off",
+     "word": "turn off ～",
+     "pos": "熟語",
+     "ja": "（電気・機械を）消す",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Please {turn off} your phone in the theater.",
+      "ja": "劇場ではスマホの電源を切ってください。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S129",
+   "cat": "home",
+   "type": "会話",
+   "title": "子犬の名前",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Our dog had two puppies. One is {male|male}, and the other is {female|female}.",
+     "ja": "うちの犬が子犬を2匹産んだの。1匹はオスで、もう1匹はメス。"
+    },
+    {
+     "sp": "B",
+     "en": "Cute! What are their names?",
+     "ja": "かわいい！ 名前は何ていうの？"
+    },
+    {
+     "sp": "A",
+     "en": "We {named|name_after} the male one {after|name_after} a famous soccer player.",
+     "ja": "オスのほうは、有名なサッカー選手にちなんで名前をつけたよ。"
+    }
+   ],
+   "note": "male は「男性の・オスの」、female は「女性の・メスの」。name A after B は「Bにちなんで、Aに名前をつける」。",
+   "grammar": {
+    "name": "one ～, the other ～",
+    "text": "2つのうち「一方は～、もう一方は～」。3つ以上なら another や the others を使う。"
+   },
+   "items": [
+    {
+     "id": "male",
+     "word": "male",
+     "pos": "形容詞・名詞",
+     "ja": "男性の・オスの",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Is your cat {male} or female?",
+      "ja": "あなたのねこはオス、それともメス？"
+     }
+    },
+    {
+     "id": "female",
+     "word": "female",
+     "pos": "形容詞・名詞",
+     "ja": "女性の・メスの",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {female} bird is sitting on the eggs.",
+      "ja": "メスの鳥が卵をあたためている。"
+     }
+    },
+    {
+     "id": "name_after",
+     "word": "name A after B",
+     "pos": "熟語",
+     "ja": "Bにちなんで、Aに名前をつける",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "They {named} the baby {after} his grandfather.",
+      "ja": "赤ちゃんはおじいさんにちなんで名づけられた。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S130",
+   "cat": "home",
+   "type": "会話",
+   "title": "パンケーキ作り",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "First, {pour|pour} the milk into the {bowl|bowl}.",
+     "ja": "まず、ボウルに牛乳を注いで。"
+    },
+    {
+     "sp": "B",
+     "en": "OK. Then do I {mix|mix} it with the eggs?",
+     "ja": "わかった。それから卵とまぜるの？"
+    },
+    {
+     "sp": "A",
+     "en": "Yes. And {slice|slice} the bananas while I heat the {pan|pan}.",
+     "ja": "そう。フライパンを温めている間に、バナナを切ってね。"
+    }
+   ],
+   "note": "pour は「（液体を）注ぐ」。slice は「うすく切る」（名詞では「1切れ」）。pan は「フライパン・なべ」。",
+   "grammar": {
+    "name": "while ～",
+    "text": "「～している間に」。while のあとに〈主語＋動詞〉を続ける。"
+   },
+   "items": [
+    {
+     "id": "pour",
+     "word": "pour",
+     "pos": "動詞",
+     "ja": "注ぐ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Can you {pour} me some juice?",
+      "ja": "ジュースを注いでくれる？"
+     }
+    },
+    {
+     "id": "bowl",
+     "word": "bowl",
+     "pos": "名詞",
+     "ja": "ボウル・どんぶり",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I ate a {bowl} of rice.",
+      "ja": "ごはんを1杯食べた。"
+     }
+    },
+    {
+     "id": "mix",
+     "word": "mix",
+     "pos": "動詞",
+     "ja": "まぜる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "{Mix} the flour and sugar.",
+      "ja": "小麦粉と砂糖をまぜて。"
+     }
+    },
+    {
+     "id": "slice",
+     "word": "slice",
+     "pos": "動詞・名詞",
+     "ja": "うすく切る・1切れ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Please {slice} the bread.",
+      "ja": "パンを切ってください。"
+     }
+    },
+    {
+     "id": "pan",
+     "word": "pan",
+     "pos": "名詞",
+     "ja": "フライパン・なべ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Put some oil in the {pan}.",
+      "ja": "フライパンに油を入れて。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S131",
+   "cat": "home",
+   "type": "会話",
+   "title": "引っ越しの日",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "The moving truck is coming at noon. We have to {pack|pack} everything {at once|at_once}!",
+     "ja": "引っ越しのトラックがお昼に来るよ。すぐに全部荷づくりしなきゃ！"
+    },
+    {
+     "sp": "B",
+     "en": "This box is {empty|empty}. What should I put in it?",
+     "ja": "この箱、からっぽだよ。何を入れればいい？"
+    },
+    {
+     "sp": "A",
+     "en": "Your books, please.",
+     "ja": "あなたの本を入れて。"
+    },
+    {
+     "sp": "B",
+     "en": "OK. After we move, let's {put them away|put_away} slowly.",
+     "ja": "わかった。引っ越したら、ゆっくり片づけよう。"
+    }
+   ],
+   "note": "pack は「荷づくりする・つめる」。at once は「すぐに」。put A away は「Aを片づける」で、them などは間に入る。",
+   "grammar": {
+    "name": "after ～（未来のことも現在形）",
+    "text": "After we move,＝「引っ越したら」。時を表す after のあとは、未来のことでも現在形で言う。"
+   },
+   "items": [
+    {
+     "id": "pack",
+     "word": "pack",
+     "pos": "動詞",
+     "ja": "荷づくりする・つめる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Did you {pack} your suitcase?",
+      "ja": "スーツケースに荷物をつめた？"
+     }
+    },
+    {
+     "id": "at_once",
+     "word": "at once",
+     "pos": "熟語",
+     "ja": "すぐに",
+     "src": "熟語",
+     "other": "同時に（Don't talk all at once.＝いっせいに話さないで）",
+     "check": {
+      "en": "Come here {at once}!",
+      "ja": "すぐにここに来なさい！"
+     }
+    },
+    {
+     "id": "empty",
+     "word": "empty",
+     "pos": "形容詞",
+     "ja": "からっぽの",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The bottle is {empty}.",
+      "ja": "びんはからっぽだ。"
+     }
+    },
+    {
+     "id": "put_away",
+     "word": "put A away",
+     "pos": "熟語",
+     "ja": "Aを片づける",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{Put} your toys {away} before dinner.",
+      "ja": "夕食の前におもちゃを片づけなさい。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S132",
+   "cat": "school1",
+   "type": "会話",
+   "title": "授業についていけない",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I {was absent from|be_absent_from} school for a week. I can't {keep up with|keep_up_with} the class.",
+     "ja": "1週間学校を休んだから、授業についていけないんだ。"
+    },
+    {
+     "sp": "B",
+     "en": "Don't worry. I'll lend you my notes so you can {catch up with|catch_up_with} everyone.",
+     "ja": "心配しないで。みんなに追いつけるように、ノートを貸してあげる。"
+    },
+    {
+     "sp": "A",
+     "en": "Thanks. I'll {make an effort|make_an_effort} to study harder.",
+     "ja": "ありがとう。もっとがんばって勉強するよ。"
+    }
+   ],
+   "note": "keep up with ～ は「～についていく」、catch up with ～ は「（おくれたあと）～に追いつく」。make an effort は「努力する」。",
+   "grammar": {
+    "name": "so (that) ～ can …",
+    "text": "「～が…できるように」。目的を表す言い方。"
+   },
+   "items": [
+    {
+     "id": "be_absent_from",
+     "word": "be absent from ～",
+     "pos": "熟語",
+     "ja": "～を休む・欠席する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "He {was absent from} the meeting.",
+      "ja": "彼は会議を欠席した。"
+     }
+    },
+    {
+     "id": "keep_up_with",
+     "word": "keep up with ～",
+     "pos": "熟語",
+     "ja": "～についていく・おくれずについていく",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "It's hard to {keep up with} the news.",
+      "ja": "ニュースについていくのはたいへんだ。"
+     }
+    },
+    {
+     "id": "catch_up_with",
+     "word": "catch up with ～",
+     "pos": "熟語",
+     "ja": "～に追いつく",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Go ahead. I'll {catch up with} you later.",
+      "ja": "先に行って。あとで追いつくから。"
+     }
+    },
+    {
+     "id": "make_an_effort",
+     "word": "make an effort",
+     "pos": "熟語",
+     "ja": "努力する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "You need to {make an effort} to improve.",
+      "ja": "上達するには努力が必要だ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S133",
+   "cat": "school1",
+   "type": "記事",
+   "title": "新しい英語の先生",
+   "lines": [
+    {
+     "sp": "",
+     "en": "This year, a new English {assistant|assistant} teacher came to our school.",
+     "ja": "今年、新しい英語の補助の先生が、私たちの学校に来た。"
+    },
+    {
+     "sp": "",
+     "en": "She {introduced|introduce} herself in English and Japanese. She is a {native|native} speaker from Canada.",
+     "ja": "先生は英語と日本語で自己紹介をした。カナダ出身で、英語を母語として話す。"
+    },
+    {
+     "sp": "",
+     "en": "She studied {education|education} at university and loves teaching children.",
+     "ja": "大学で教育学を学び、子どもに教えるのが大好きだ。"
+    }
+   ],
+   "note": "assistant は「助手・補助の人」。native speaker は「その言語を母語として話す人」。education は「教育」（動詞は educate）。",
+   "grammar": {
+    "name": "introduce oneself",
+    "text": "「自己紹介する」。主語に合わせて myself・herself などを使う。"
+   },
+   "items": [
+    {
+     "id": "assistant",
+     "word": "assistant",
+     "pos": "名詞",
+     "ja": "助手・補助の人",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The doctor's {assistant} called my name.",
+      "ja": "医者の助手が私の名前を呼んだ。"
+     }
+    },
+    {
+     "id": "introduce",
+     "word": "introduce",
+     "pos": "動詞",
+     "ja": "紹介する",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Let me {introduce} myself.",
+      "ja": "自己紹介させてください。"
+     }
+    },
+    {
+     "id": "native",
+     "word": "native",
+     "pos": "形容詞",
+     "ja": "生まれた土地の・母語の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Japanese is my {native} language.",
+      "ja": "日本語は私の母語だ。"
+     }
+    },
+    {
+     "id": "education",
+     "word": "education",
+     "pos": "名詞",
+     "ja": "教育",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "{Education} is important for everyone.",
+      "ja": "教育はすべての人にとって大切だ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S134",
+   "cat": "school1",
+   "type": "会話",
+   "title": "宿題が多すぎる",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "We have so much homework. Can I {complain|complain} to the teacher?",
+     "ja": "宿題が多すぎるよ。先生に文句を言ってもいいかな？"
+    },
+    {
+     "sp": "B",
+     "en": "Really? The teacher said it takes an hour {at the most|at_the_most}.",
+     "ja": "そう？ 先生は、多くても1時間で終わるって言ってたよ。"
+    },
+    {
+     "sp": "A",
+     "en": "No way. Sometimes it takes {as much as|as_much_as} three hours.",
+     "ja": "まさか。3時間もかかることがあるよ。"
+    },
+    {
+     "sp": "B",
+     "en": "Then tell her. For me, it takes {less than|less_than} an hour, though.",
+     "ja": "じゃあ先生に言いなよ。でも、私は1時間もかからないけどね。"
+    }
+   ],
+   "note": "at the most は「多くても・せいぜい」。as much as ～ は「～も（多くの）」と量が多いことを強める。less than ～ は「～より少ない・～未満」。",
+   "grammar": {
+    "name": "文の最後の though",
+    "text": "「～だけどね」。会話で、前の話と反対のことを軽くつけ加えるときに使う。"
+   },
+   "items": [
+    {
+     "id": "complain",
+     "word": "complain",
+     "pos": "動詞",
+     "ja": "文句を言う・苦情を言う",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "He always {complains} about the food.",
+      "ja": "彼はいつも食べ物に文句を言う。"
+     }
+    },
+    {
+     "id": "at_the_most",
+     "word": "at the most",
+     "pos": "熟語",
+     "ja": "多くても・せいぜい",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "The trip will cost 5,000 yen {at the most}.",
+      "ja": "その旅行は多くても5,000円だ。"
+     }
+    },
+    {
+     "id": "as_much_as",
+     "word": "as much as ～",
+     "pos": "熟語",
+     "ja": "～も（多くの）",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "This bag costs {as much as} 50,000 yen.",
+      "ja": "このかばんは5万円もする。"
+     }
+    },
+    {
+     "id": "less_than",
+     "word": "less than ～",
+     "pos": "熟語",
+     "ja": "～より少ない・～未満",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I live {less than} a kilometer from school.",
+      "ja": "学校から1キロもはなれていない所に住んでいる。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S135",
+   "cat": "school1",
+   "type": "お知らせ",
+   "title": "職場体験のお知らせ",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Work Experience Program",
+     "ja": "職場体験プログラム"
+    },
+    {
+     "sp": "",
+     "en": "Local companies {offer|offer} students a chance to work for three days.",
+     "ja": "地元の会社が、生徒に3日間働く機会を用意してくれます。"
+    },
+    {
+     "sp": "",
+     "en": "Students will work with real {employees|employee} and learn about different jobs.",
+     "ja": "生徒は実際に働いている社員といっしょに働き、いろいろな仕事について学びます。"
+    },
+    {
+     "sp": "",
+     "en": "Don't miss this great {opportunity|opportunity}! {Apply|apply} by June 10.",
+     "ja": "このよい機会をのがさないでください！ 6月10日までに申しこんでください。"
+    }
+   ],
+   "note": "offer は「申し出る・提供する」。employee は「社員・従業員」（雇う人は employer）。opportunity は「機会・チャンス」。",
+   "grammar": {
+    "name": "offer A B",
+    "text": "「AにBを提供する・すすめる」。offer students a chance＝「生徒に機会を提供する」。"
+   },
+   "items": [
+    {
+     "id": "offer",
+     "word": "offer",
+     "pos": "動詞・名詞",
+     "ja": "提供する・申し出（る）",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "They {offered} me a cup of tea.",
+      "ja": "お茶を出してくれた。"
+     }
+    },
+    {
+     "id": "employee",
+     "word": "employee",
+     "pos": "名詞",
+     "ja": "社員・従業員",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The company has 200 {employees}.",
+      "ja": "その会社には200人の社員がいる。"
+     }
+    },
+    {
+     "id": "opportunity",
+     "word": "opportunity",
+     "pos": "名詞",
+     "ja": "機会・チャンス",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This is a good {opportunity} to practice English.",
+      "ja": "これは英語を練習するいい機会だ。"
+     }
+    },
+    {
+     "id": "apply",
+     "word": "apply",
+     "pos": "動詞",
+     "ja": "申しこむ・応募する",
+     "src": "単語",
+     "other": "（薬などを）ぬる・当てはまる",
+     "check": {
+      "en": "You can {apply} online.",
+      "ja": "ネットで申しこめます。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S136",
+   "cat": "school1",
+   "type": "会話",
+   "title": "英文を直してもらう",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Can you check my English sentences?",
+     "ja": "私の英文をチェックしてくれる？"
+    },
+    {
+     "sp": "B",
+     "en": "Sure. Let me {point out|point_out} a few {mistakes|mistake}. This verb isn't {correct|correct}.",
+     "ja": "いいよ。まちがいをいくつか言うね。この動詞は正しくないよ。"
+    },
+    {
+     "sp": "A",
+     "en": "Oh, I see. How do I {spell|spell} it {correctly|correctly}?",
+     "ja": "あ、そうか。正しくはどうつづるの？"
+    },
+    {
+     "sp": "B",
+     "en": "Like this. Now it's perfect.",
+     "ja": "こうだよ。これで完ぺき。"
+    }
+   ],
+   "note": "point out ～ は「～を指摘する」。correct は「正しい」（形容詞）、correctly は「正しく」（副詞）。spell は「（語を）つづる」。",
+   "grammar": {
+    "name": "How do I ～?",
+    "text": "「どうやって～すればいい？」。方法をたずねる言い方。"
+   },
+   "items": [
+    {
+     "id": "point_out",
+     "word": "point out ～",
+     "pos": "熟語",
+     "ja": "～を指摘する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "My teacher {pointed out} my mistakes.",
+      "ja": "先生が私のまちがいを指摘してくれた。"
+     }
+    },
+    {
+     "id": "mistake",
+     "word": "mistake",
+     "pos": "名詞",
+     "ja": "まちがい",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "There's a {mistake} in this sentence.",
+      "ja": "この文にはまちがいがある。"
+     }
+    },
+    {
+     "id": "correct",
+     "word": "correct",
+     "pos": "形容詞",
+     "ja": "正しい",
+     "src": "単語",
+     "other": "（動詞）直す・訂正する",
+     "check": {
+      "en": "Is this answer {correct}?",
+      "ja": "この答えは正しい？"
+     }
+    },
+    {
+     "id": "spell",
+     "word": "spell",
+     "pos": "動詞",
+     "ja": "（語を）つづる",
+     "src": "単語",
+     "other": "（名詞）呪文",
+     "check": {
+      "en": "How do you {spell} your name?",
+      "ja": "あなたの名前はどうつづるの？"
+     }
+    },
+    {
+     "id": "correctly",
+     "word": "correctly",
+     "pos": "副詞",
+     "ja": "正しく",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Please write your name {correctly}.",
+      "ja": "名前を正しく書いてください。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S137",
+   "cat": "school1",
+   "type": "会話",
+   "title": "夏休みの自由研究",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "What will you do for your summer project?",
+     "ja": "夏休みの自由研究は何をするの？"
+    },
+    {
+     "sp": "B",
+     "en": "I'll study {insects|insect} in the park, {for instance|for_instance}, {butterflies|butterfly} and ants.",
+     "ja": "公園の虫を調べるよ。たとえば、チョウやアリとか。"
+    },
+    {
+     "sp": "A",
+     "en": "Sounds fun. How will you start?",
+     "ja": "楽しそう。どうやって始めるの？"
+    },
+    {
+     "sp": "B",
+     "en": "{First of all|first_of_all}, I'll take photos of them every morning.",
+     "ja": "まず最初に、毎朝写真をとるんだ。"
+    }
+   ],
+   "note": "insect は「虫・昆虫」。for instance は for example と同じ「たとえば」。first of all は「まず最初に」。",
+   "grammar": {
+    "name": "will ～（～するつもりだ）",
+    "text": "これからすることを言う。What will you do?＝「何をするつもり？」。"
+   },
+   "items": [
+    {
+     "id": "insect",
+     "word": "insect",
+     "pos": "名詞",
+     "ja": "虫・昆虫",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Bees are useful {insects}.",
+      "ja": "ハチは役に立つ昆虫だ。"
+     }
+    },
+    {
+     "id": "for_instance",
+     "word": "for instance",
+     "pos": "熟語",
+     "ja": "たとえば",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I like sports, {for instance}, tennis and soccer.",
+      "ja": "スポーツが好き。たとえば、テニスやサッカー。"
+     }
+    },
+    {
+     "id": "butterfly",
+     "word": "butterfly",
+     "pos": "名詞",
+     "ja": "チョウ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "A {butterfly} landed on the flower.",
+      "ja": "チョウが花にとまった。"
+     }
+    },
+    {
+     "id": "first_of_all",
+     "word": "first of all",
+     "pos": "熟語",
+     "ja": "まず最初に",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{First of all}, wash your hands.",
+      "ja": "まず最初に、手を洗って。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S138",
+   "cat": "school2",
+   "type": "会話",
+   "title": "試合の最後の1分",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "The game {is about to|be_about_to} end, and we're losing by one goal.",
+     "ja": "試合がもうすぐ終わるのに、1点負けてる。"
+    },
+    {
+     "sp": "B",
+     "en": "This is our last {chance|chance}. We can still tie the game if we score {in time|in_time}.",
+     "ja": "これが最後のチャンスだ。間に合えば、まだ同点にできる。"
+    },
+    {
+     "sp": "A",
+     "en": "Look! Ken has the ball!",
+     "ja": "見て！ ケンがボールを持ってる！"
+    },
+    {
+     "sp": "B",
+     "en": "Go, Ken! ... Yes! He did it!",
+     "ja": "行け、ケン！ …やった！ 決めた！"
+    }
+   ],
+   "note": "be about to ～ は「（今にも）～しようとしている」。in time は「間に合って」で、on time（時間どおりに）とはちがう。",
+   "grammar": {
+    "name": "be ～ing（今～している）",
+    "text": "we're losing＝「（今）負けている」。進行形で、今まさに起きていることを表す。"
+   },
+   "items": [
+    {
+     "id": "be_about_to",
+     "word": "be about to ～",
+     "pos": "熟語",
+     "ja": "（今にも）～しようとしている",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "The movie {is about to} start.",
+      "ja": "映画がもうすぐ始まる。"
+     }
+    },
+    {
+     "id": "chance",
+     "word": "chance",
+     "pos": "名詞",
+     "ja": "機会・チャンス・見こみ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Give me one more {chance}.",
+      "ja": "もう一度チャンスをください。"
+     }
+    },
+    {
+     "id": "in_time",
+     "word": "in time",
+     "pos": "熟語",
+     "ja": "間に合って",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "We arrived just {in time} for the train.",
+      "ja": "ぎりぎり電車に間に合った。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S139",
+   "cat": "school2",
+   "type": "記事",
+   "title": "吹奏楽部のがんばり",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Last year, our brass band club didn't win any prizes.",
+     "ja": "去年、私たちの吹奏楽部は1つも賞をとれなかった。"
+    },
+    {
+     "sp": "",
+     "en": "This year, the members practiced every day with great {effort|effort}.",
+     "ja": "今年、部員たちは毎日一生けんめい練習した。"
+    },
+    {
+     "sp": "",
+     "en": "{In the end|in_the_end}, they won first place in the city contest. Their hard work {achieved|achieve} a great {result|result}.",
+     "ja": "最後には、市のコンクールで1位になった。努力が、すばらしい結果を生んだのだ。"
+    }
+   ],
+   "note": "effort は「努力」。in the end は「最後には・結局」。achieve は「（目標を）達成する」。result は「結果」。",
+   "grammar": {
+    "name": "with great effort",
+    "text": "「大いに努力して」。with＋名詞で「～をもって」と様子を表す。"
+   },
+   "items": [
+    {
+     "id": "effort",
+     "word": "effort",
+     "pos": "名詞",
+     "ja": "努力",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Thank you for your {effort}.",
+      "ja": "努力してくれてありがとう。"
+     }
+    },
+    {
+     "id": "in_the_end",
+     "word": "in the end",
+     "pos": "熟語",
+     "ja": "最後には・結局",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{In the end}, we decided to stay home.",
+      "ja": "結局、家にいることにした。"
+     }
+    },
+    {
+     "id": "achieve",
+     "word": "achieve",
+     "pos": "動詞",
+     "ja": "達成する・なしとげる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "She {achieved} her goal.",
+      "ja": "彼女は目標を達成した。"
+     }
+    },
+    {
+     "id": "result",
+     "word": "result",
+     "pos": "名詞",
+     "ja": "結果",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The test {results} will come out next week.",
+      "ja": "テストの結果は来週出る。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S140",
+   "cat": "school2",
+   "type": "会話",
+   "title": "チャリティーイベント",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Our club is going to {hold|hold} a {charity|charity} event to {raise|raise} money for children in need.",
+     "ja": "私たちの部で、困っている子どもたちのためのお金を集めるチャリティーイベントを開くんだ。"
+    },
+    {
+     "sp": "B",
+     "en": "Great! How much have you raised {so far|so_far}?",
+     "ja": "すごい！ 今までにいくら集まったの？"
+    },
+    {
+     "sp": "A",
+     "en": "About 50,000 yen. Our goal is 100,000 yen.",
+     "ja": "5万円くらい。目標は10万円なんだ。"
+    },
+    {
+     "sp": "B",
+     "en": "I'll help you. Let me know what to do.",
+     "ja": "手伝うよ。何をすればいいか教えて。"
+    }
+   ],
+   "note": "hold は「（会などを）開く」。charity は「慈善（活動）・チャリティー」。raise money は「お金を集める」。so far は「今までのところ」。",
+   "grammar": {
+    "name": "現在完了 have raised so far",
+    "text": "「今までに集めた」。so far（今までのところ）といっしょによく使う。"
+   },
+   "items": [
+    {
+     "id": "hold",
+     "word": "hold",
+     "pos": "動詞",
+     "ja": "（会などを）開く・持つ",
+     "src": "単語",
+     "other": "にぎる・（手に）持つ（Hold my hand.）",
+     "check": {
+      "en": "We will {hold} a meeting tomorrow.",
+      "ja": "明日、会議を開きます。"
+     }
+    },
+    {
+     "id": "charity",
+     "word": "charity",
+     "pos": "名詞",
+     "ja": "慈善（活動）・チャリティー",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "She gives money to {charity} every year.",
+      "ja": "彼女は毎年、慈善団体に寄付をしている。"
+     }
+    },
+    {
+     "id": "raise",
+     "word": "raise",
+     "pos": "動詞",
+     "ja": "（お金を）集める・上げる",
+     "src": "単語",
+     "other": "（手を）上げる（Raise your hand.）／育てる",
+     "check": {
+      "en": "We {raised} money for the library.",
+      "ja": "図書館のためにお金を集めた。"
+     }
+    },
+    {
+     "id": "so_far",
+     "word": "so far",
+     "pos": "熟語",
+     "ja": "今までのところ",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{So far}, everything is going well.",
+      "ja": "今までのところ、すべて順調だ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S141",
+   "cat": "school2",
+   "type": "会話",
+   "title": "キャプテンになった",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I heard you became the {leader|leader} of the soccer club.",
+     "ja": "サッカー部のリーダーになったんだってね。"
+    },
+    {
+     "sp": "B",
+     "en": "Yes. Now I'm {responsible for|be_responsible_for} planning practice.",
+     "ja": "うん。練習の計画を立てるのはぼくの役目なんだ。"
+    },
+    {
+     "sp": "A",
+     "en": "That's an important {role|role}.",
+     "ja": "大事な役割だね。"
+    },
+    {
+     "sp": "B",
+     "en": "I know. I'm a little {worried about|be_worried_about} it, but I'll try.",
+     "ja": "うん。ちょっと心配だけど、がんばるよ。"
+    }
+   ],
+   "note": "be responsible for ～ は「～に責任がある・～を担当している」。role は「役割・役」。be worried about ～ は「～を心配している」。",
+   "grammar": {
+    "name": "be responsible for ～ing",
+    "text": "for のあとが動詞のときは -ing の形（planning）になる。"
+   },
+   "items": [
+    {
+     "id": "leader",
+     "word": "leader",
+     "pos": "名詞",
+     "ja": "リーダー・指導者",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "She is a good {leader}.",
+      "ja": "彼女はいいリーダーだ。"
+     }
+    },
+    {
+     "id": "be_responsible_for",
+     "word": "be responsible for ～",
+     "pos": "熟語",
+     "ja": "～に責任がある・～を担当している",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Who {is responsible for} cleaning the classroom?",
+      "ja": "教室のそうじはだれの担当？"
+     }
+    },
+    {
+     "id": "role",
+     "word": "role",
+     "pos": "名詞",
+     "ja": "役割・役",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "He played the main {role} in the play.",
+      "ja": "彼は劇で主役を演じた。"
+     }
+    },
+    {
+     "id": "be_worried_about",
+     "word": "be worried about ～",
+     "pos": "熟語",
+     "ja": "～を心配している",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I {am worried about} my grandmother.",
+      "ja": "祖母のことが心配だ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S142",
+   "cat": "school2",
+   "type": "お知らせ",
+   "title": "写真コンテスト",
+   "lines": [
+    {
+     "sp": "",
+     "en": "School Photo Contest",
+     "ja": "学校写真コンテスト"
+    },
+    {
+     "sp": "",
+     "en": "This year's {theme|theme} is \"Our Town.\"",
+     "ja": "今年のテーマは「私たちの町」です。"
+    },
+    {
+     "sp": "",
+     "en": "Ten photos will be {selected|select} by a professional {photographer|photographer}.",
+     "ja": "プロの写真家が10枚の写真を選びます。"
+    },
+    {
+     "sp": "",
+     "en": "The selected photos will be {displayed|display} in the school hall.",
+     "ja": "選ばれた写真は、学校のホールにかざられます。"
+    }
+   ],
+   "note": "theme は「テーマ・主題」。select は「（よく考えて）選ぶ」。display は「展示する・かざる」（名詞では「展示」）。",
+   "grammar": {
+    "name": "過去分詞が名詞を説明（the selected photos）",
+    "text": "「選ばれた写真」。過去分詞が名詞の前に来て、「～された」と説明する。"
+   },
+   "items": [
+    {
+     "id": "theme",
+     "word": "theme",
+     "pos": "名詞",
+     "ja": "テーマ・主題",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {theme} of the party is \"summer.\"",
+      "ja": "パーティーのテーマは「夏」だ。"
+     }
+    },
+    {
+     "id": "select",
+     "word": "select",
+     "pos": "動詞",
+     "ja": "選ぶ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Please {select} one answer.",
+      "ja": "答えを1つ選んでください。"
+     }
+    },
+    {
+     "id": "photographer",
+     "word": "photographer",
+     "pos": "名詞",
+     "ja": "写真家・カメラマン",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {photographer} took a picture of us.",
+      "ja": "カメラマンが私たちの写真をとった。"
+     }
+    },
+    {
+     "id": "display",
+     "word": "display",
+     "pos": "動詞・名詞",
+     "ja": "展示する・展示",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Her paintings are {displayed} at the museum.",
+      "ja": "彼女の絵は美術館に展示されている。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S143",
+   "cat": "hobby",
+   "type": "会話",
+   "title": "手作りのケーキ",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I made this cake myself. {How do you like|how_do_you_like} it?",
+     "ja": "このケーキ、自分で作ったんだ。どう？"
+    },
+    {
+     "sp": "B",
+     "en": "It's really {tasty|tasty}! I thought you were {bad at|be_bad_at} cooking.",
+     "ja": "すごくおいしい！ 料理はにがてだと思ってた。"
+    },
+    {
+     "sp": "A",
+     "en": "I was. But I've practiced a lot.",
+     "ja": "にがてだったよ。でも、たくさん練習したんだ。"
+    }
+   ],
+   "note": "How do you like ～? は「～はどう？（気に入った？）」と感想を聞く言い方。tasty は「おいしい」。be bad at ～ は「～がへただ」。",
+   "grammar": {
+    "name": "oneself（自分で）",
+    "text": "I made it myself.＝「自分で作った」。主語に合わせて myself・yourself などを使う。"
+   },
+   "items": [
+    {
+     "id": "how_do_you_like",
+     "word": "How do you like ～?",
+     "pos": "会話の表現",
+     "ja": "～はどう？（気に入った？）",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "{How do you like} your new school?",
+      "ja": "新しい学校はどう？"
+     }
+    },
+    {
+     "id": "tasty",
+     "word": "tasty",
+     "pos": "形容詞",
+     "ja": "おいしい",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This soup is very {tasty}.",
+      "ja": "このスープはとてもおいしい。"
+     }
+    },
+    {
+     "id": "be_bad_at",
+     "word": "be bad at ～",
+     "pos": "熟語",
+     "ja": "～がへただ・にがてだ",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I {am bad at} remembering names.",
+      "ja": "人の名前を覚えるのがにがてだ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S144",
+   "cat": "hobby",
+   "type": "記事",
+   "title": "サーフィンの楽しさ",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Surfing is a popular sport in summer.",
+     "ja": "サーフィンは夏に人気のスポーツだ。"
+    },
+    {
+     "sp": "",
+     "en": "To {surf|surf} well, you need good {balance|balance}.",
+     "ja": "上手にサーフィンをするには、よいバランス感覚が必要だ。"
+    },
+    {
+     "sp": "",
+     "en": "Riding a big {wave|wave} is a {challenge|challenge}, but it's very exciting.",
+     "ja": "大きな波に乗るのは難しいが、とてもわくわくする。"
+    }
+   ],
+   "note": "balance は「バランス・つり合い」。wave は「波」（動詞では「手をふる」）。challenge は「難しいこと・挑戦」。",
+   "grammar": {
+    "name": "To ～,（～するためには）",
+    "text": "To surf well, ～＝「上手にサーフィンをするためには～」。"
+   },
+   "items": [
+    {
+     "id": "surf",
+     "word": "surf",
+     "pos": "動詞",
+     "ja": "サーフィンをする",
+     "src": "単語",
+     "other": "surf the Internet＝ネットを見て回る",
+     "check": {
+      "en": "We went to the beach to {surf}.",
+      "ja": "サーフィンをしに海に行った。"
+     }
+    },
+    {
+     "id": "balance",
+     "word": "balance",
+     "pos": "名詞",
+     "ja": "バランス・つり合い",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I lost my {balance} and fell.",
+      "ja": "バランスをくずしてころんだ。"
+     }
+    },
+    {
+     "id": "wave",
+     "word": "wave",
+     "pos": "名詞",
+     "ja": "波",
+     "src": "単語",
+     "other": "（動詞）手をふる",
+     "check": {
+      "en": "The {waves} are high today.",
+      "ja": "今日は波が高い。"
+     }
+    },
+    {
+     "id": "challenge",
+     "word": "challenge",
+     "pos": "名詞・動詞",
+     "ja": "挑戦・難しいこと・挑戦する",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Learning a new language is a {challenge}.",
+      "ja": "新しい言葉を学ぶのは挑戦だ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S145",
+   "cat": "hobby",
+   "type": "会話",
+   "title": "チェスをしよう",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Do you know the {rules|rule} of {chess|chess}?",
+     "ja": "チェスのルールを知ってる？"
+    },
+    {
+     "sp": "B",
+     "en": "A little. Can you teach me?",
+     "ja": "少しね。教えてくれる？"
+    },
+    {
+     "sp": "A",
+     "en": "Sure. {Go ahead|go_ahead}. You move first.",
+     "ja": "いいよ。どうぞ。先に動かして。"
+    },
+    {
+     "sp": "B",
+     "en": "OK... I'll win this time {for sure|for_sure}!",
+     "ja": "よし…。今度こそ絶対に勝つぞ！"
+    }
+   ],
+   "note": "Go ahead. は「どうぞ（先に・えんりょなく）」。for sure は「確かに・絶対に」。",
+   "grammar": {
+    "name": "this time",
+    "text": "「今度は」。next time（次回）、last time（前回）も同じように使う。"
+   },
+   "items": [
+    {
+     "id": "rule",
+     "word": "rule",
+     "pos": "名詞",
+     "ja": "ルール・規則",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Please follow the school {rules}.",
+      "ja": "学校の規則を守ってください。"
+     }
+    },
+    {
+     "id": "chess",
+     "word": "chess",
+     "pos": "名詞",
+     "ja": "チェス",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "My grandfather taught me how to play {chess}.",
+      "ja": "祖父がチェスのやり方を教えてくれた。"
+     }
+    },
+    {
+     "id": "go_ahead",
+     "word": "go ahead",
+     "pos": "熟語",
+     "ja": "どうぞ・先に行く・進める",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "A: Can I use your pen? B: Sure, {go ahead}.",
+      "ja": "A：ペン使っていい？　B：どうぞ。"
+     }
+    },
+    {
+     "id": "for_sure",
+     "word": "for sure",
+     "pos": "熟語",
+     "ja": "確かに・絶対に",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I'll be there {for sure}.",
+      "ja": "絶対に行くよ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S146",
+   "cat": "hobby",
+   "type": "会話",
+   "title": "コンサート会場",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "The concert hall {is full of|be_full_of} people!",
+     "ja": "コンサートホールは人でいっぱいだね！"
+    },
+    {
+     "sp": "B",
+     "en": "Look! The {performers|performer} are coming onto the {stage|stage}.",
+     "ja": "見て！ 演奏者たちがステージに出てくるよ。"
+    },
+    {
+     "sp": "A",
+     "en": "I'm so {excited|excite}!",
+     "ja": "すごくわくわくする！"
+    }
+   ],
+   "note": "be full of ～ は「～でいっぱいだ」。performer は「演奏者・出演者」。excite は「わくわくさせる」で、人がわくわくするときは be excited と言う。",
+   "grammar": {
+    "name": "be excited（気持ちの受け身）",
+    "text": "excite は「わくわくさせる」なので、人が「わくわくしている」は be excited。exciting は「（ものごとが）わくわくさせる」。"
+   },
+   "items": [
+    {
+     "id": "be_full_of",
+     "word": "be full of ～",
+     "pos": "熟語",
+     "ja": "～でいっぱいだ",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "The basket {is full of} apples.",
+      "ja": "かごはリンゴでいっぱいだ。"
+     }
+    },
+    {
+     "id": "performer",
+     "word": "performer",
+     "pos": "名詞",
+     "ja": "演奏者・出演者",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {performers} bowed to the audience.",
+      "ja": "出演者たちは観客におじぎをした。"
+     }
+    },
+    {
+     "id": "stage",
+     "word": "stage",
+     "pos": "名詞",
+     "ja": "ステージ・舞台",
+     "src": "単語",
+     "other": "段階（the first stage＝第1段階）",
+     "check": {
+      "en": "The actors are on the {stage}.",
+      "ja": "俳優たちが舞台に立っている。"
+     }
+    },
+    {
+     "id": "excite",
+     "word": "excite",
+     "pos": "動詞",
+     "ja": "わくわくさせる・興奮させる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The news {excited} everyone.",
+      "ja": "そのニュースはみんなをわくわくさせた。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S147",
+   "cat": "hobby",
+   "type": "記事",
+   "title": "サッカーの歴史",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Modern soccer started in England in the 19th {century|century}.",
+     "ja": "今のサッカーは、19世紀にイギリスで始まった。"
+    },
+    {
+     "sp": "",
+     "en": "Its rules {were based on|be_based_on} games that were {originally|originally} played at schools.",
+     "ja": "そのルールは、もともと学校で行われていた試合をもとにしていた。"
+    },
+    {
+     "sp": "",
+     "en": "Since then, the sport has {developed|develop} and {spread|spread} around the world.",
+     "ja": "それ以来、このスポーツは発展し、世界中に広まった。"
+    }
+   ],
+   "note": "century は「世紀（100年）」。be based on ～ は「～にもとづいている」。originally は「もともと・最初は」。spread は「広がる・広げる」で、過去形も spread。",
+   "grammar": {
+    "name": "関係代名詞 that（games that were played）",
+    "text": "「行われていた試合」。that 以下が前の名詞（games）を説明する。"
+   },
+   "items": [
+    {
+     "id": "century",
+     "word": "century",
+     "pos": "名詞",
+     "ja": "世紀（100年）",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This castle was built in the 16th {century}.",
+      "ja": "この城は16世紀に建てられた。"
+     }
+    },
+    {
+     "id": "be_based_on",
+     "word": "be based on ～",
+     "pos": "熟語",
+     "ja": "～にもとづいている",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "The movie {is based on} a true story.",
+      "ja": "その映画は実話にもとづいている。"
+     }
+    },
+    {
+     "id": "originally",
+     "word": "originally",
+     "pos": "副詞",
+     "ja": "もともと・最初は",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This song was {originally} written in French.",
+      "ja": "この歌はもともとフランス語で書かれた。"
+     }
+    },
+    {
+     "id": "develop",
+     "word": "develop",
+     "pos": "動詞",
+     "ja": "発展する・発達させる",
+     "src": "単語",
+     "other": "開発する（develop a new product）／（写真を）現像する",
+     "check": {
+      "en": "The town has {developed} quickly.",
+      "ja": "その町は急速に発展した。"
+     }
+    },
+    {
+     "id": "spread",
+     "word": "spread",
+     "pos": "動詞",
+     "ja": "広がる・広げる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The news {spread} quickly.",
+      "ja": "そのニュースはすぐに広まった。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S148",
+   "cat": "hobby",
+   "type": "会話",
+   "title": "ギターを習いたい",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I want to {learn to|learn_to} play the guitar.",
+     "ja": "ギターがひけるようになりたいな。"
+    },
+    {
+     "sp": "B",
+     "en": "Really? My uncle is a guitar teacher. {Would|would_like_to} you {like|would_like_to} him {to|would_like_to} teach you?",
+     "ja": "本当？ おじさんがギターの先生なんだ。教えてもらいたい？"
+    },
+    {
+     "sp": "A",
+     "en": "That would be great! But I'm busy on {weekdays|weekday}.",
+     "ja": "それはうれしい！ でも、平日はいそがしいんだ。"
+    },
+    {
+     "sp": "B",
+     "en": "He can teach you on Saturday {instead of|instead_of} a weekday.",
+     "ja": "平日のかわりに、土曜日に教えてくれるよ。"
+    }
+   ],
+   "note": "learn to ～ は「～できるようになる」。would like A to ～ は「Aに～してほしい」。instead of ～ は「～のかわりに」。",
+   "grammar": {
+    "name": "would like A to ～",
+    "text": "「Aに～してほしい」。Would you like A to ～?＝「Aに～してほしいですか？」。"
+   },
+   "items": [
+    {
+     "id": "learn_to",
+     "word": "learn to ～",
+     "pos": "熟語",
+     "ja": "～できるようになる",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I {learned to} swim when I was five.",
+      "ja": "5歳のときに泳げるようになった。"
+     }
+    },
+    {
+     "id": "would_like_to",
+     "word": "would like ～ to do",
+     "pos": "熟語",
+     "ja": "～に…してほしい",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{Would} you {like} me {to} help you?",
+      "ja": "手伝いましょうか？（手伝ってほしい？）"
+     }
+    },
+    {
+     "id": "weekday",
+     "word": "weekday",
+     "pos": "名詞",
+     "ja": "平日",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The shop is open on {weekdays}.",
+      "ja": "その店は平日に開いている。"
+     }
+    },
+    {
+     "id": "instead_of",
+     "word": "instead of ～",
+     "pos": "熟語",
+     "ja": "～のかわりに",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Let's walk {instead of} taking the bus.",
+      "ja": "バスに乗るかわりに歩こう。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S149",
+   "cat": "shop",
+   "type": "会話",
+   "title": "お店にないゲーム",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I'm sorry. We don't have this game {right now|right_now}.",
+     "ja": "申しわけありません。このゲームは今、在庫がないんです。"
+    },
+    {
+     "sp": "B",
+     "en": "{In that case|in_that_case}, can I order it?",
+     "ja": "それなら、注文できますか？"
+    },
+    {
+     "sp": "A",
+     "en": "Sure. It'll arrive next week.",
+     "ja": "はい。来週届きます。"
+    },
+    {
+     "sp": "B",
+     "en": "{No problem|no_problem}. I can wait.",
+     "ja": "だいじょうぶです。待てますから。"
+    }
+   ],
+   "note": "right now は「今すぐ・ちょうど今」。In that case, ～. は「それなら・その場合は～」。No problem. は「問題ない・だいじょうぶ」。",
+   "grammar": {
+    "name": "It'll ～（It will の短縮形）",
+    "text": "会話では will を 'll と短くすることが多い。"
+   },
+   "items": [
+    {
+     "id": "right_now",
+     "word": "right now",
+     "pos": "熟語",
+     "ja": "今すぐ・ちょうど今",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I'm busy {right now}.",
+      "ja": "今ちょうどいそがしい。"
+     }
+    },
+    {
+     "id": "in_that_case",
+     "word": "In that case, ～.",
+     "pos": "会話の表現",
+     "ja": "それなら・その場合は～",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "A: It's going to rain. B: {In that case}, let's stay home.",
+      "ja": "A：雨が降りそうだよ。　B：それなら、家にいよう。"
+     }
+    },
+    {
+     "id": "no_problem",
+     "word": "No problem.",
+     "pos": "会話の表現",
+     "ja": "問題ないよ・どういたしまして",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "A: Can you help me? B: {No problem}.",
+      "ja": "A：手伝ってくれる？　B：いいよ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S150",
+   "cat": "shop",
+   "type": "会話",
+   "title": "古着屋で見つけた",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I bought this jacket at a {secondhand|secondhand} shop.",
+     "ja": "このジャケット、古着屋で買ったんだ。"
+    },
+    {
+     "sp": "B",
+     "en": "It looks new! Is it made of {cotton|cotton}?",
+     "ja": "新品みたい！ 綿でできてるの？"
+    },
+    {
+     "sp": "A",
+     "en": "Yes. The {quality|quality} is good, and I got it {cheaply|cheaply}.",
+     "ja": "うん。品質がいいのに、安く買えたんだ。"
+    }
+   ],
+   "note": "secondhand は「中古の」。quality は「品質・質」。cheaply は「安く」（形容詞は cheap）。",
+   "grammar": {
+    "name": "be made of ～",
+    "text": "「～でできている」（場面72）。材料をたずねるときは Is it made of ～? と言う。"
+   },
+   "items": [
+    {
+     "id": "secondhand",
+     "word": "secondhand",
+     "pos": "形容詞",
+     "ja": "中古の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I bought a {secondhand} bike.",
+      "ja": "中古の自転車を買った。"
+     }
+    },
+    {
+     "id": "cotton",
+     "word": "cotton",
+     "pos": "名詞",
+     "ja": "綿・コットン",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This shirt is 100% {cotton}.",
+      "ja": "このシャツは綿100％だ。"
+     }
+    },
+    {
+     "id": "quality",
+     "word": "quality",
+     "pos": "名詞",
+     "ja": "品質・質",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This store sells high-{quality} goods.",
+      "ja": "この店は質の高い品物を売っている。"
+     }
+    },
+    {
+     "id": "cheaply",
+     "word": "cheaply",
+     "pos": "副詞",
+     "ja": "安く",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "You can travel {cheaply} by bus.",
+      "ja": "バスなら安く旅行できる。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S151",
+   "cat": "shop",
+   "type": "会話",
+   "title": "くつ屋で",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Can I {try on|try_on_shoes} these shoes in a larger size?",
+     "ja": "このくつの、もっと大きいサイズをはいてみてもいいですか？"
+    },
+    {
+     "sp": "B",
+     "en": "Sure. We also have a {plain|plain} white pair. How about these?",
+     "ja": "どうぞ。無地の白もありますよ。こちらはいかがですか？"
+    },
+    {
+     "sp": "A",
+     "en": "They're a little big, but {that's fine|thats_fine}.",
+     "ja": "少し大きいけど、これでいいです。"
+    }
+   ],
+   "note": "try on ～ は「試着する・はいてみる」。plain は「無地の・かざりのない」。That's fine. は「それでいい・だいじょうぶ」。",
+   "grammar": {
+    "name": "a pair of ～",
+    "text": "くつやメガネなど、2つで1組のものは a pair（1足・1組）と数える。"
+   },
+   "items": [
+    {
+     "id": "try_on_shoes",
+     "word": "try on ～",
+     "pos": "熟語",
+     "ja": "～を試着する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Can I {try on} this hat?",
+      "ja": "このぼうしをかぶってみてもいいですか？"
+     }
+    },
+    {
+     "id": "plain",
+     "word": "plain",
+     "pos": "形容詞",
+     "ja": "無地の・かざりのない",
+     "src": "単語",
+     "other": "わかりやすい（in plain English）／（名詞）平原",
+     "check": {
+      "en": "I like {plain} T-shirts without pictures.",
+      "ja": "絵のない無地のTシャツが好きだ。"
+     }
+    },
+    {
+     "id": "thats_fine",
+     "word": "That's fine.",
+     "pos": "会話の表現",
+     "ja": "それでいい・だいじょうぶ",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "A: We only have tea. B: {That's fine}.",
+      "ja": "A：紅茶しかないけど。　B：それでいいよ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S152",
+   "cat": "shop",
+   "type": "記事",
+   "title": "コンビニのサービス",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Convenience stores are a part of {daily|daily} life in Japan.",
+     "ja": "コンビニは、日本の毎日の生活の一部になっている。"
+    },
+    {
+     "sp": "",
+     "en": "There are more than 50,000 stores across the country, and they {provide|provide} many {services|service}.",
+     "ja": "全国に5万店以上あり、たくさんのサービスを提供している。"
+    },
+    {
+     "sp": "",
+     "en": "You can {even|even} pay your {bills|bill} there.",
+     "ja": "料金のしはらいまでできる。"
+    }
+   ],
+   "note": "daily は「毎日の」。provide は「提供する」。service は「サービス・業務」。even は「～でさえ・～まで」。bill は「請求書・料金」。",
+   "grammar": {
+    "name": "You can ～（一般の人を表す you）",
+    "text": "「（だれでも）～できる」。you が「あなた」ではなく、人々全体を指すことがある。"
+   },
+   "items": [
+    {
+     "id": "daily",
+     "word": "daily",
+     "pos": "形容詞",
+     "ja": "毎日の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I read the {daily} newspaper.",
+      "ja": "毎日、新聞を読んでいる。"
+     }
+    },
+    {
+     "id": "provide",
+     "word": "provide",
+     "pos": "動詞",
+     "ja": "提供する・あたえる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The school {provides} lunch for students.",
+      "ja": "学校は生徒に昼食を出している。"
+     }
+    },
+    {
+     "id": "service",
+     "word": "service",
+     "pos": "名詞",
+     "ja": "サービス・業務",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {service} at this hotel is excellent.",
+      "ja": "このホテルのサービスはすばらしい。"
+     }
+    },
+    {
+     "id": "even",
+     "word": "even",
+     "pos": "副詞",
+     "ja": "～でさえ・～まで",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "He {even} cleaned the bathroom!",
+      "ja": "彼はおふろのそうじまでした！"
+     }
+    },
+    {
+     "id": "bill",
+     "word": "bill",
+     "pos": "名詞",
+     "ja": "請求書・料金・勘定",
+     "src": "単語",
+     "other": "紙幣（a 1,000-yen bill＝千円札）",
+     "check": {
+      "en": "I paid the electricity {bill}.",
+      "ja": "電気料金をはらった。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S153",
+   "cat": "shop",
+   "type": "会話",
+   "title": "海外の市場で",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "How much are these apples?",
+     "ja": "このリンゴはいくらですか？"
+    },
+    {
+     "sp": "B",
+     "en": "Two dollars {per|per} {pound|pound}.",
+     "ja": "1ポンドあたり2ドルです。"
+    },
+    {
+     "sp": "A",
+     "en": "That's a {fair|fair} price. I'll take three pounds.",
+     "ja": "手ごろな値段ですね。3ポンドください。"
+    }
+   ],
+   "note": "per は「～につき・～あたり」。pound は重さの単位（約450グラム）で、イギリスのお金の単位でもある。fair は「公平な・適正な」。",
+   "grammar": {
+    "name": "How much are ～?",
+    "text": "「～はいくらですか？」。名詞が複数なら are、1つなら is。"
+   },
+   "items": [
+    {
+     "id": "per",
+     "word": "per",
+     "pos": "前置詞",
+     "ja": "～につき・～あたり",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The bus costs 200 yen {per} person.",
+      "ja": "バスは1人200円だ。"
+     }
+    },
+    {
+     "id": "pound",
+     "word": "pound",
+     "pos": "名詞",
+     "ja": "ポンド（重さ・お金の単位）",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Sugar is sold by the {pound} in America.",
+      "ja": "アメリカでは、砂糖はポンド単位で売られている。"
+     }
+    },
+    {
+     "id": "fair",
+     "word": "fair",
+     "pos": "形容詞",
+     "ja": "公平な・適正な",
+     "src": "単語",
+     "other": "（名詞）見本市・フェア／（天気が）晴れの",
+     "check": {
+      "en": "It's not {fair}! He got more cake.",
+      "ja": "ずるい！ 彼のほうがケーキが多い。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S154",
+   "cat": "shop",
+   "type": "会話",
+   "title": "冷蔵庫を買いかえる",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "We need a new {refrigerator|refrigerator}. The old one uses too much {electricity|electricity}.",
+     "ja": "新しい冷蔵庫がいるね。古いのは電気を使いすぎるから。"
+    },
+    {
+     "sp": "B",
+     "en": "This one saves energy. It has a large {freezer|freezer} {as well|a_as_well}.",
+     "ja": "これは省エネだよ。大きな冷凍室もついてる。"
+    },
+    {
+     "sp": "A",
+     "en": "Nice. Let's get this one.",
+     "ja": "いいね。これにしよう。"
+    }
+   ],
+   "note": "refrigerator は「冷蔵庫」（短く fridge とも言う）。freezer は「冷凍庫・冷凍室」。A as well は「Aも（また）」で、too と同じように文の最後に置く。",
+   "grammar": {
+    "name": "one（前に出た名詞のかわり）",
+    "text": "The old one＝「古い冷蔵庫」。this one＝「こちらの冷蔵庫」。"
+   },
+   "items": [
+    {
+     "id": "refrigerator",
+     "word": "refrigerator",
+     "pos": "名詞",
+     "ja": "冷蔵庫",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Put the milk in the {refrigerator}.",
+      "ja": "牛乳を冷蔵庫に入れて。"
+     }
+    },
+    {
+     "id": "electricity",
+     "word": "electricity",
+     "pos": "名詞",
+     "ja": "電気",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This car runs on {electricity}.",
+      "ja": "この車は電気で走る。"
+     }
+    },
+    {
+     "id": "freezer",
+     "word": "freezer",
+     "pos": "名詞",
+     "ja": "冷凍庫",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "There's ice cream in the {freezer}.",
+      "ja": "冷凍庫にアイスがあるよ。"
+     }
+    },
+    {
+     "id": "a_as_well",
+     "word": "A as well",
+     "pos": "熟語",
+     "ja": "Aも（また）",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I like cats, and I like dogs {as well}.",
+      "ja": "ねこが好きで、犬も好き。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S155",
+   "cat": "travel",
+   "type": "会話",
+   "title": "バスのりば",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Excuse me. How much is the bus {fare|fare} to the station?",
+     "ja": "すみません。駅までのバス代はいくらですか？"
+    },
+    {
+     "sp": "B",
+     "en": "It's 230 yen. Please have the {exact|exact} change ready.",
+     "ja": "230円です。おつりのいらないように、ちょうどのお金を用意してください。"
+    },
+    {
+     "sp": "A",
+     "en": "OK. Should I wait {in line|in_line} here?",
+     "ja": "わかりました。ここに並んで待てばいいですか？"
+    },
+    {
+     "sp": "B",
+     "en": "Yes. The bus will come soon.",
+     "ja": "はい。バスはすぐ来ますよ。"
+    }
+   ],
+   "note": "fare は「（乗り物の）運賃」で、入場料などの fee とはちがう。exact は「正確な・ちょうどの」。in line は「列に並んで」。",
+   "grammar": {
+    "name": "have ～ ready",
+    "text": "「～を用意しておく」。〈have＋もの＋形容詞〉で、ものをその状態にしておく。"
+   },
+   "items": [
+    {
+     "id": "fare",
+     "word": "fare",
+     "pos": "名詞",
+     "ja": "（乗り物の）運賃",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Train {fares} went up this year.",
+      "ja": "今年、電車の運賃が上がった。"
+     }
+    },
+    {
+     "id": "exact",
+     "word": "exact",
+     "pos": "形容詞",
+     "ja": "正確な・ちょうどの",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "What's the {exact} time?",
+      "ja": "正確な時間は何時？"
+     }
+    },
+    {
+     "id": "in_line",
+     "word": "in line",
+     "pos": "熟語",
+     "ja": "列に並んで",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "We waited {in line} for an hour.",
+      "ja": "1時間並んで待った。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S156",
+   "cat": "travel",
+   "type": "会話",
+   "title": "飛行機の中",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Welcome {aboard|aboard}. Our {airline|airline} wishes you a pleasant flight.",
+     "ja": "ご搭乗ありがとうございます。快適な空の旅をお楽しみください。"
+    },
+    {
+     "sp": "B",
+     "en": "Excuse me. Can I {take off|take_off} my jacket?",
+     "ja": "すみません。上着をぬいでもいいですか？"
+    },
+    {
+     "sp": "A",
+     "en": "Of course. We'll serve drinks {in a minute|in_a_minute}.",
+     "ja": "もちろんです。まもなくお飲み物をお出しします。"
+    }
+   ],
+   "note": "aboard は「（乗り物に）乗って」。airline は「航空会社」。take off ～ は「（服などを）ぬぐ」。in a minute は「すぐに・まもなく」。",
+   "grammar": {
+    "name": "Welcome aboard.",
+    "text": "「ご乗車（ご搭乗）ありがとうございます」。乗り物に乗った客にかける決まった言葉。"
+   },
+   "items": [
+    {
+     "id": "aboard",
+     "word": "aboard",
+     "pos": "副詞",
+     "ja": "（乗り物に）乗って",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "All the passengers are {aboard}.",
+      "ja": "乗客は全員乗っている。"
+     }
+    },
+    {
+     "id": "airline",
+     "word": "airline",
+     "pos": "名詞",
+     "ja": "航空会社",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Which {airline} are you flying with?",
+      "ja": "どの航空会社の飛行機に乗るの？"
+     }
+    },
+    {
+     "id": "take_off",
+     "word": "take off ～",
+     "pos": "熟語",
+     "ja": "（服などを）ぬぐ・はずす",
+     "src": "熟語",
+     "other": "（飛行機が）離陸する（The plane took off.）",
+     "check": {
+      "en": "{Take off} your shoes here.",
+      "ja": "ここでくつをぬいでください。"
+     }
+    },
+    {
+     "id": "in_a_minute",
+     "word": "in a minute",
+     "pos": "熟語",
+     "ja": "すぐに・まもなく",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I'll be ready {in a minute}.",
+      "ja": "すぐに準備できるよ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S157",
+   "cat": "travel",
+   "type": "記事",
+   "title": "オーストラリアの首都",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Canberra is the {capital|capital} of Australia. Many people think Sydney is the capital, but it isn't.",
+     "ja": "オーストラリアの首都はキャンベラだ。シドニーが首都だと思っている人が多いが、ちがう。"
+    },
+    {
+     "sp": "",
+     "en": "Canberra is {located|locate} between Sydney and Melbourne, and many {national|national} offices are there.",
+     "ja": "キャンベラはシドニーとメルボルンの間にあり、国の役所がたくさん置かれている。"
+    },
+    {
+     "sp": "",
+     "en": "Its {population|population} is much smaller than Sydney's.",
+     "ja": "人口はシドニーよりずっと少ない。"
+    }
+   ],
+   "note": "capital は「首都」。be located ～ は「～にある・位置している」。population は「人口」で、多い・少ないは large・small で表す。",
+   "grammar": {
+    "name": "much＋比較級",
+    "text": "「ずっと～」。much smaller＝「ずっと小さい」。very は比較級には使わない。"
+   },
+   "items": [
+    {
+     "id": "capital",
+     "word": "capital",
+     "pos": "名詞",
+     "ja": "首都",
+     "src": "単語",
+     "other": "大文字（capital letter）／資本",
+     "check": {
+      "en": "Tokyo is the {capital} of Japan.",
+      "ja": "東京は日本の首都だ。"
+     }
+    },
+    {
+     "id": "locate",
+     "word": "locate",
+     "pos": "動詞",
+     "ja": "（be located で）～にある・位置する",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The hotel is {located} near the beach.",
+      "ja": "そのホテルは海辺の近くにある。"
+     }
+    },
+    {
+     "id": "national",
+     "word": "national",
+     "pos": "形容詞",
+     "ja": "国の・国民の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Today is a {national} holiday.",
+      "ja": "今日は国民の祝日だ。"
+     }
+    },
+    {
+     "id": "population",
+     "word": "population",
+     "pos": "名詞",
+     "ja": "人口",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "What is the {population} of your town?",
+      "ja": "あなたの町の人口はどのくらい？"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S158",
+   "cat": "travel",
+   "type": "会話",
+   "title": "ホストファミリーの家に着いた",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Welcome! You must be our {guest|guest} from Japan.",
+     "ja": "ようこそ！ 日本から来たお客さんね。"
+    },
+    {
+     "sp": "B",
+     "en": "Yes. Nice to meet you. Here's a small present.",
+     "ja": "はい。はじめまして。これ、ささやかなプレゼントです。"
+    },
+    {
+     "sp": "A",
+     "en": "Thank you! Please {take a seat|take_a_seat}. Would you like something to drink?",
+     "ja": "ありがとう！ どうぞ座って。何か飲む？"
+    },
+    {
+     "sp": "B",
+     "en": "{If you don't mind|if_you_dont_mind}, I'd like some water.",
+     "ja": "もしよろしければ、お水をいただきたいです。"
+    }
+   ],
+   "note": "guest は「お客・招待客」。take a seat は「座る」で、sit down よりていねいな言い方。If you don't mind, ～ は「もしよろしければ～」。",
+   "grammar": {
+    "name": "Here's ～.",
+    "text": "「これが～です（どうぞ）」。ものを手わたすときに使う。"
+   },
+   "items": [
+    {
+     "id": "guest",
+     "word": "guest",
+     "pos": "名詞",
+     "ja": "お客・招待客",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "We have {guests} coming tonight.",
+      "ja": "今夜はお客さんが来る。"
+     }
+    },
+    {
+     "id": "take_a_seat",
+     "word": "take a seat",
+     "pos": "熟語",
+     "ja": "座る・席につく",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Please {take a seat} and wait.",
+      "ja": "おかけになってお待ちください。"
+     }
+    },
+    {
+     "id": "if_you_dont_mind",
+     "word": "If you don't mind.",
+     "pos": "会話の表現",
+     "ja": "もしよろしければ・さしつかえなければ",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "{If you don't mind}, I'll open the window.",
+      "ja": "よろしければ、窓を開けますね。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S159",
+   "cat": "travel",
+   "type": "会話",
+   "title": "雨の日の予定",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "The weather {forecast|forecast} says it will rain all day.",
+     "ja": "天気予報では、一日じゅう雨だって。"
+    },
+    {
+     "sp": "B",
+     "en": "Then let's do something {indoor|indoor}. How about the museum {instead|instead}?",
+     "ja": "じゃあ、何か室内でできることをしよう。かわりに博物館はどう？"
+    },
+    {
+     "sp": "A",
+     "en": "Good idea. Oh, wait. I {changed my mind|change_ones_mind}. Let's go shopping!",
+     "ja": "いい考え。あ、待って。気が変わった。買い物に行こう！"
+    }
+   ],
+   "note": "forecast は「予報」。indoor は「室内の」（反対は outdoor）。instead は「かわりに」で、文の最後に置く。change one's mind は「気が変わる・考えを変える」。",
+   "grammar": {
+    "name": "～ says (that) …",
+    "text": "「～によると…だ」。The forecast says ～＝「予報では～と言っている」。"
+   },
+   "items": [
+    {
+     "id": "forecast",
+     "word": "forecast",
+     "pos": "名詞・動詞",
+     "ja": "予報（する）",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Did you check the weather {forecast}?",
+      "ja": "天気予報を見た？"
+     }
+    },
+    {
+     "id": "indoor",
+     "word": "indoor",
+     "pos": "形容詞",
+     "ja": "室内の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The hotel has an {indoor} pool.",
+      "ja": "そのホテルには室内プールがある。"
+     }
+    },
+    {
+     "id": "instead",
+     "word": "instead",
+     "pos": "副詞",
+     "ja": "かわりに",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I didn't have tea. I had coffee {instead}.",
+      "ja": "紅茶は飲まずに、かわりにコーヒーを飲んだ。"
+     }
+    },
+    {
+     "id": "change_ones_mind",
+     "word": "change one's mind",
+     "pos": "熟語",
+     "ja": "気が変わる・考えを変える",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "She {changed her mind} and stayed home.",
+      "ja": "彼女は気が変わって家にいた。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S160",
+   "cat": "travel",
+   "type": "メール",
+   "title": "予約の取り消し",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Dear Sunny Hotel,",
+     "ja": "サニーホテルご担当者様"
+    },
+    {
+     "sp": "",
+     "en": "I {made a reservation|make_a_reservation} for June 3, but I need to {cancel|cancel} it.",
+     "ja": "6月3日の予約をしましたが、取り消す必要があります。"
+    },
+    {
+     "sp": "",
+     "en": "Please {reply|reply} {as soon as possible|as_soon_as_possible}.  Thank you, Mika Ito",
+     "ja": "できるだけ早くお返事をください。　伊藤ミカ"
+    }
+   ],
+   "note": "make a reservation は「予約する」。cancel は「取り消す・中止する」。reply は「返事をする」（reply to ～＝～に返事をする）。as soon as possible は「できるだけ早く」（ASAP とも書く）。",
+   "grammar": {
+    "name": "as ～ as possible",
+    "text": "「できるだけ～」。as soon as possible＝「できるだけ早く」。"
+   },
+   "items": [
+    {
+     "id": "make_a_reservation",
+     "word": "make a reservation",
+     "pos": "熟語",
+     "ja": "予約する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I'd like to {make a reservation} for dinner.",
+      "ja": "夕食の予約をしたいのですが。"
+     }
+    },
+    {
+     "id": "cancel",
+     "word": "cancel",
+     "pos": "動詞",
+     "ja": "取り消す・中止する",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The game was {canceled} because of the rain.",
+      "ja": "試合は雨で中止になった。"
+     }
+    },
+    {
+     "id": "reply",
+     "word": "reply",
+     "pos": "動詞・名詞",
+     "ja": "返事をする・返事",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Please {reply} to my email.",
+      "ja": "メールに返事をください。"
+     }
+    },
+    {
+     "id": "as_soon_as_possible",
+     "word": "as soon as possible",
+     "pos": "熟語",
+     "ja": "できるだけ早く",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Please call me back {as soon as possible}.",
+      "ja": "できるだけ早く折り返し電話してください。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S161",
+   "cat": "health",
+   "type": "会話",
+   "title": "熱があるかも",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "You look {pale|pale}. Let me take your {temperature|temperature}.",
+     "ja": "顔色が悪いね。熱をはかってみよう。"
+    },
+    {
+     "sp": "B",
+     "en": "Is it high?",
+     "ja": "高い？"
+    },
+    {
+     "sp": "A",
+     "en": "38 {degrees|degree}. You{'re likely to|be_likely_to} have the flu. Let's go to the {medical|medical} center.",
+     "ja": "38度。インフルエンザかもしれない。医療センターに行こう。"
+    }
+   ],
+   "note": "pale は「（顔色が）青白い」。temperature は「温度・体温」で、take one's temperature は「体温をはかる」。be likely to ～ は「～しそうだ・たぶん～だ」。",
+   "grammar": {
+    "name": "be likely to ～",
+    "text": "「～しそうだ・～する可能性が高い」。It is likely to snow.＝「雪が降りそうだ」。"
+   },
+   "items": [
+    {
+     "id": "pale",
+     "word": "pale",
+     "pos": "形容詞",
+     "ja": "（顔色が）青白い・（色が）うすい",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "You look {pale}. Are you OK?",
+      "ja": "顔色が悪いよ。だいじょうぶ？"
+     }
+    },
+    {
+     "id": "temperature",
+     "word": "temperature",
+     "pos": "名詞",
+     "ja": "温度・気温・体温",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The {temperature} today is 30 degrees.",
+      "ja": "今日の気温は30度だ。"
+     }
+    },
+    {
+     "id": "degree",
+     "word": "degree",
+     "pos": "名詞",
+     "ja": "（温度・角度の）度",
+     "src": "単語",
+     "other": "学位（a degree in science）",
+     "check": {
+      "en": "Water boils at 100 {degrees}.",
+      "ja": "水は100度でふっとうする。"
+     }
+    },
+    {
+     "id": "be_likely_to",
+     "word": "be likely to ～",
+     "pos": "熟語",
+     "ja": "～しそうだ・たぶん～だ",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "It {is likely to} snow tonight.",
+      "ja": "今夜は雪が降りそうだ。"
+     }
+    },
+    {
+     "id": "medical",
+     "word": "medical",
+     "pos": "形容詞",
+     "ja": "医療の・医学の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "She wants to go to {medical} school.",
+      "ja": "彼女は医学部に行きたいと思っている。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S162",
+   "cat": "health",
+   "type": "記事",
+   "title": "歯を大切に",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Brushing your teeth after meals is a good {habit|habit}.",
+     "ja": "食後の歯みがきは、よい習慣だ。"
+    },
+    {
+     "sp": "",
+     "en": "Sugar in drinks can {cause|cause} tooth problems. Too many sweets {do|do_harm} your teeth {harm|do_harm}.",
+     "ja": "飲み物の砂糖は歯のトラブルの原因になる。あまいものの食べすぎは歯に悪い。"
+    },
+    {
+     "sp": "",
+     "en": "Visit a {dental|dental} {clinic|clinic} at least once a year.",
+     "ja": "少なくとも1年に1回は歯医者さんに行こう。"
+    }
+   ],
+   "note": "habit は「（個人の）習慣・くせ」。cause は「～を引き起こす・～の原因になる」。do ～ harm は「～に害をあたえる」。dental は「歯の」。",
+   "grammar": {
+    "name": "動名詞が主語（Brushing your teeth is ～）",
+    "text": "「歯をみがくことは～」。-ing の形が「～すること」として主語になる。"
+   },
+   "items": [
+    {
+     "id": "habit",
+     "word": "habit",
+     "pos": "名詞",
+     "ja": "（個人の）習慣・くせ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Reading before bed is a good {habit}.",
+      "ja": "ねる前の読書はいい習慣だ。"
+     }
+    },
+    {
+     "id": "cause",
+     "word": "cause",
+     "pos": "動詞・名詞",
+     "ja": "引き起こす・原因",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Strong winds {caused} the accident.",
+      "ja": "強い風がその事故を引き起こした。"
+     }
+    },
+    {
+     "id": "do_harm",
+     "word": "do ～ harm",
+     "pos": "熟語",
+     "ja": "～に害をあたえる",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Too much sun can {do} your skin {harm}.",
+      "ja": "日に当たりすぎると、肌に悪い。"
+     }
+    },
+    {
+     "id": "dental",
+     "word": "dental",
+     "pos": "形容詞",
+     "ja": "歯の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I have a {dental} checkup tomorrow.",
+      "ja": "明日、歯の検診がある。"
+     }
+    },
+    {
+     "id": "clinic",
+     "word": "clinic",
+     "pos": "名詞",
+     "ja": "診療所・クリニック",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "My mother works at a {clinic}.",
+      "ja": "母は診療所で働いている。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S163",
+   "cat": "health",
+   "type": "会話",
+   "title": "食物アレルギー",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Does this cookie {contain|contain} nuts? My friend has a {serious|serious} nut allergy.",
+     "ja": "このクッキー、ナッツが入ってる？ 友だちにひどいナッツアレルギーがあるの。"
+    },
+    {
+     "sp": "B",
+     "en": "Yes, it does. She should {stay away from|stay_away_from} it.",
+     "ja": "うん、入ってる。その子は食べないほうがいいね。"
+    },
+    {
+     "sp": "A",
+     "en": "Thanks for telling me.",
+     "ja": "教えてくれてありがとう。"
+    }
+   ],
+   "note": "contain は「（中に）ふくむ」。serious は「深刻な・重い」。stay away from ～ は「～に近づかない・～をさける」。",
+   "grammar": {
+    "name": "Yes, it does.",
+    "text": "Does ～? の質問には does を使って答える。No なら No, it doesn't.。"
+   },
+   "items": [
+    {
+     "id": "contain",
+     "word": "contain",
+     "pos": "動詞",
+     "ja": "ふくむ・入っている",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This drink {contains} a lot of sugar.",
+      "ja": "この飲み物にはたくさんの砂糖が入っている。"
+     }
+    },
+    {
+     "id": "serious",
+     "word": "serious",
+     "pos": "形容詞",
+     "ja": "深刻な・重い",
+     "src": "単語",
+     "other": "まじめな・本気の（Are you serious?＝本気なの？）",
+     "check": {
+      "en": "It was a {serious} accident.",
+      "ja": "それは重大な事故だった。"
+     }
+    },
+    {
+     "id": "stay_away_from",
+     "word": "stay away from ～",
+     "pos": "熟語",
+     "ja": "～に近づかない・～をさける",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{Stay away from} the fire.",
+      "ja": "火に近づかないで。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S164",
+   "cat": "health",
+   "type": "会話",
+   "title": "ひざのけが",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Ouch! I hurt my {knee|knee} during practice.",
+     "ja": "いたっ！ 練習中にひざをいためちゃった。"
+    },
+    {
+     "sp": "B",
+     "en": "Put some ice on it and {take it easy|take_it_easy}.",
+     "ja": "氷で冷やして、むりしないでね。"
+    },
+    {
+     "sp": "A",
+     "en": "Can I play in the game this weekend?",
+     "ja": "今週末の試合に出られるかな？"
+    },
+    {
+     "sp": "B",
+     "en": "You should rest {for a while|for_a_while}.",
+     "ja": "しばらくは休んだほうがいいよ。"
+    }
+   ],
+   "note": "knee は「ひざ」（k は読まない）。take it easy は「むりをしない・のんびりする」。for a while は「しばらくの間」。",
+   "grammar": {
+    "name": "hurt one's ～",
+    "text": "「（体の部分を）いためる・けがをする」。hurt の過去形も hurt。"
+   },
+   "items": [
+    {
+     "id": "knee",
+     "word": "knee",
+     "pos": "名詞",
+     "ja": "ひざ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I fell and hurt my {knee}.",
+      "ja": "ころんでひざをけがした。"
+     }
+    },
+    {
+     "id": "take_it_easy",
+     "word": "take it easy",
+     "pos": "熟語",
+     "ja": "むりをしない・のんびりする",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "You worked hard. {Take it easy} this weekend.",
+      "ja": "がんばったね。今週末はのんびりしてね。"
+     }
+    },
+    {
+     "id": "for_a_while",
+     "word": "for a while",
+     "pos": "熟語",
+     "ja": "しばらくの間",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "Let's sit here {for a while}.",
+      "ja": "しばらくここに座ろう。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S165",
+   "cat": "health",
+   "type": "記事",
+   "title": "歩くことのよい点",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Walking has many good {effects|effect} on your body.",
+     "ja": "歩くことは、体にたくさんのよい効果がある。"
+    },
+    {
+     "sp": "",
+     "en": "It makes your {heart|heart} stronger and builds the {strength|strength} of your legs.",
+     "ja": "心臓を強くし、足の力をつける。"
+    },
+    {
+     "sp": "",
+     "en": "{In general|in_general}, walking 30 minutes a day is {enough|enough}.",
+     "ja": "一般に、1日30分歩けば十分だ。"
+    }
+   ],
+   "note": "effect は「効果・影響」（have an effect on ～＝～に影響をあたえる）。strength は「力・強さ」（形容詞は strong）。in general は「一般に・ふつうは」。",
+   "grammar": {
+    "name": "make＋もの＋形容詞",
+    "text": "「～を…にする」。makes your heart stronger＝「心臓をより強くする」。"
+   },
+   "items": [
+    {
+     "id": "effect",
+     "word": "effect",
+     "pos": "名詞",
+     "ja": "効果・影響",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "This medicine has no side {effects}.",
+      "ja": "この薬には副作用がない。"
+     }
+    },
+    {
+     "id": "heart",
+     "word": "heart",
+     "pos": "名詞",
+     "ja": "心臓・心",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Exercise is good for your {heart}.",
+      "ja": "運動は心臓にいい。"
+     }
+    },
+    {
+     "id": "strength",
+     "word": "strength",
+     "pos": "名詞",
+     "ja": "力・強さ",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "He has the {strength} to lift the box.",
+      "ja": "彼にはその箱を持ち上げる力がある。"
+     }
+    },
+    {
+     "id": "in_general",
+     "word": "in general",
+     "pos": "熟語",
+     "ja": "一般に・ふつうは",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{In general}, cats sleep a lot.",
+      "ja": "一般に、ねこはよくねる。"
+     }
+    },
+    {
+     "id": "enough",
+     "word": "enough",
+     "pos": "形容詞・副詞",
+     "ja": "十分な・十分に",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "We have {enough} chairs for everyone.",
+      "ja": "全員分のいすがある。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S166",
+   "cat": "contact",
+   "type": "会話",
+   "title": "お父さんからの電話",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Mom, Dad called. He said he's {in trouble|be_in_trouble}.",
+     "ja": "お母さん、お父さんから電話があったよ。困ってるって。"
+    },
+    {
+     "sp": "B",
+     "en": "{What's the problem|whats_the_problem}?",
+     "ja": "どうしたの？"
+    },
+    {
+     "sp": "A",
+     "en": "His car {broke down|break_down} on the {highway|highway}.",
+     "ja": "高速道路で車がこわれて動かなくなったんだって。"
+    },
+    {
+     "sp": "B",
+     "en": "Oh no. Well, he can {rely on|rely_on} the road service.",
+     "ja": "あらまあ。でも、ロードサービスにたよれるわね。"
+    }
+   ],
+   "note": "be in trouble は「困っている」。break down は「（機械が）こわれる・故障する」。highway は「幹線道路・高速道路」。rely on ～ は「～にたよる」。",
+   "grammar": {
+    "name": "He said (that) ～",
+    "text": "「彼は～と言った」。言った内容を〈主語＋動詞〉で続ける。"
+   },
+   "items": [
+    {
+     "id": "be_in_trouble",
+     "word": "be in trouble",
+     "pos": "熟語",
+     "ja": "困っている・トラブルになっている",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "If you {are in trouble}, call me.",
+      "ja": "困ったら電話してね。"
+     }
+    },
+    {
+     "id": "whats_the_problem",
+     "word": "What's the problem?",
+     "pos": "会話の表現",
+     "ja": "どうしたの？・何が問題なの？",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "You look upset. {What's the problem}?",
+      "ja": "落ちこんでるね。どうしたの？"
+     }
+    },
+    {
+     "id": "break_down",
+     "word": "break down",
+     "pos": "熟語",
+     "ja": "（機械が）こわれる・故障する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "My computer {broke down} again.",
+      "ja": "またパソコンがこわれた。"
+     }
+    },
+    {
+     "id": "highway",
+     "word": "highway",
+     "pos": "名詞",
+     "ja": "幹線道路・高速道路",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "We drove on the {highway} to Nagoya.",
+      "ja": "名古屋まで高速道路を走った。"
+     }
+    },
+    {
+     "id": "rely_on",
+     "word": "rely on ～",
+     "pos": "熟語",
+     "ja": "～にたよる・～をあてにする",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "You can {rely on} me.",
+      "ja": "ぼくにまかせて。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S167",
+   "cat": "contact",
+   "type": "メッセージ",
+   "title": "話し合いの連絡",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Hi team, just to {remind|remind} you, we have a meeting tomorrow after school.",
+     "ja": "みんなへ。念のため、明日の放課後に話し合いがあります。"
+    },
+    {
+     "sp": "",
+     "en": "We'll discuss a few {issues|issue} about the presentation.",
+     "ja": "発表について、いくつかの問題を話し合います。"
+    },
+    {
+     "sp": "",
+     "en": "The meeting {will be over|be_over} by five.  — Kana",
+     "ja": "話し合いは5時までに終わります。　カナ"
+    }
+   ],
+   "note": "remind は「思い出させる・念をおす」。issue は「問題・話題」。be over は「終わる」。",
+   "grammar": {
+    "name": "just to ～",
+    "text": "「～するためだけに・念のため～」。just to remind you＝「念のためにお知らせすると」。"
+   },
+   "items": [
+    {
+     "id": "remind",
+     "word": "remind",
+     "pos": "動詞",
+     "ja": "思い出させる・念をおす",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "{Remind} me to buy milk.",
+      "ja": "牛乳を買うのを忘れないように言ってね。"
+     }
+    },
+    {
+     "id": "issue",
+     "word": "issue",
+     "pos": "名詞",
+     "ja": "問題・話題",
+     "src": "単語",
+     "other": "（雑誌などの）号（the May issue＝5月号）",
+     "check": {
+      "en": "Climate change is a big {issue}.",
+      "ja": "気候変動は大きな問題だ。"
+     }
+    },
+    {
+     "id": "be_over",
+     "word": "～ be over.",
+     "pos": "会話の表現",
+     "ja": "～が終わる",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "Summer vacation {is over}.",
+      "ja": "夏休みが終わった。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S168",
+   "cat": "contact",
+   "type": "メール",
+   "title": "先生への相談メール",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Dear Mr. Brown,",
+     "ja": "ブラウン先生へ"
+    },
+    {
+     "sp": "",
+     "en": "{To tell you the truth|to_tell_you_the_truth}, I was {confused|confuse} during today's {lecture|lecture}.",
+     "ja": "正直に言うと、今日の講義でわからなくなってしまいました。"
+    },
+    {
+     "sp": "",
+     "en": "Could you explain the last part again next time?  Thank you, Sora",
+     "ja": "次回、最後のところをもう一度説明していただけますか？　ソラ"
+    }
+   ],
+   "note": "To tell you the truth, ～ は「正直に言うと～」。confuse は「混乱させる」で、人が混乱しているときは be confused と言う。lecture は「講義・講演」。",
+   "grammar": {
+    "name": "be confused（気持ちの受け身）",
+    "text": "confuse は「混乱させる」なので、人が「わからなくなっている」は be confused。"
+   },
+   "items": [
+    {
+     "id": "to_tell_you_the_truth",
+     "word": "To tell you the truth, ～.",
+     "pos": "会話の表現",
+     "ja": "正直に言うと～",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "{To tell you the truth}, I don't like spicy food.",
+      "ja": "正直に言うと、からい食べ物はにがてなんだ。"
+     }
+    },
+    {
+     "id": "confuse",
+     "word": "confuse",
+     "pos": "動詞",
+     "ja": "混乱させる・まごつかせる",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The new rules {confused} the students.",
+      "ja": "新しい規則に生徒たちはとまどった。"
+     }
+    },
+    {
+     "id": "lecture",
+     "word": "lecture",
+     "pos": "名詞",
+     "ja": "講義・講演",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The professor gave a {lecture} on history.",
+      "ja": "教授は歴史について講義をした。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S169",
+   "cat": "contact",
+   "type": "会話",
+   "title": "ビデオ通話",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Can you hear me? The {connection|connection} is bad.",
+     "ja": "聞こえる？ 通信の状態が悪いね。"
+    },
+    {
+     "sp": "B",
+     "en": "I can see you, but your voice keeps cutting out.",
+     "ja": "顔は見えるけど、声がとぎれとぎれだよ。"
+    },
+    {
+     "sp": "A",
+     "en": "Let me {connect|connect} to a different {network|network}.",
+     "ja": "別のネットワークにつないでみるね。"
+    },
+    {
+     "sp": "B",
+     "en": "OK. I'll wait five minutes {or so|or_so}.",
+     "ja": "わかった。5分くらい待つね。"
+    }
+   ],
+   "note": "connection は「接続・つながり」（動詞は connect）。network は「ネットワーク・網」。～ or so は「～くらい」。",
+   "grammar": {
+    "name": "keep ～ing",
+    "text": "「～し続ける」。keeps cutting out＝「とぎれ続ける」。"
+   },
+   "items": [
+    {
+     "id": "connection",
+     "word": "connection",
+     "pos": "名詞",
+     "ja": "接続・つながり",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The internet {connection} is slow.",
+      "ja": "インターネットの接続がおそい。"
+     }
+    },
+    {
+     "id": "connect",
+     "word": "connect",
+     "pos": "動詞",
+     "ja": "つなぐ・接続する",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "{Connect} the cable to the TV.",
+      "ja": "ケーブルをテレビにつないで。"
+     }
+    },
+    {
+     "id": "network",
+     "word": "network",
+     "pos": "名詞",
+     "ja": "ネットワーク・網",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The school has a computer {network}.",
+      "ja": "学校にはコンピューターのネットワークがある。"
+     }
+    },
+    {
+     "id": "or_so",
+     "word": "～ or so.",
+     "pos": "会話の表現",
+     "ja": "～くらい",
+     "src": "会話",
+     "other": "",
+     "check": {
+      "en": "It takes ten minutes {or so}.",
+      "ja": "10分くらいかかる。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S170",
+   "cat": "contact",
+   "type": "会話",
+   "title": "フランスへの手紙",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "I want to send this letter to my friend in France.",
+     "ja": "この手紙をフランスの友だちに送りたいんだ。"
+    },
+    {
+     "sp": "B",
+     "en": "Send it by {airmail|airmail}. It takes about a week. {By sea|by_sea}, it can take two months.",
+     "ja": "航空便で送りなよ。1週間くらいで着くよ。船便だと2か月かかることもあるから。"
+    },
+    {
+     "sp": "A",
+     "en": "OK. Let's {send it out|send_out} today.",
+     "ja": "わかった。今日出そう。"
+    }
+   ],
+   "note": "airmail は「航空便」。by sea は「船で・海路で」（by air＝飛行機で）。send out ～ は「～を送り出す・発送する」。",
+   "grammar": {
+    "name": "It takes ～.",
+    "text": "「（時間が）～かかる」。It takes about a week.＝「1週間くらいかかる」。"
+   },
+   "items": [
+    {
+     "id": "airmail",
+     "word": "airmail",
+     "pos": "名詞",
+     "ja": "航空便",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "I sent the package by {airmail}.",
+      "ja": "その荷物を航空便で送った。"
+     }
+    },
+    {
+     "id": "by_sea",
+     "word": "by sea",
+     "pos": "熟語",
+     "ja": "船で・海路で",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "The goods were sent {by sea}.",
+      "ja": "その品物は船便で送られた。"
+     }
+    },
+    {
+     "id": "send_out",
+     "word": "send out ～",
+     "pos": "熟語",
+     "ja": "～を送り出す・発送する",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "The school {sent out} letters to parents.",
+      "ja": "学校は保護者に手紙を出した。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S171",
+   "cat": "town",
+   "type": "記事",
+   "title": "町のお城",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Our town has an old {castle|castle} built about 400 years ago.",
+     "ja": "私たちの町には、約400年前に建てられた古い城がある。"
+    },
+    {
+     "sp": "",
+     "en": "In front of the castle, there is a {statue|statue} of the lord who built it.",
+     "ja": "城の前には、城を建てた殿様の像がある。"
+    },
+    {
+     "sp": "",
+     "en": "The castle is a {symbol|symbol} of our town. Some {ancient|ancient} tools were found near it.",
+     "ja": "城は町のシンボルだ。その近くでは、大昔の道具も見つかった。"
+    }
+   ],
+   "note": "statue は「像」。symbol は「象徴・シンボル」。ancient は「古代の・大昔の」。",
+   "grammar": {
+    "name": "過去分詞が名詞を説明（a castle built ～）",
+    "text": "「～に建てられた城」。過去分詞のかたまりが後ろから名詞を説明する。"
+   },
+   "items": [
+    {
+     "id": "castle",
+     "word": "castle",
+     "pos": "名詞",
+     "ja": "城",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The king lived in a big {castle}.",
+      "ja": "王様は大きな城に住んでいた。"
+     }
+    },
+    {
+     "id": "statue",
+     "word": "statue",
+     "pos": "名詞",
+     "ja": "像",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "There is a {statue} of a famous dog in front of the station.",
+      "ja": "駅の前に有名な犬の像がある。"
+     }
+    },
+    {
+     "id": "symbol",
+     "word": "symbol",
+     "pos": "名詞",
+     "ja": "象徴・シンボル・記号",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The dove is a {symbol} of peace.",
+      "ja": "ハトは平和の象徴だ。"
+     }
+    },
+    {
+     "id": "ancient",
+     "word": "ancient",
+     "pos": "形容詞",
+     "ja": "古代の・大昔の",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "We studied {ancient} Egypt in history class.",
+      "ja": "歴史の授業で古代エジプトについて学んだ。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S172",
+   "cat": "town",
+   "type": "お知らせ",
+   "title": "避難訓練のお知らせ",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Fire Drill Notice",
+     "ja": "避難訓練のお知らせ"
+    },
+    {
+     "sp": "",
+     "en": "On Friday at 10 a.m., we will have a fire drill.",
+     "ja": "金曜日の午前10時に、火災の避難訓練を行います。"
+    },
+    {
+     "sp": "",
+     "en": "When the alarm rings, leave the building {safely|safely} through the nearest {exit|exit}.",
+     "ja": "警報が鳴ったら、いちばん近い出口から安全に建物を出てください。"
+    },
+    {
+     "sp": "",
+     "en": "Please stay {together with|together_with} your class.",
+     "ja": "クラスのみんなといっしょに行動してください。"
+    }
+   ],
+   "note": "safely は「安全に」（形容詞は safe）。exit は「出口」（入口は entrance）。together with ～ は「～といっしょに」。",
+   "grammar": {
+    "name": "When ～,（～するとき）",
+    "text": "When the alarm rings,＝「警報が鳴ったら」。未来のことでも when のあとは現在形。"
+   },
+   "items": [
+    {
+     "id": "safely",
+     "word": "safely",
+     "pos": "副詞",
+     "ja": "安全に・無事に",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Drive {safely}.",
+      "ja": "安全運転してね。"
+     }
+    },
+    {
+     "id": "exit",
+     "word": "exit",
+     "pos": "名詞",
+     "ja": "出口",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Where is the emergency {exit}?",
+      "ja": "非常口はどこですか？"
+     }
+    },
+    {
+     "id": "together_with",
+     "word": "together with ～",
+     "pos": "熟語",
+     "ja": "～といっしょに",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I went to the park {together with} my dog.",
+      "ja": "犬といっしょに公園に行った。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S173",
+   "cat": "town",
+   "type": "記事",
+   "title": "町の農業",
+   "lines": [
+    {
+     "sp": "",
+     "en": "{Agriculture|agriculture} is important in our town.",
+     "ja": "私たちの町では、農業が大切だ。"
+    },
+    {
+     "sp": "",
+     "en": "Farmers grow many {crops|crop}, {such as|such_as} rice and vegetables.",
+     "ja": "農家の人は、米や野菜などたくさんの作物を育てている。"
+    },
+    {
+     "sp": "",
+     "en": "The {soil|soil} here is rich, and the {harvest|harvest} in fall is always good.",
+     "ja": "ここの土はゆたかで、秋の収穫はいつもよい。"
+    }
+   ],
+   "note": "agriculture は「農業」。crop は「作物」。soil は「土・土壌」。harvest は「収穫（する）」。such as ～ は「（たとえば）～のような」。",
+   "grammar": {
+    "name": "such as ～",
+    "text": "「～のような・たとえば～」。例をいくつかあげるときに使う。"
+   },
+   "items": [
+    {
+     "id": "agriculture",
+     "word": "agriculture",
+     "pos": "名詞",
+     "ja": "農業",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "{Agriculture} is a big industry in Hokkaido.",
+      "ja": "北海道では農業が大きな産業だ。"
+     }
+    },
+    {
+     "id": "crop",
+     "word": "crop",
+     "pos": "名詞",
+     "ja": "作物",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Rice is the main {crop} in this area.",
+      "ja": "この地域のおもな作物は米だ。"
+     }
+    },
+    {
+     "id": "such_as",
+     "word": "such as ～",
+     "pos": "熟語",
+     "ja": "（たとえば）～のような",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "I like fruits {such as} apples and grapes.",
+      "ja": "リンゴやブドウのようなくだものが好きだ。"
+     }
+    },
+    {
+     "id": "soil",
+     "word": "soil",
+     "pos": "名詞",
+     "ja": "土・土壌",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Plants need good {soil}.",
+      "ja": "植物にはよい土が必要だ。"
+     }
+    },
+    {
+     "id": "harvest",
+     "word": "harvest",
+     "pos": "名詞・動詞",
+     "ja": "収穫（する）",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The apple {harvest} was good this year.",
+      "ja": "今年はリンゴがよくとれた。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S174",
+   "cat": "town",
+   "type": "会話",
+   "title": "図書館では静かに",
+   "lines": [
+    {
+     "sp": "A",
+     "en": "Excuse me. Please speak {quietly|quietly} in the library.",
+     "ja": "すみません。図書館では静かに話してください。"
+    },
+    {
+     "sp": "B",
+     "en": "Oh, sorry. We didn't notice we were making {noise|noise}.",
+     "ja": "あ、ごめんなさい。うるさくしていることに気づきませんでした。"
+    },
+    {
+     "sp": "A",
+     "en": "That's OK. Please {keep|keep_in_mind} it {in mind|keep_in_mind} next time.",
+     "ja": "だいじょうぶですよ。次から気をつけてくださいね。"
+    }
+   ],
+   "note": "quietly は「静かに」（形容詞は quiet）。noise は「（いやな）音・さわがしい音」（形容詞は noisy）。keep A in mind は「Aを心にとめておく・覚えておく」。",
+   "grammar": {
+    "name": "notice (that) ～",
+    "text": "「～だと気づく」。notice のあとに〈主語＋動詞〉を続ける。"
+   },
+   "items": [
+    {
+     "id": "quietly",
+     "word": "quietly",
+     "pos": "副詞",
+     "ja": "静かに",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The cat walked {quietly}.",
+      "ja": "ねこは静かに歩いた。"
+     }
+    },
+    {
+     "id": "noise",
+     "word": "noise",
+     "pos": "名詞",
+     "ja": "（いやな）音・物音",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "What's that strange {noise}?",
+      "ja": "あのへんな音は何？"
+     }
+    },
+    {
+     "id": "keep_in_mind",
+     "word": "keep A in mind",
+     "pos": "熟語",
+     "ja": "Aを心にとめておく・覚えておく",
+     "src": "熟語",
+     "other": "",
+     "check": {
+      "en": "{Keep} the rules {in mind}.",
+      "ja": "ルールを覚えておいてね。"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S175",
+   "cat": "town",
+   "type": "記事",
+   "title": "電気自動車",
+   "lines": [
+    {
+     "sp": "",
+     "en": "Electric {vehicles|vehicle} do not use {gasoline|gasoline}.",
+     "ja": "電気自動車はガソリンを使わない。"
+    },
+    {
+     "sp": "",
+     "en": "They are {environmentally|environmentally} friendly because they don't {produce|produce} exhaust gas.",
+     "ja": "排気ガスを出さないので、環境にやさしい。"
+    },
+    {
+     "sp": "",
+     "en": "Thanks to new {technology|technology}, they can now travel farther on one charge.",
+     "ja": "新しい技術のおかげで、1回の充電で前より遠くまで走れるようになった。"
+    }
+   ],
+   "note": "vehicle は「乗り物・車両」。environmentally friendly は「環境にやさしい」。produce は「生み出す・生産する」。technology は「（科学）技術」。",
+   "grammar": {
+    "name": "farther（far の比較級）",
+    "text": "「より遠くに」。far－farther－farthest と変化する。"
+   },
+   "items": [
+    {
+     "id": "vehicle",
+     "word": "vehicle",
+     "pos": "名詞",
+     "ja": "乗り物・車両",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "Cars and buses are {vehicles}.",
+      "ja": "車やバスは乗り物だ。"
+     }
+    },
+    {
+     "id": "gasoline",
+     "word": "gasoline",
+     "pos": "名詞",
+     "ja": "ガソリン",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "The car ran out of {gasoline}.",
+      "ja": "車のガソリンがなくなった。"
+     }
+    },
+    {
+     "id": "environmentally",
+     "word": "environmentally",
+     "pos": "副詞",
+     "ja": "環境の面で",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "We use {environmentally} friendly bags.",
+      "ja": "私たちは環境にやさしい袋を使っている。"
+     }
+    },
+    {
+     "id": "produce",
+     "word": "produce",
+     "pos": "動詞",
+     "ja": "生み出す・生産する",
+     "src": "単語",
+     "other": "（名詞）農産物",
+     "check": {
+      "en": "This factory {produces} cars.",
+      "ja": "この工場は車を生産している。"
+     }
+    },
+    {
+     "id": "technology",
+     "word": "technology",
+     "pos": "名詞",
+     "ja": "（科学）技術",
+     "src": "単語",
+     "other": "",
+     "check": {
+      "en": "{Technology} is changing our lives.",
+      "ja": "技術が私たちの生活を変えている。"
+     }
+    }
+   ]
   }
  ]
 }
