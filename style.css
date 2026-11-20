@@ -4,7 +4,7 @@
   --ok:#1f7a4a; --ok-soft:#dcf2e5; --ng:#b3261e; --ng-soft:#fbe1de; --gram:#2d5fa8; --gram-soft:#e2ecfa;
   --en:"Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
   --ja:"BIZ UDPGothic", "BIZ UDPゴシック", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
-  --head:"Zen Maru Gothic", "BIZ UDPGothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --head: var(--ja); /* 見出しも本文と同じフォント */
 }
 @media (prefers-color-scheme: dark){
   :root{
