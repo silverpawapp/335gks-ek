@@ -10,7 +10,7 @@
   const NEVER = "9999-12-31";
   const $ = (id) => document.getElementById(id);
   const main = $("main"), bottom = $("bottom"), where = $("where"), progress = $("progress");
-  let DATA = null, ITEMS = {}, ITEM_SCENE = {};
+  let DATA = null, ITEMS = {}, ITEM_SCENE = {}, ORDER = [];
   let state = loadState();
   let session = null;
 
@@ -81,7 +81,7 @@
     const limit = setsDone() ? 0 : MAX_NEW; // 3セットが残っていれば、復習が多くても新しい場面の枠をとっておく
     const out = []; let n = 0;
     if (limit <= 0) return out;
-    for (const s of DATA.scenes) {
+    for (const s of ORDER) {
       if (sceneDone(s)) continue;
       const k = s.items.filter((i) => !state.items[i.id]).length;
       if (n + k > limit && (out.length || limit < MAX_NEW)) break;
@@ -657,8 +657,11 @@
     // 場面の番号：カテゴリーの順にアルファベット（A〜）＋カテゴリー内の連番（001〜）
     d.categories.forEach((c, ci) => {
       const L = String.fromCharCode(65 + ci);
-      d.scenes.filter((s) => s.cat === c.id).forEach((s, i) => { s.code = L + String(i + 1).padStart(3, "0"); });
+      const list = d.scenes.filter((s) => s.cat === c.id);
+      list.forEach((s, i) => { s.code = L + String(i + 1).padStart(3, "0"); s.mix = (i + 0.5) / list.length; });
     });
+    // 「はじめる」で選ぶ順番：どのカテゴリーも同じ割合で進むように、カテゴリー内の順番を保ったまま、まぜて並べる
+    ORDER = d.scenes.slice().sort((a, b) => a.mix - b.mix || d.categories.findIndex((c) => c.id === a.cat) - d.categories.findIndex((c) => c.id === b.cat));
     askPersist();
     d.scenes.forEach((s) => s.items.forEach((it) => { ITEMS[it.id] = it; ITEM_SCENE[it.id] = s.id; }));
     menu();
