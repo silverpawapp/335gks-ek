@@ -1,12 +1,13 @@
 /* 電波がなくても使えるようにするしくみ。直したら VERSION を上げる */
-const VERSION = "2026-11-20l";
+const VERSION = "2026-11-20m";
 const CACHE = "bamen-" + VERSION;
 const SHELL = ["./", "index.html", "style.css", "app.js", "data/scenes.json", "manifest.webmanifest",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
   "sound/tap.mp3", "sound/gotit.mp3", "sound/notyet.mp3", "sound/great.mp3", "sound/genius.mp3"];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)));
+  // ブラウザに残っている古いファイルを使わないよう、必ずサーバーから取り直す（cache: "reload"）
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL.map((u) => new Request(u, { cache: "reload" })))));
 });
 self.addEventListener("activate", (e) => {
   e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith("bamen-") && k !== CACHE).map((k) => caches.delete(k))))
