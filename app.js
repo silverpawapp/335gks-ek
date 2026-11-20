@@ -5,7 +5,7 @@
   const LS_KEY = "bamen.v1";
   const MAX_NEW = 10;    // 1回に新しく覚える単語は10まで
   const MAX_SETS = 3;    // 新しい単語を学ぶのは1日3セットまで（そのあとは復習だけ）
-  const MAX_TOTAL = 25;  // 1回に確認する単語は、復習と新しい単語をあわせて25まで（復習を先に入れ、残りを新しい単語にする）
+  const MAX_TOTAL = 20;  // 1回に確認する単語は、復習と新しい単語をあわせて20まで（新しい単語の枠（最大10）をとっておき、残りを復習に）
   const INTERVALS = [1, 3, 7, 30]; // Got it! が続いたときの次の復習までの日数。30日後の復習でも Got it! なら、もう復習に出さない（done）
   const NEVER = "9999-12-31";
   const $ = (id) => document.getElementById(id);
@@ -55,6 +55,13 @@
     r.box = 1; r.due = addDays(INTERVALS[0]); r.ok++;
     saveState();
   }
+  // 「もう復習に出さない」にする／もどす
+  function setSkip(id, on) {
+    const r = state.items[id]; if (!r) return;
+    if (on) { r.done = true; r.manual = true; r.due = NEVER; }
+    else { r.done = false; r.manual = false; r.box = Math.max(1, Math.min(r.box, INTERVALS.length - 1)); r.due = addDays(1); }
+    saveState();
+  }
   function dueItems() {
     const t = today();
     return Object.keys(state.items).filter((id) => ITEMS[id] && state.items[id].due <= t)
@@ -62,14 +69,16 @@
   }
   function sceneDone(s) { return s.items.every((it) => state.items[it.id]); }
   // 今回の復習の単語（古い順に、最大 MAX_TOTAL）
-  function reviewToday() { return dueItems().slice(0, MAX_TOTAL); }
+  // 今回の復習の単語：新しい単語の枠（最大10）をとっておき、残り（20−新しい単語の数）を古い順に
+  function reviewToday() { const n = newCount(nextScenes()); return dueItems().slice(0, MAX_TOTAL - n); }
+  const newCount = (scenes) => scenes.reduce((a, s) => a + s.items.filter((i) => !state.items[i.id]).length, 0);
   // 今日、新しい単語を学んだセットの数
   function setsToday() { return state.sets && state.sets.date === today() ? state.sets.n : 0; }
   function countSet() { state.sets = { date: today(), n: setsToday() + 1 }; saveState(); }
   const setsDone = () => setsToday() >= MAX_SETS;
   const hasNew = (s) => s.items.some((i) => !state.items[i.id]);
-  function nextScenes() { // 新しい単語が「MAX_NEW」と「25−復習の数」の小さいほうをこえない数だけ、順に場面を選ぶ
-    const limit = setsDone() ? 0 : Math.min(MAX_NEW, MAX_TOTAL - reviewToday().length);
+  function nextScenes() { // 新しい単語が MAX_NEW（10）をこえない数だけ、順に場面を選ぶ（3セット後は選ばない）
+    const limit = setsDone() ? 0 : MAX_NEW; // 3セットが残っていれば、復習が多くても新しい場面の枠をとっておく
     const out = []; let n = 0;
     if (limit <= 0) return out;
     for (const s of DATA.scenes) {
@@ -207,11 +216,13 @@
       <div class="mean">${esc(it.ja)}</div>
       ${it.forms ? `<div class="forms"><b>不規則動詞の活用</b><span lang="en">${esc(it.forms)}</span><div class="small muted">原形 – 過去形 – 過去分詞</div></div>` : ""}
       ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
+      ${state.items[id] && state.items[id].done ? `<div class="skip-note small">この単語は、もう復習に出ません。<button type="button" class="chip" id="sheetBack">復習にもどす</button></div>` : ""}
       <div class="row"><button type="button" class="chip" id="sheetSay">${ICON.speak}読む</button>
       <button type="button" class="chip" id="sheetClose">とじる</button></div>`;
     sh.hidden = false;
     $("sheetSay").onclick = () => speak(it.word.replace(/～/g, "").replace(/\.\.\.,/g, ""));
     $("sheetClose").onclick = closeSheet;
+    if ($("sheetBack")) $("sheetBack").onclick = () => { sfx("tap"); setSkip(id, false); openSheet(id); const c = main.querySelector(`.skip-row input[data-id="${id}"]`); if (c) c.checked = false; };
     $("sheetClose").focus();
   }
   function closeSheet() { $("sheet").hidden = true; }
@@ -232,7 +243,7 @@
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
           <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due ? `（復習${Math.min(due, MAX_TOTAL)}単語${nextScenes().length ? "もまぜて" : "だけ"}）` : ""} → Not yet の単語をもう一度 の順に進みます。確認は1回25単語までで、復習の単語を先に入れます。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due ? `（復習${reviewToday().length}単語${nextScenes().length ? "もまぜて" : "だけ"}）` : ""} → Not yet の単語をもう一度 の順に進みます。確認は1回20単語までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" : "今日の学習はおわりです。また明日！"}</div>
         <div class="small muted">今日の新しい場面：${setsToday()}／${MAX_SETS}セット${setsDone() && due ? "（あとは復習だけできます）" : ""}</div>
       </div>
       ${todayIds().length ? `<div class="menu-list"><button type="button" id="mToday">${ICON.menuToday}今日の単語を見る<span class="cnt">${todayIds().length}</span></button></div>` : ""}
@@ -254,7 +265,7 @@
   function startSession(chosen, practice) { // chosen：メニューで選んだ場面（なければ順番に）。practice：「もう一回」の練習（記録しない）
     const scenes = chosen || nextScenes();
     const newIds = chosen ? scenes.flatMap((s) => s.items.map((i) => i.id)) : scenes.flatMap((s) => s.items.map((i) => i.id)).filter((id) => !state.items[id]);
-    const review = chosen ? [] : reviewToday().filter((id) => !newIds.includes(id));
+    const review = chosen ? [] : dueItems().filter((id) => !newIds.includes(id)).slice(0, MAX_TOTAL - newIds.length);
     const steps = [];
     scenes.forEach((s) => steps.push({ k: "scene", phase: 0, s }));
     shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい単語と復習の単語をまぜる
@@ -380,6 +391,8 @@
     const all = Object.keys(session.answered).length;
     const wrong = session.wrong.map((id) => ITEMS[id]);
     const genius = all > 0 && ok === all;
+    // Got it! の状態になっている単語（やり直しで Got it! にした単語もふくむ）
+    const okIds = Object.keys(session.answered).filter((id) => state.items[id] && (state.items[id].box > 0 || state.items[id].manual) && (!state.items[id].done || state.items[id].manual));
     sfx(genius ? "genius" : "great");
     show(`<div class="cheer${genius ? " genius" : ""}">${genius ? "天才！？" : "すごい！頑張ったね！"}</div>
       ${genius ? `<div class="small muted" style="text-align:center;margin-bottom:10px">全部 Got it! でクリア！</div>` : ""}
@@ -389,7 +402,11 @@
       </div>
       <div class="small muted">${session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の単語は、明日からの確認にまぜて出ます。「Got it!」の単語は、日をあけてまた出ます。"}</div></div>
       ${wrong.length ? `<div class="card"><h2>Not yet の単語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
-        `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}`);
+        `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}
+      ${okIds.length ? `<div class="card"><h2>もう復習に出さない単語</h2>
+        <div class="small muted" style="margin-bottom:6px">ぜったいに忘れない単語だけ、チェックしよう。チェックした単語は、もう復習に出ません（単語の説明から、復習にもどせます）。</div>
+        ${okIds.map((id) => `<label class="skip-row"><input type="checkbox" data-id="${id}"${state.items[id].manual ? " checked" : ""}><span lang="en" class="tw-en">${esc(ITEMS[id].word)}</span><span class="tw-ja">${esc(ITEMS[id].ja)}</span></label>`).join("")}</div>` : ""}`);
+    main.querySelectorAll(".skip-row input").forEach((c) => (c.onchange = () => setSkip(c.dataset.id, c.checked)));
     setTop("まとめ", null, () => { sfx("tap"); menu(); }); $("menuBtn").textContent = "メニューへ"; $("menuBtn").classList.add("primary");
     const again = session.scenes.map((id) => DATA.scenes.find((s) => s.id === id)).filter(Boolean);
     setBottom([{ label: "もう一回", cls: "sub", sfx: "tap", delay: 1000, onClick: () => startSession(again, true) }, { spacer: true }]);

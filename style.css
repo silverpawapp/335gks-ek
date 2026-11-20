@@ -157,3 +157,10 @@ footer#bottom .big.back{flex:0 0 32%}
 .today-w .tw-en{font-family:var(--en);font-weight:700;flex:0 0 42%}
 .today-w .tw-ja{flex:1;color:var(--muted);font-size:14px}
 .stat .k{font-size:14px;white-space:nowrap}
+
+/* もう復習に出さない */
+.skip-row{display:flex;align-items:center;gap:10px;min-height:44px;border-top:1px solid var(--line);padding:4px 2px;cursor:pointer}
+.skip-row input{width:24px;height:24px;flex:0 0 auto;accent-color:var(--primary-dark,#7fd6b2)}
+.skip-row .tw-en{font-family:var(--en);font-weight:700;flex:0 0 40%}
+.skip-row .tw-ja{flex:1;color:var(--muted);font-size:14px}
+.skip-note{background:var(--surface2);border-radius:10px;padding:8px 10px;margin:8px 0;display:flex;align-items:center;justify-content:space-between;gap:8px}
