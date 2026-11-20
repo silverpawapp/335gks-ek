@@ -3,8 +3,9 @@
 (function () {
   const APP = "場面で覚える英単語";
   const LS_KEY = "bamen.v1";
-  const MAX_NEW = 10;    // 1回に新しく覚える語は10まで
-  const MAX_TOTAL = 25;  // 1回に確認する語は、復習と新しい語をあわせて25まで（復習を先に入れ、残りを新しい語にする）
+  const MAX_NEW = 10;    // 1回に新しく覚える単語は10まで
+  const MAX_SETS = 3;    // 新しい単語を学ぶのは1日3セットまで（そのあとは復習だけ）
+  const MAX_TOTAL = 25;  // 1回に確認する単語は、復習と新しい単語をあわせて25まで（復習を先に入れ、残りを新しい単語にする）
   const INTERVALS = [1, 3, 7, 30]; // Got it! が続いたときの次の復習までの日数。30日後の復習でも Got it! なら、もう復習に出さない（done）
   const NEVER = "9999-12-31";
   const $ = (id) => document.getElementById(id);
@@ -37,7 +38,7 @@
   }
   function addDays(n) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return dayStr(d); }
   function record(id, ok) {
-    const r = state.items[id] || { box: 0, ok: 0, ng: 0 };
+    const r = state.items[id] || { box: 0, ok: 0, ng: 0, first: today() }; // first：はじめて学習した日
     if (ok) {
       if (r.done || r.box >= INTERVALS.length) { r.done = true; r.due = NEVER; } // 30日後の復習も Got it! → 卒業
       else { r.box++; r.due = addDays(INTERVALS[r.box - 1]); }
@@ -47,7 +48,7 @@
     state.items[id] = r;
     saveState();
   }
-  // 今日 Not yet にした語を、同じ日のやり直し（もう一度・もう一回）で Got it! にできたら、Got it! の状態にする
+  // 今日 Not yet にした単語を、同じ日のやり直し（もう一度・もう一回）で Got it! にできたら、Got it! の状態にする
   function upgradeToday(id) {
     const r = state.items[id];
     if (!r || r.done || r.box !== 0 || r.last !== today()) return;
@@ -60,10 +61,15 @@
       .sort((a, b) => state.items[a].due < state.items[b].due ? -1 : 1);
   }
   function sceneDone(s) { return s.items.every((it) => state.items[it.id]); }
-  // 今回の復習の語（古い順に、最大 MAX_TOTAL）
+  // 今回の復習の単語（古い順に、最大 MAX_TOTAL）
   function reviewToday() { return dueItems().slice(0, MAX_TOTAL); }
-  function nextScenes() { // 新しい語が「MAX_NEW」と「25−復習の数」の小さいほうをこえない数だけ、順に場面を選ぶ
-    const limit = Math.min(MAX_NEW, MAX_TOTAL - reviewToday().length);
+  // 今日、新しい単語を学んだセットの数
+  function setsToday() { return state.sets && state.sets.date === today() ? state.sets.n : 0; }
+  function countSet() { state.sets = { date: today(), n: setsToday() + 1 }; saveState(); }
+  const setsDone = () => setsToday() >= MAX_SETS;
+  const hasNew = (s) => s.items.some((i) => !state.items[i.id]);
+  function nextScenes() { // 新しい単語が「MAX_NEW」と「25−復習の数」の小さいほうをこえない数だけ、順に場面を選ぶ
+    const limit = setsDone() ? 0 : Math.min(MAX_NEW, MAX_TOTAL - reviewToday().length);
     const out = []; let n = 0;
     if (limit <= 0) return out;
     for (const s of DATA.scenes) {
@@ -78,7 +84,7 @@
 
   /* ---------- 表示の部品 ---------- */
   const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  function sceneHTML(en) { // {文字|id} → タップできる語
+  function sceneHTML(en) { // {文字|id} → タップできる単語
     return esc(en).replace(/\{([^{}|]+)\|([^{}]+)\}([.,!?;:]*)/g, (m, t, id, p) => `<span class="nw"><button type="button" class="w" data-id="${id}" lang="en">${t}</button>${p}</span>`);
   }
   function checkHTML(en) { return esc(en).replace(/\{([^{}|]+)\}([.,!?;:]*)/g, '<span class="nw"><b>$1</b>$2</span>'); }
@@ -127,6 +133,7 @@
     menuScenes: SVG('<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>'),
     menuHelp: SVG('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17.5v.01"/>'),
     menuBackup: SVG('<path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>'),
+    menuToday: SVG('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/><path d="M9 15l2 2 4-4"/>'),
     menuSettings: SVG('<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>'),
     menuSearch: SVG('<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>'),
     menuAbout: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.01"/>'),
@@ -191,7 +198,7 @@
     speechSynthesis.speak(u);
   }
 
-  /* ---------- 語の説明（下から出るシート） ---------- */
+  /* ---------- 単語の説明（下から出るシート） ---------- */
   function openSheet(id) {
     const it = ITEMS[id]; if (!it) return;
     const sh = $("sheet");
@@ -218,23 +225,26 @@
     setTop(APP, null, null);
     const due = dueItems().length, rest = DATA.scenes.filter((s) => !sceneDone(s)).length;
     const learned = Object.keys(state.items).filter((id) => ITEMS[id]).length;
-    const canStart = due > 0 || rest > 0;
+    const canStart = due > 0 || (rest > 0 && !setsDone());
     show(`<div class="card">
         <span class="tag">準2級</span>
         <div class="stats">
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
           <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due ? `（復習の語${Math.min(due, MAX_TOTAL)}語${nextScenes().length ? "もまぜて" : "だけ"}）` : ""} → Not yet の語をもう一度 の順に進みます。確認は1回25語までで、復習の語を先に入れます。` : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due ? `（復習${Math.min(due, MAX_TOTAL)}単語${nextScenes().length ? "もまぜて" : "だけ"}）` : ""} → Not yet の単語をもう一度 の順に進みます。確認は1回25単語までで、復習の単語を先に入れます。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">今日の新しい場面：${setsToday()}／${MAX_SETS}セット${setsDone() && due ? "（あとは復習だけできます）" : ""}</div>
       </div>
-      <div class="menu-list">
+      ${todayIds().length ? `<div class="menu-list"><button type="button" id="mToday">${ICON.menuToday}今日の単語を見る<span class="cnt">${todayIds().length}</span></button></div>` : ""}
+      <div class="menu-grid">
         <button type="button" id="mScenes">${ICON.menuScenes}場面を選ぶ</button>
         <button type="button" id="mSearch">${ICON.menuSearch}単語をさがす</button>
-        <button type="button" id="mHelp">${ICON.menuHelp}はじめての人へ・使い方</button>
-        <button type="button" id="mBackup">${ICON.menuBackup}記録のバックアップ</button>
-        <button type="button" id="mSettings">${ICON.menuSettings}設定（効果音）</button>
-        <button type="button" id="mAbout">${ICON.menuAbout}このアプリについて</button>
+        <button type="button" id="mHelp">${ICON.menuHelp}使い方</button>
+        <button type="button" id="mBackup">${ICON.menuBackup}バックアップ</button>
+        <button type="button" id="mSettings">${ICON.menuSettings}設定</button>
+        <button type="button" id="mAbout">${ICON.menuAbout}アプリについて</button>
       </div>`);
+    if ($("mToday")) $("mToday").onclick = () => { sfx("tap"); todayList(); };
     const go = (f) => () => { sfx("tap"); f(); };
     $("mScenes").onclick = go(categoryList); $("mSearch").onclick = go(() => search()); $("mHelp").onclick = go(help); $("mBackup").onclick = go(backup); $("mSettings").onclick = go(settingsScreen); $("mAbout").onclick = go(about);
     setBottom(canStart ? [{ label: "はじめる", sfx: "tap", onClick: () => startSession() }] : []);
@@ -247,13 +257,13 @@
     const review = chosen ? [] : reviewToday().filter((id) => !newIds.includes(id));
     const steps = [];
     scenes.forEach((s) => steps.push({ k: "scene", phase: 0, s }));
-    shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい語と復習の語をまぜる
+    shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい単語と復習の単語をまぜる
     steps.push({ k: "summary", phase: 3 });
-    session = { review: new Set(review), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id), practice: !!practice };
+    session = { newSet: !practice && newIds.some((id) => !state.items[id]), counted: false, review: new Set(review), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id), practice: !!practice };
     step();
   }
   function quit() {
-    modal("やめますか？<br><span class='small muted'>答えた語の記録は残ります。読んだだけで確認していない場面は、次にもう一度出ます。</span>", [
+    modal("やめますか？<br><span class='small muted'>答えた単語の記録は残ります。読んだだけで確認していない場面は、次にもう一度出ます。</span>", [
       { label: "やめる", cls: "sub", onClick: menu }, { label: "つづける" }]);
   }
   function showProgress() {
@@ -294,7 +304,7 @@
             <div class="body"><div class="en" lang="en">${sceneHTML(l.en)}</div><div class="ja" hidden>${esc(l.ja)}</div></div>
             <button type="button" class="say" data-line="${i}" aria-label="この文を読む">${ICON.speak}</button></div>`).join("")}</div>
       </div>
-      <div class="small muted">色のついた語をタップすると、意味が出ます。</div>
+      <div class="small muted">色のついた単語をタップすると、意味が出ます。</div>
       <div class="note"><b>💡 ポイント</b>${esc(s.note)}</div>
       <div class="gram"><b>📘 文法：${esc(s.grammar.name)}</b>${esc(s.grammar.text)}</div>`);
     $("sayAll").onclick = () => speak(s.lines.map((l) => plain(l.en)).join(" "));
@@ -327,7 +337,7 @@
   function checkScreen(st) {
     const it = ITEMS[st.id];
     show(`<div class="card">
-        ${session.review.has(st.id) ? '<span class="tag review">復習</span>' : ""}<div class="small muted">太字の語は、どんな意味？ 考えてから「意味を見る」を押そう。</div>
+        ${session.review.has(st.id) ? '<span class="tag review">復習</span>' : ""}<div class="small muted">太字の単語は、どんな意味？ 考えてから「意味を見る」を押そう。</div>
         <div class="q-en" lang="en">${checkHTML(it.check.en)}</div>
         <div class="row"><button type="button" class="chip" id="sayQ">${ICON.speak}読む</button></div>
         <div id="ans"></div>
@@ -350,7 +360,10 @@
     function answer(ok) {
       const first = !st.retry && !session.answered[st.id];
       if (first) session.answered[st.id] = ok ? "ok" : "ng";
-      if (first && !session.practice) record(st.id, ok);
+      if (first && !session.practice) {
+        if (session.newSet && !session.counted && !state.items[st.id] && !session.review.has(st.id)) { countSet(); session.counted = true; } // 新しい単語に答えたら1セット
+        record(st.id, ok);
+      }
       else if (ok) upgradeToday(st.id); // やり直し（もう一度・もう一回）で Got it! → 今日の Not yet を Got it! にする
       if (!ok && !session.retried[st.id]) {
         session.retried[st.id] = true;
@@ -371,11 +384,11 @@
     show(`<div class="cheer${genius ? " genius" : ""}">${genius ? "天才！？" : "すごい！頑張ったね！"}</div>
       ${genius ? `<div class="small muted" style="text-align:center;margin-bottom:10px">全部 Got it! でクリア！</div>` : ""}
       <div class="card"><div class="stats">
-        <div class="stat"><div class="k">Got it!</div><div class="v">${ok}<span class="small">／${all}語</span></div></div>
+        <div class="stat"><div class="k">Got it!</div><div class="v">${ok}<span class="small">／${all}単語</span></div></div>
         <div class="stat"><div class="k">読んだ場面</div><div class="v">${session.scenes.length}<span class="small">場面</span></div></div>
       </div>
-      <div class="small muted">${session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の語は、明日からの確認にまぜて出ます。「Got it!」の語は、日をあけてまた出ます。"}</div></div>
-      ${wrong.length ? `<div class="card"><h2>Not yet の語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
+      <div class="small muted">${session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の単語は、明日からの確認にまぜて出ます。「Got it!」の単語は、日をあけてまた出ます。"}</div></div>
+      ${wrong.length ? `<div class="card"><h2>Not yet の単語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
         `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}`);
     setTop("まとめ", null, () => { sfx("tap"); menu(); }); $("menuBtn").textContent = "メニューへ"; $("menuBtn").classList.add("primary");
     const again = session.scenes.map((id) => DATA.scenes.find((s) => s.id === id)).filter(Boolean);
@@ -414,11 +427,13 @@
           <span class="sc-top"><span><span class="sc-no">${s.code}</span>${typeIcon(s.type)}${esc(s.title)}</span><span class="small ${done ? "done-mark" : "muted"}">${done ? "済" : "まだ"}</span></span>
           <span class="sc-words">${s.items.map(wordHTML).join('<span class="sep"> / </span>')}</span></button>`;
       }).join(""));
-    main.querySelectorAll(".scene-btn").forEach((b) => (b.onclick = () => { sfx("tap"); startSession([DATA.scenes.find((x) => x.id === b.dataset.s)]); }));
+    main.querySelectorAll(".scene-btn").forEach((b) => (b.onclick = () => { sfx("tap"); const s = DATA.scenes.find((x) => x.id === b.dataset.s);
+      if (hasNew(s) && setsDone()) { modal("1日に学習できる新しい場面は3セットまでです。<br><span class='small muted'>まだ学習していない場面は、明日えらんでね。学習ずみの場面は、今日も練習できます。</span>", [{ label: "OK" }]); return; }
+      startSession([s]); }));
     setBottom([]);
   }
 
-  /* 単語をさがす（英語で）：結果をタップすると、その場面を開いて語の所へ移動する */
+  /* 単語をさがす（英語で）：結果をタップすると、その場面を開いて単語の所へ移動する */
   let lastQuery = "";
   const norm = (s) => s.toLowerCase().replace(/[～…]/g, " ").replace(/\s+/g, " ").trim();
   function search() {
@@ -458,6 +473,33 @@
     setTimeout(() => q.focus(), 50);
     setBottom([]);
   }
+  /* 今日の単語：今日答えた単語を、新しく学んだ単語・復習した単語に分け、場面ごとに並べる */
+  function todayIds() { const t = today(); return Object.keys(state.items).filter((id) => ITEMS[id] && state.items[id].last === t); }
+  function todayList() {
+    progress.hidden = true; closeSheet();
+    setTop("今日の単語", menu, null);
+    const t = today(), ids = todayIds();
+    const isNew = (r) => (r.first ? r.first === t : r.ok + r.ng <= 1);
+    const group = (list) => DATA.scenes.map((s) => ({ s, its: s.items.filter((i) => list.includes(i.id)) })).filter((g) => g.its.length);
+    const block = (title, list) => !list.length ? "" : `<h2 class="today-h">${title}<span class="small muted">（${list.length}単語）</span></h2>` +
+      group(list).map(({ s, its }) => `<div class="card today-sc">
+        <div class="sc-top"><span><span class="sc-no">${s.code}</span>${typeIcon(s.type)}${esc(s.title)}</span>
+          <button type="button" class="chip" data-scene="${s.id}">場面を見る</button></div>
+        ${its.map((i) => { const r = state.items[i.id]; return `<button type="button" class="today-w" data-id="${i.id}">
+          <span lang="en" class="tw-en">${esc(i.word)}</span><span class="tw-ja">${esc(i.ja)}</span>
+          ${r.box === 0 && !r.done ? '<span class="wd weak small">Not yet</span>' : '<span class="small done-mark">済</span>'}</button>`; }).join("")}
+      </div>`).join("");
+    show(block("新しく学んだ単語", ids.filter((id) => isNew(state.items[id]))) + block("復習した単語", ids.filter((id) => !isNew(state.items[id]))) +
+      (ids.length ? "" : '<div class="card small muted">今日はまだ学習していません。</div>'));
+    main.querySelectorAll(".today-w").forEach((b) => (b.onclick = () => { sfx("tap"); openSheet(b.dataset.id); }));
+    main.querySelectorAll("[data-scene]").forEach((b) => (b.onclick = () => {
+      sfx("tap");
+      const s = DATA.scenes.find((x) => x.id === b.dataset.scene);
+      setTop(s.title, todayList, null, typeIcon(s.type));
+      sceneScreen(s, todayList, true, "今日の単語にもどる");
+    }));
+    setBottom([]);
+  }
   function openFromSearch(id) {
     const s = DATA.scenes.find((x) => x.id === ITEM_SCENE[id]);
     progress.hidden = true;
@@ -469,11 +511,11 @@
 
   function help() {
     setTop("はじめての人へ", menu, null);
-    show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。「穴うめ」を押すと、覚える語が空欄になって日本語訳が出るので、入る英語を考えてから空欄をタップして答えを確かめよう。💡には、日本語では同じ意味になる語の使い分けなどを書いています。</div>
-      <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「Got it!」（わかった）か「Not yet」（まだ）</b>を選びます。正直に選ぶほど、よく覚えられます。「Not yet」の語は、その回の最後にもう一度出ます。</div>
-      <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の語は翌日に、「Got it!」の語は 1日→3日→7日→30日 と間をあけて、また出ます。30日後にも「Got it!」なら、もう復習には出ません。1回は約15分です。</div>
+    show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた単語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。「穴うめ」を押すと、覚える単語が空欄になって日本語訳が出るので、入る英語を考えてから空欄をタップして答えを確かめよう。💡には、日本語では同じ意味になる単語の使い分けなどを書いています。</div>
+      <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの単語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「Got it!」（わかった）か「Not yet」（まだ）</b>を選びます。正直に選ぶほど、よく覚えられます。「Not yet」の単語は、その回の最後にもう一度出ます。</div>
+      <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の単語は翌日に、「Got it!」の単語は 1日→3日→7日→30日 と間をあけて、また出ます。30日後にも「Got it!」なら、もう復習には出ません。1日に学習できる新しい場面は3セット（新しい単語は30まで）です。たくさんやるより、毎日少しずつのほうが覚えられます。1回は約15分です。</div>
       <div class="card"><h2>ホーム画面に入れる</h2><b>Android（Chrome）</b>：右上の「⋮」→「アプリをインストール」（または「ホーム画面に追加」）。<br><b>iPhone（Safari）</b>：共有ボタン（□↑）→「ホーム画面に追加」。<br>入れたあとは、電波がなくても使えます。</div>
-      <div class="card"><h2>記録について</h2>記録はこの端末の中だけに保存されます。ブラウザのデータを消すと記録も消えるので、ときどき「記録のバックアップ」をしておきましょう。</div>`);
+      <div class="card"><h2>記録について</h2>記録はこの端末の中だけに保存されます。ブラウザのデータを消すと記録も消えるので、ときどき「バックアップ」をしておきましょう。</div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
   }
   function settingsScreen() {
@@ -494,16 +536,16 @@
     setBottom([{ label: "メニューへ", sfx: "tap", onClick: menu }]);
   }
   function about() {
-    setTop("このアプリについて", menu, null);
+    setTop("アプリについて", menu, null);
     show(`<div class="card"><h2>${APP}</h2>
       <p>英検準2級〜2級の範囲を目安にしています。日本英語検定協会とは関係ありません。</p>
-      <p>覚える語は、英検準2級向けの単語・熟語・会話表現から選んでいます。使い分けを知るために、少しだけほかの語も加えています。</p>
+      <p>覚える単語は、英検準2級向けの単語・熟語・会話表現から選んでいます。使い分けを知るために、少しだけほかの単語も加えています。</p>
       <p>英文と和訳はすべてこのアプリのために作ったものです。読み上げは端末の機能を使います。</p>
       <p class="small muted">版：${esc(DATA.version)}（準2級 場面1〜${DATA.scenes.length}）</p></div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
   }
   function backup() {
-    setTop("記録のバックアップ", menu, null);
+    setTop("バックアップ", menu, null);
     const txt = JSON.stringify(state);
     const fname = "bamen-kiroku-" + today() + ".json";
     const canShare = (() => { try { return !!(navigator.canShare && navigator.canShare({ files: [new File(["{}"], "a.json", { type: "application/json" })] })); } catch (e) { return false; } })();
