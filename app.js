@@ -222,7 +222,7 @@
     sh.hidden = false;
     $("sheetSay").onclick = () => speak(it.word.replace(/～/g, "").replace(/\.\.\.,/g, ""));
     $("sheetClose").onclick = closeSheet;
-    if ($("sheetBack")) $("sheetBack").onclick = () => { sfx("tap"); setSkip(id, false); openSheet(id); const c = main.querySelector(`.skip-row input[data-id="${id}"]`); if (c) c.checked = false; };
+    if ($("sheetBack")) $("sheetBack").onclick = () => { sfx("tap"); setSkip(id, false); openSheet(id); main.querySelectorAll(`.skip-row input[data-id="${id}"], .today-skip[data-id="${id}"]`).forEach((c) => (c.checked = false)); };
     $("sheetClose").focus();
   }
   function closeSheet() { $("sheet").hidden = true; }
@@ -502,13 +502,16 @@
       group(list).map(({ s, its }) => `<div class="card today-sc">
         <div class="sc-top"><span><span class="sc-no">${s.code}</span>${typeIcon(s.type)}${esc(s.title)}</span>
           <button type="button" class="chip" data-scene="${s.id}">場面を見る</button></div>
-        ${its.map((i) => { const r = state.items[i.id]; return `<button type="button" class="today-w" data-id="${i.id}">
+        ${its.map((i) => { const r = state.items[i.id], ng = r.box === 0 && !r.done; return `<div class="today-row">
+          ${ng ? '<span class="cb-space"></span>' : `<input type="checkbox" class="today-skip" data-id="${i.id}" aria-label="${esc(i.word)} を復習に出さない"${r.done ? " checked" : ""}>`}
+          <button type="button" class="today-w" data-id="${i.id}">
           <span lang="en" class="tw-en">${esc(i.word)}</span><span class="tw-ja">${esc(i.ja)}</span>
-          ${r.box === 0 && !r.done ? '<span class="wd weak small">Not yet</span>' : '<span class="small done-mark">済</span>'}</button>`; }).join("")}
+          ${ng ? '<span class="wd weak small">Not yet</span>' : '<span class="small done-mark">済</span>'}</button></div>`; }).join("")}
       </div>`).join("");
-    show(block("新しく学んだ単語", ids.filter((id) => isNew(state.items[id]))) + block("復習した単語", ids.filter((id) => !isNew(state.items[id]))) +
+    show((ids.length ? `<div class="small muted" style="margin:4px 2px">左のチェック：チェックした単語は、もう復習に出ません。外すと、また復習に出ます。「Not yet」の単語には、チェックは出ません。</div>` : "") + block("新しく学んだ単語", ids.filter((id) => isNew(state.items[id]))) + block("復習した単語", ids.filter((id) => !isNew(state.items[id]))) +
       (ids.length ? "" : '<div class="card small muted">今日はまだ学習していません。</div>'));
     main.querySelectorAll(".today-w").forEach((b) => (b.onclick = () => { sfx("tap"); openSheet(b.dataset.id); }));
+    main.querySelectorAll(".today-skip").forEach((c) => (c.onchange = () => setSkip(c.dataset.id, c.checked))); // チェックした瞬間に保存
     main.querySelectorAll("[data-scene]").forEach((b) => (b.onclick = () => {
       sfx("tap");
       const s = DATA.scenes.find((x) => x.id === b.dataset.scene);

@@ -164,3 +164,7 @@ footer#bottom .big.back{flex:0 0 32%}
 .skip-row .tw-en{font-family:var(--en);font-weight:700;flex:0 0 40%}
 .skip-row .tw-ja{flex:1;color:var(--muted);font-size:14px}
 .skip-note{background:var(--surface2);border-radius:10px;padding:8px 10px;margin:8px 0;display:flex;align-items:center;justify-content:space-between;gap:8px}
+
+.today-row{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line)}
+.today-row .today-w{border-top:0}
+.today-skip,.cb-space{width:24px;height:24px;flex:0 0 24px;margin:0 2px;accent-color:var(--primary-dark,#7fd6b2)}
