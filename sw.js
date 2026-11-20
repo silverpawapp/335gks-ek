@@ -1,5 +1,5 @@
 /* 電波がなくても使えるようにするしくみ。直したら VERSION を上げる */
-const VERSION = "2026-11-20i";
+const VERSION = "2026-11-20k";
 const CACHE = "bamen-" + VERSION;
 const SHELL = ["./", "index.html", "style.css", "app.js", "data/scenes.json", "manifest.webmanifest",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
@@ -12,7 +12,10 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith("bamen-") && k !== CACHE).map((k) => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
-self.addEventListener("message", (e) => { if (e.data === "skip") self.skipWaiting(); });
+self.addEventListener("message", (e) => {
+  if (e.data === "skip") self.skipWaiting();
+  if (e.data === "version" && e.ports[0]) e.ports[0].postMessage(VERSION); // 「アプリについて」に版を出す
+});
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
