@@ -1,5 +1,5 @@
 /* 電波がなくても使えるようにするしくみ。直したら VERSION を上げる */
-const VERSION = "2026-11-20k";
+const VERSION = "2026-11-20l";
 const CACHE = "bamen-" + VERSION;
 const SHELL = ["./", "index.html", "style.css", "app.js", "data/scenes.json", "manifest.webmanifest",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",

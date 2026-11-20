@@ -572,8 +572,7 @@
       <p>英検準2級〜2級の範囲を目安にしています。日本英語検定協会とは関係ありません。</p>
       <p>覚える単語は、英検準2級向けの単語・熟語・会話表現から選んでいます。使い分けを知るために、少しだけほかの単語も加えています。</p>
       <p>英文と和訳はすべてこのアプリのために作ったものです。読み上げは端末の機能を使います。</p>
-      <p><b>アプリの版：<span id="appVer">確認中…</span></b><br><span class="small muted">GitHub に上げた sw.js の VERSION と同じなら、最新版です。</span></p>
-      <p class="small muted">データの版：${esc(DATA.version)}（準2級 場面1〜${DATA.scenes.length}）</p></div>`);
+      <p class="small muted">アプリVer：<span id="appVer">確認中…</span><br>データVer：${esc(DATA.version)}（準2級 場面1〜${DATA.scenes.length}）</p></div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
     // 今動いている版を、電波なしで使うしくみ（sw.js）にたずねる
     const put = (v) => { const el = $("appVer"); if (el) el.textContent = v; };
