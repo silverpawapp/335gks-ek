@@ -96,7 +96,12 @@
   function sceneHTML(en) { // {文字|id} → タップできる単語
     return esc(en).replace(/\{([^{}|]+)\|([^{}]+)\}([.,!?;:]*)/g, (m, t, id, p) => `<span class="nw"><button type="button" class="w" data-id="${id}" lang="en">${t}</button>${p}</span>`);
   }
-  function checkHTML(en) { return esc(en).replace(/\{([^{}|]+)\}([.,!?;:]*)/g, '<span class="nw"><b>$1</b>$2</span>'); }
+  // 会話（A: … B: …）は、話す人ごとに改行する
+  function ab(html) {
+    if (!/^A[:：]/.test(html)) return html; // 「A:」で始まる会話の文だけ
+    return html.replace(/[\s\u3000]+([AB])([:：])\s*/g, (m, w, c) => `<br>${w}${c}${c === ":" ? " " : ""}`);
+  }
+  function checkHTML(en) { return ab(esc(en).replace(/\{([^{}|]+)\}([.,!?;:]*)/g, '<span class="nw"><b>$1</b>$2</span>')); }
   function plain(en) { return en.replace(/\{([^{}|]+)(\|[^{}]+)?\}/g, "$1"); }
   function setTop(text, back, menu, icon) {
     where.innerHTML = (icon || "") + esc(text);
@@ -377,7 +382,7 @@
           <div class="small muted">${esc(it.pos)}</div>
           <div class="word" lang="en">${esc(it.word)}</div>
           <div class="mean">${esc(it.ja)}</div>
-          <div class="ja">${esc(it.check.ja)}</div>
+          <div class="ja">${ab(esc(it.check.ja))}</div>
           ${it.forms ? `<div class="forms"><b>不規則動詞の活用</b><span lang="en">${esc(it.forms)}</span><div class="small muted">原形 – 過去形 – 過去分詞</div></div>` : ""}
           ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
 </div>`;
@@ -429,10 +434,10 @@
     const answerText = join(cz.a);
     const choices = shuffle([answerText].concat(wrongs));
     let k = 0;
-    const blanked = esc(it.check.en).replace(/\{([^}]*)\}/g, (m, w) => `<span class="blank" data-k="${k++}">${"&nbsp;".repeat(Math.max(6, w.length + 2))}</span>`);
+    const blanked = ab(esc(it.check.en)).replace(/\{([^}]*)\}/g, (m, w) => `<span class="blank" data-k="${k++}">${"&nbsp;".repeat(Math.max(6, w.length + 2))}</span>`);
     show(`<div class="card">
         <span class="tag review">復習問題</span><div class="small muted">日本語の意味に合う英語を選ぼう。</div>
-        <div class="cz-ja">${esc(it.check.ja)}</div>
+        <div class="cz-ja">${ab(esc(it.check.ja))}</div>
         <div class="q-en" lang="en" id="czQ">${blanked}</div>
         <div class="cz-choices">${choices.map((c, n) => `<button type="button" class="cz-btn" data-n="${n}" lang="en">${esc(c)}</button>`).join("")}</div>
         <div class="cz-dk"><button type="button" class="linkbtn" id="czDk">わからない</button></div>
