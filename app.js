@@ -243,7 +243,7 @@
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
           <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}意味の確認${due ? `（復習${reviewToday().length}単語${nextScenes().length ? "もまぜて" : "だけ"}）` : ""} → Not yet の単語をもう一度 の順に進みます。確認は1回20単語までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" + (todayReviewIds().length ? "<br>今日学習した単語の復習は、何回でもできます。" : "") : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}${nextScenes().length ? "意味の確認 → " : ""}${due ? `今日の復習問題（${reviewToday().length}問）→ ` : ""}Not yet の単語をもう一度 の順に進みます。確認は1回20単語までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" + (todayReviewIds().length ? "<br>今日学習した単語の復習は、何回でもできます。" : "") : "今日の学習はおわりです。また明日！"}</div>
         <div class="small muted">今日の新しい場面：${setsToday()}／${MAX_SETS}セット${setsDone() && due ? "（あとは復習だけできます）" : ""}</div>
       </div>
       ${todayIds().length ? `<div class="menu-list"><button type="button" id="mToday">${ICON.menuToday}今日の単語を見る<span class="cnt">${todayIds().length}</span></button></div>` : ""}
@@ -269,8 +269,12 @@
     const review = chosen ? [] : dueItems().filter((id) => !newIds.includes(id)).slice(0, MAX_TOTAL - newIds.length);
     const steps = [];
     scenes.forEach((s) => steps.push({ k: "scene", phase: 0, s }));
-    shuffle(newIds.concat(review)).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい単語と復習の単語をまぜる
-    steps.push({ k: "summary", phase: 3 });
+    shuffle(newIds.slice()).forEach((id) => steps.push({ k: "check", phase: 1, id })); // 新しい単語：英語→日本語（Got it / Not yet）
+    if (review.length) { // 復習の単語：区切りの画面のあと、日本語→英語の4択（選択肢のない単語は英語→日本語）
+      steps.push({ k: "intro", phase: 2 });
+      shuffle(review.slice()).forEach((id) => steps.push({ k: "check", phase: 2, id, cz: !!ITEMS[id].cz }));
+    }
+    steps.push({ k: "summary", phase: 4 });
     session = { newSet: !practice && newIds.some((id) => !state.items[id]), counted: false, review: new Set(review), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: scenes.map((s) => s.id), practice: !!practice };
     step();
   }
@@ -280,7 +284,7 @@
     const ids = todayReviewIds();
     const ng = shuffle(ids.filter((id) => state.items[id].box === 0)), ok = shuffle(ids.filter((id) => state.items[id].box > 0));
     const steps = ng.concat(ok).slice(0, MAX_TOTAL).map((id) => ({ k: "check", phase: 1, id })); // Not yet の単語を先に、20単語まで
-    steps.push({ k: "summary", phase: 3 });
+    steps.push({ k: "summary", phase: 4 });
     session = { newSet: false, counted: false, review: new Set(), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: [], practice: true, todayReview: true };
     step();
   }
@@ -290,12 +294,12 @@
   }
   function showProgress() {
     const st = session.steps[session.i];
-    const names = ["読む", "確認", "もう一度", "まとめ"];
-    const has = [0, 1, 2, 3].filter((p) => session.steps.some((s) => s.phase === p));
-    const same = session.steps.filter((s) => s.phase === st.phase && s.k !== "summary");
+    const names = ["読む", "確認", "復習問題", "もう一度", "まとめ"];
+    const has = [0, 1, 2, 3, 4].filter((p) => session.steps.some((s) => s.phase === p));
+    const same = session.steps.filter((s) => s.phase === st.phase && s.k !== "summary" && s.k !== "intro");
     const n = same.indexOf(st) + 1;
-    progress.innerHTML = `<div class="steps">${has.map((p) => `<span class="${p === st.phase ? (p === 3 ? "now last" : "now") : p < st.phase ? "done" : ""}">${p < st.phase ? ICON.check : ""}${names[p]}</span>`).join("")}</div>` +
-      (same.length ? `<div class="count">${n}／${same.length}${st.retry ? "（もう一度）" : ""}</div>` : "");
+    progress.innerHTML = `<div class="steps">${has.map((p) => `<span class="${p === st.phase ? (p === 4 ? "now last" : "now") : p < st.phase ? "done" : ""}">${p < st.phase ? ICON.check : ""}${names[p]}</span>`).join("")}</div>` +
+      (same.length && st.k !== "intro" ? `<div class="count">${n}／${same.length}${st.retry ? "（もう一度）" : ""}</div>` : "");
     progress.hidden = false;
   }
   function next() { session.i++; step(); }
@@ -303,9 +307,11 @@
     closeSheet();
     const st = session.steps[session.i];
     showProgress();
-    setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : "意味の確認", null, quit, st.k === "scene" ? typeIcon(st.s.type) : "");
+    setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : st.k === "intro" || st.cz ? "今日の復習問題" : "意味の確認", null, quit, st.k === "scene" ? typeIcon(st.s.type) : "");
     const prevScene = session.i > 0 && session.steps[session.i - 1].k === "scene";
     if (st.k === "scene") sceneScreen(st.s, () => next(), false, null, prevScene ? () => { session.i--; step(); } : null);
+    else if (st.k === "intro") introScreen();
+    else if (st.k === "check" && st.cz) czScreen(st);
     else if (st.k === "check") checkScreen(st);
     else summary();
   }
@@ -379,7 +385,12 @@
       setBottom([{ hint: "わかったら「Got it!」、まだなら「Not yet」を選ぼう。" }, { label: "Not yet", cls: "ng", sfx: "notyet", onClick: () => answer(false) },
                  { label: "Got it!", cls: "ok", sfx: "gotit", onClick: () => answer(true) }]);
     }
-    function answer(ok) {
+    function answer(ok) { mark(st, ok); next(); }
+  }
+
+  // 答えを記録する（英語→日本語でも、4択でも同じ）
+  function mark(st, ok) {
+    {
       const first = !st.retry && !session.answered[st.id];
       if (first) session.answered[st.id] = ok ? "ok" : "ng";
       if (first && !session.practice) {
@@ -391,10 +402,74 @@
         session.retried[st.id] = true;
         if (!session.wrong.includes(st.id)) session.wrong.push(st.id);
         const sumIdx = session.steps.findIndex((s) => s.k === "summary");
-        session.steps.splice(sumIdx, 0, { k: "check", phase: 2, id: st.id, retry: true }); // 最後にもう一度
+        session.steps.splice(sumIdx, 0, { k: "check", phase: 3, id: st.id, retry: true, cz: st.cz }); // 最後にもう一度（同じ形式で）
       }
-      next();
     }
+  }
+
+  /* 今日の復習問題：区切りの画面（いきなり形式が変わって連打でまちがえないように） */
+  function introScreen() {
+    const n = session.steps.filter((s) => s.phase === 2 && s.k === "check").length;
+    show(`<div class="card intro">
+        <div class="intro-ico">${ICON.menuToday}</div>
+        <h2>ここからは 今日の復習問題です</h2>
+        <p><b>${n}問</b>あります。日本語の意味に合う英語を、4つの中から選ぼう。</p>
+        <p class="small muted">わからないときは「わからない」を押そう。答えを選んだら、正しい答えをよく見てから「次へ」を押そう。</p>
+      </div>`);
+    setBottom([{ label: "復習問題をはじめる", sfx: "tap", delay: 1000, onClick: next }]);
+  }
+
+  /* 今日の復習問題：日本語→英語の4択穴うめ */
+  function czScreen(st) {
+    const it = ITEMS[st.id], cz = it.cz;
+    const join = (segs) => segs.join(" … ");
+    // 誤答3つ：学習ずみの単語を優先して、ランダムに選ぶ
+    const pool = shuffle(cz.c.slice()), learned = pool.filter((c) => state.items[c[0]]), other = pool.filter((c) => !state.items[c[0]]);
+    const wrongs = learned.concat(other).slice(0, 3).map((c) => join(c[1]));
+    const answerText = join(cz.a);
+    const choices = shuffle([answerText].concat(wrongs));
+    let k = 0;
+    const blanked = esc(it.check.en).replace(/\{([^}]*)\}/g, (m, w) => `<span class="blank" data-k="${k++}">${"&nbsp;".repeat(Math.max(6, w.length + 2))}</span>`);
+    show(`<div class="card">
+        <span class="tag review">復習問題</span><div class="small muted">日本語の意味に合う英語を選ぼう。</div>
+        <div class="cz-ja">${esc(it.check.ja)}</div>
+        <div class="q-en" lang="en" id="czQ">${blanked}</div>
+        <div class="cz-choices">${choices.map((c, n) => `<button type="button" class="cz-btn" data-n="${n}" lang="en">${esc(c)}</button>`).join("")}</div>
+        <div class="cz-dk"><button type="button" class="linkbtn" id="czDk">わからない</button></div>
+        <div id="ans"></div>
+      </div>`);
+    setBottom([]);
+    let done = false;
+    const choose = (n) => {
+      if (done) return; done = true;
+      const ok = n !== null && choices[n] === answerText;
+      sfx(ok ? "gotit" : "notyet");
+      main.querySelectorAll(".cz-btn").forEach((b) => {
+        b.disabled = true;
+        if (choices[+b.dataset.n] === answerText) b.classList.add("right");
+        else if (+b.dataset.n === n) b.classList.add("wrong");
+      });
+      $("czDk").disabled = true;
+      // 空欄に正しい答えを入れて、文を読めるようにする
+      main.querySelectorAll("#czQ .blank").forEach((b) => { b.textContent = cz.a[+b.dataset.k]; b.classList.add("filled"); });
+      const base = it.word.replace(/[.!?]$/, "");
+      $("ans").innerHTML = `<div class="ans">
+          <div class="cz-result ${ok ? "ok" : "ng"}">${ok ? "正解！" : n === null ? "答えはこれ" : "ざんねん！ 正しい答えはこれ"}</div>
+          <div class="row"><button type="button" class="chip" id="sayQ">${ICON.speak}読む</button></div>
+          <div class="small muted">${esc(it.pos)}</div>
+          <div class="word" lang="en">${esc(it.word)}</div>
+          ${answerText.toLowerCase() !== base.toLowerCase() ? `<div class="small">この文では <b lang="en">${esc(answerText)}</b> の形</div>` : ""}
+          <div class="mean">${esc(it.ja)}</div>
+          ${it.forms ? `<div class="forms"><b>不規則動詞の活用</b><span lang="en">${esc(it.forms)}</span><div class="small muted">原形 – 過去形 – 過去分詞</div></div>` : ""}
+          ${it.other ? `<div class="other"><b>ほかの意味</b>${esc(it.other)}</div>` : ""}
+        </div>`;
+      $("sayQ").onclick = () => speak(plain(it.check.en));
+      $("ans").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      mark(st, ok);
+      setBottom([{ label: "次へ", sfx: "tap", delay: 600, onClick: next }]);
+    };
+    main.querySelectorAll(".cz-btn").forEach((b) => (b.onclick = () => choose(+b.dataset.n)));
+    $("czDk").onclick = () => choose(null);
   }
 
   function summary() {
@@ -402,13 +477,17 @@
     const all = Object.keys(session.answered).length;
     const wrong = session.wrong.map((id) => ITEMS[id]);
     const genius = all > 0 && ok === all;
+    const ids = Object.keys(session.answered), isRev = (id) => session.review.has(id);
+    const revAll = ids.filter(isRev).length, revOk = ids.filter((id) => isRev(id) && session.answered[id] === "ok").length;
+    const newAll = all - revAll, newOk = ok - revOk;
     // Got it! の状態になっている単語（やり直しで Got it! にした単語もふくむ）
     const okIds = Object.keys(session.answered).filter((id) => state.items[id] && (state.items[id].box > 0 || state.items[id].manual) && (!state.items[id].done || state.items[id].manual));
     sfx(genius ? "genius" : "great");
     show(`<div class="cheer${genius ? " genius" : ""}">${genius ? "天才！？" : "すごい！頑張ったね！"}</div>
-      ${genius ? `<div class="small muted" style="text-align:center;margin-bottom:10px">全部 Got it! でクリア！</div>` : ""}
+      ${genius ? `<div class="small muted" style="text-align:center;margin-bottom:10px">全部正解でクリア！</div>` : ""}
       <div class="card"><div class="stats">
-        <div class="stat"><div class="k">Got it!</div><div class="v">${ok}<span class="small">／${all}単語</span></div></div>
+        ${newAll ? `<div class="stat"><div class="k">新しい単語 Got it!</div><div class="v">${newOk}<span class="small">／${newAll}単語</span></div></div>` : ""}
+        ${revAll ? `<div class="stat"><div class="k">復習問題 正解</div><div class="v">${revOk}<span class="small">／${revAll}問</span></div></div>` : ""}
         <div class="stat"><div class="k">読んだ場面</div><div class="v">${session.scenes.length}<span class="small">場面</span></div></div>
       </div>
       <div class="small muted">${session.todayReview ? "今日の単語の復習は、何回でもできます。復習の予定は変わりません（Not yet だった単語を Got it! にすると「済」になります）。" : session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の単語は、明日からの確認にまぜて出ます。「Got it!」の単語は、日をあけてまた出ます。"}</div></div>
@@ -544,7 +623,8 @@
     setTop("はじめての人へ", menu, null);
     show(`<div class="card"><h2>1. 場面を読む</h2>会話・メール・お知らせなどの短い英文を読みます。<b>色のついた単語</b>をタップすると意味が出ます。スピーカーのボタンで読み上げ、「訳を見る」で日本語訳が出ます。「穴うめ」を押すと、覚える単語が空欄になって日本語訳が出るので、入る英語を考えてから空欄をタップして答えを確かめよう。💡には、日本語では同じ意味になる単語の使い分けなどを書いています。</div>
       <div class="card"><h2>2. 意味を確かめる</h2>場面とはちがう短い文で、さっきの単語が出ます。意味を考えてから「意味を見る」を押し、<b>自分で「Got it!」（わかった）か「Not yet」（まだ）</b>を選びます。正直に選ぶほど、よく覚えられます。「Not yet」の単語は、その回の最後にもう一度出ます。</div>
-      <div class="card"><h2>3. 毎日つづける</h2>「Not yet」の単語は翌日に、「Got it!」の単語は 1日→3日→7日→30日 と間をあけて、また出ます。30日後にも「Got it!」なら、もう復習には出ません。1日に学習できる新しい場面は3セット（新しい単語は30まで）です。たくさんやるより、毎日少しずつのほうが覚えられます。1回は約15分です。</div>
+      <div class="card"><h2>3. 今日の復習問題</h2>前に学んだ単語は、復習問題で出ます。日本語の意味を見て、英文の空いているところに入る英語を4つの中から選びます。正解なら Got it!、まちがえたときや「わからない」を押したときは Not yet と同じあつかいです。</div>
+      <div class="card"><h2>4. 毎日つづける</h2>「Not yet」の単語は翌日に、「Got it!」の単語は 1日→3日→7日→30日 と間をあけて、また出ます。30日後にも「Got it!」なら、もう復習には出ません。1日に学習できる新しい場面は3セット（新しい単語は30まで）です。たくさんやるより、毎日少しずつのほうが覚えられます。1回は約15分です。</div>
       <div class="card"><h2>ホーム画面に入れる</h2><b>Android（Chrome）</b>：右上の「⋮」→「アプリをインストール」（または「ホーム画面に追加」）。<br><b>iPhone（Safari）</b>：共有ボタン（□↑）→「ホーム画面に追加」。<br>入れたあとは、電波がなくても使えます。</div>
       <div class="card"><h2>記録について</h2>記録はこの端末の中だけに保存されます。ブラウザのデータを消すと記録も消えるので、ときどき「バックアップ」をしておきましょう。</div>`);
     setBottom([{ label: "メニューへ", onClick: menu }]);
