@@ -248,7 +248,7 @@
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
           <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}${nextScenes().length ? "意味の確認 → " : ""}${due ? `今日の復習問題（${reviewToday().length}問）→ ` : ""}Not yet の単語をもう一度 の順に進みます。確認と復習問題は、あわせて1回25問までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" + (todayReviewIds().length ? "<br>今日学習した単語の復習は、何回でもできます。" : "") : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `${nextScenes().length ? "「新しい場面をはじめる」" : "「予定の復習問題をはじめる」"}で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}${nextScenes().length ? "意味の確認 → " : ""}${due ? `今日の復習問題（${reviewToday().length}問）→ ` : ""}Not yet の単語をもう一度 の順に進みます。確認と復習問題は、あわせて1回25問までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" + (todayReviewIds().length ? "<br>「今日の単語の復習問題」は、何回でもできます。" : "") : "今日の学習はおわりです。また明日！"}</div>
         <div class="small muted">今日の新しい場面：${setsToday()}／${MAX_SETS}セット${setsDone() && due ? "（あとは復習だけできます）" : ""}</div>
       </div>
       ${todayIds().length ? `<div class="menu-list"><button type="button" id="mToday">${ICON.menuToday}今日の単語を見る<span class="cnt">${todayIds().length}</span></button></div>` : ""}
@@ -263,8 +263,11 @@
     if ($("mToday")) $("mToday").onclick = () => { sfx("tap"); todayList(); };
     const go = (f) => () => { sfx("tap"); f(); };
     $("mScenes").onclick = go(categoryList); $("mSearch").onclick = go(() => search()); $("mHelp").onclick = go(help); $("mBackup").onclick = go(backup); $("mSettings").onclick = go(settingsScreen); $("mAbout").onclick = go(about);
-    setBottom(canStart ? [{ label: "はじめる", sfx: "tap", onClick: () => startSession() }]
-      : todayReviewIds().length ? [{ label: "今日の単語を復習する", sfx: "tap", onClick: startTodayReview }] : []);
+    // 下のボタン：①新しい場面（予定の復習問題もふくむ）②今日の単語の復習問題（何回でもできる練習）
+    const btns = [];
+    if (canStart) btns.push({ label: nextScenes().length ? "新しい場面をはじめる" : "予定の復習問題をはじめる", cls: "wide", sfx: "tap", onClick: () => startSession() });
+    if (todayReviewIds().length) btns.push({ label: "今日の単語の復習問題", cls: "wide sub", sfx: "tap", onClick: startTodayReview });
+    setBottom(btns);
   }
 
   /* ---------- 学習の回 ---------- */
@@ -288,9 +291,10 @@
   function startTodayReview() {
     const ids = todayReviewIds();
     const ng = shuffle(ids.filter((id) => state.items[id].box === 0)), ok = shuffle(ids.filter((id) => state.items[id].box > 0));
-    const steps = ng.concat(ok).slice(0, MAX_TOTAL).map((id) => ({ k: "check", phase: 1, id })); // Not yet の単語を先に、25単語まで
+    const list = ng.concat(ok).slice(0, MAX_TOTAL); // Not yet の単語を先に、25問まで
+    const steps = list.map((id) => ({ k: "check", phase: 2, id, cz: !!ITEMS[id].cz })); // 日本語→英語の4択（選択肢のない単語は英語→日本語）
     steps.push({ k: "summary", phase: 4 });
-    session = { newSet: false, counted: false, review: new Set(), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: [], practice: true, todayReview: true };
+    session = { newSet: false, counted: false, review: new Set(list), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: [], practice: true, todayReview: true };
     step();
   }
   function quit() {
@@ -312,7 +316,7 @@
     closeSheet();
     const st = session.steps[session.i];
     showProgress();
-    setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : st.k === "intro" || st.cz ? "今日の復習問題" : "意味の確認", null, quit, st.k === "scene" ? typeIcon(st.s.type) : "");
+    setTop(st.k === "scene" ? st.s.title : st.k === "summary" ? "まとめ" : session.todayReview ? "今日の単語の復習問題" : st.k === "intro" || st.cz ? "今日の復習問題" : "意味の確認", null, quit, st.k === "scene" ? typeIcon(st.s.type) : "");
     const prevScene = session.i > 0 && session.steps[session.i - 1].k === "scene";
     if (st.k === "scene") sceneScreen(st.s, () => next(), false, null, prevScene ? () => { session.i--; step(); } : null);
     else if (st.k === "intro") introScreen();
@@ -493,9 +497,9 @@
       <div class="card"><div class="stats">
         ${newAll ? `<div class="stat"><div class="k">新しい単語 Got it!</div><div class="v">${newOk}<span class="small">／${newAll}単語</span></div></div>` : ""}
         ${revAll ? `<div class="stat"><div class="k">復習問題 正解</div><div class="v">${revOk}<span class="small">／${revAll}問</span></div></div>` : ""}
-        <div class="stat"><div class="k">読んだ場面</div><div class="v">${session.scenes.length}<span class="small">場面</span></div></div>
+        ${session.scenes.length ? `<div class="stat"><div class="k">読んだ場面</div><div class="v">${session.scenes.length}<span class="small">場面</span></div></div>` : ""}
       </div>
-      <div class="small muted">${session.todayReview ? "今日の単語の復習は、何回でもできます。復習の予定は変わりません（Not yet だった単語を Got it! にすると「済」になります）。" : session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の単語は、明日からの確認にまぜて出ます。「Got it!」の単語は、日をあけてまた出ます。"}</div></div>
+      <div class="small muted">${session.todayReview ? "今日の単語の復習問題は、何回でもできます。復習の予定は変わりません（Not yet だった単語に正解すると「済」になります）。" : session.practice ? "「もう一回」の練習は、記録には入りません。" : "「Not yet」の単語は、明日からの確認にまぜて出ます。「Got it!」の単語は、日をあけてまた出ます。"}</div></div>
       ${wrong.length ? `<div class="card"><h2>Not yet の単語（単語ノートに書こう）</h2><ul class="list">${wrong.map((w) =>
         `<li><span class="lw" lang="en">${esc(w.word)}</span>　<span class="small muted">${esc(w.pos)}</span><br>${esc(w.ja)}</li>`).join("")}</ul></div>` : ""}
       ${okIds.length ? `<div class="card"><h2>もう復習に出さない単語</h2>
@@ -613,7 +617,7 @@
       setTop(s.title, todayList, null, typeIcon(s.type));
       sceneScreen(s, todayList, true, "今日の単語にもどる");
     }));
-    setBottom(todayReviewIds().length ? [{ label: "今日の単語を復習する", sfx: "tap", onClick: startTodayReview }] : []);
+    setBottom(todayReviewIds().length ? [{ label: "今日の単語の復習問題", sfx: "tap", onClick: startTodayReview }] : []);
   }
   function openFromSearch(id) {
     const s = DATA.scenes.find((x) => x.id === ITEM_SCENE[id]);

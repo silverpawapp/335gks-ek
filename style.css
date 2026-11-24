@@ -187,3 +187,4 @@ footer#bottom .big.back{flex:0 0 32%}
 .cz-result{font-size:20px;font-weight:700;margin-bottom:6px}
 .cz-result.ok{color:#17603f}
 .cz-result.ng{color:#8e2418}
+footer#bottom .big.wide{flex:1 1 100%}
