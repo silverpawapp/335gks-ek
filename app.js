@@ -5,7 +5,7 @@
   const LS_KEY = "bamen.v1";
   const MAX_NEW = 10;    // 1回に新しく覚える単語は10まで
   const MAX_SETS = 3;    // 新しい単語を学ぶのは1日3セットまで（そのあとは復習だけ）
-  const MAX_TOTAL = 20;  // 1回に確認する単語は、復習と新しい単語をあわせて20まで（新しい単語の枠（最大10）をとっておき、残りを復習に）
+  const MAX_TOTAL = 25;  // 1回に確認する単語は、復習と新しい単語をあわせて25まで（新しい単語の枠（最大10）をとっておき、残りを復習に）
   const INTERVALS = [1, 3, 7, 30]; // Got it! が続いたときの次の復習までの日数。30日後の復習でも Got it! なら、もう復習に出さない（done）
   const NEVER = "9999-12-31";
   const $ = (id) => document.getElementById(id);
@@ -69,7 +69,7 @@
   }
   function sceneDone(s) { return s.items.every((it) => state.items[it.id]); }
   // 今回の復習の単語（古い順に、最大 MAX_TOTAL）
-  // 今回の復習の単語：新しい単語の枠（最大10）をとっておき、残り（20−新しい単語の数）を古い順に
+  // 今回の復習の単語：新しい単語の枠（最大10）をとっておき、残り（25−新しい単語の数）を古い順に
   function reviewToday() { const n = newCount(nextScenes()); return dueItems().slice(0, MAX_TOTAL - n); }
   const newCount = (scenes) => scenes.reduce((a, s) => a + s.items.filter((i) => !state.items[i.id]).length, 0);
   // 今日、新しい単語を学んだセットの数
@@ -243,7 +243,7 @@
           <div class="stat"><div class="k">残りの場面</div><div class="v">${rest}<span class="small">／${DATA.scenes.length}</span></div></div>
           <div class="stat"><div class="k">これまで学んだ単語</div><div class="v">${learned}<span class="small">／${Object.keys(ITEMS).length}</span></div></div>
         </div>
-        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}${nextScenes().length ? "意味の確認 → " : ""}${due ? `今日の復習問題（${reviewToday().length}問）→ ` : ""}Not yet の単語をもう一度 の順に進みます。確認は1回20単語までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" + (todayReviewIds().length ? "<br>今日学習した単語の復習は、何回でもできます。" : "") : "今日の学習はおわりです。また明日！"}</div>
+        <div class="small muted">${canStart ? `「はじめる」で、${nextScenes().length ? `新しい場面を読む（${nextScenes().length}つ）→ ` : ""}${nextScenes().length ? "意味の確認 → " : ""}${due ? `今日の復習問題（${reviewToday().length}問）→ ` : ""}Not yet の単語をもう一度 の順に進みます。確認と復習問題は、あわせて1回25問までです。` : setsDone() ? "1日に学習できる新しい場面は3セットまでです。また明日！" + (todayReviewIds().length ? "<br>今日学習した単語の復習は、何回でもできます。" : "") : "今日の学習はおわりです。また明日！"}</div>
         <div class="small muted">今日の新しい場面：${setsToday()}／${MAX_SETS}セット${setsDone() && due ? "（あとは復習だけできます）" : ""}</div>
       </div>
       ${todayIds().length ? `<div class="menu-list"><button type="button" id="mToday">${ICON.menuToday}今日の単語を見る<span class="cnt">${todayIds().length}</span></button></div>` : ""}
@@ -283,7 +283,7 @@
   function startTodayReview() {
     const ids = todayReviewIds();
     const ng = shuffle(ids.filter((id) => state.items[id].box === 0)), ok = shuffle(ids.filter((id) => state.items[id].box > 0));
-    const steps = ng.concat(ok).slice(0, MAX_TOTAL).map((id) => ({ k: "check", phase: 1, id })); // Not yet の単語を先に、20単語まで
+    const steps = ng.concat(ok).slice(0, MAX_TOTAL).map((id) => ({ k: "check", phase: 1, id })); // Not yet の単語を先に、25単語まで
     steps.push({ k: "summary", phase: 4 });
     session = { newSet: false, counted: false, review: new Set(), steps, i: 0, wrong: [], answered: {}, retried: {}, scenes: [], practice: true, todayReview: true };
     step();
