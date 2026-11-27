@@ -18,9 +18,30 @@
   function loadState() {
     try {
       const s = JSON.parse(localStorage.getItem(LS_KEY) || "null");
-      if (s && typeof s === "object" && s.items) return migrate(s);
+      if (s && typeof s === "object" && s.items) return migrate(clean(s));
     } catch (e) {}
     return { v: 1, items: {} };
+  }
+  // 記録の中身を確かめて、決まった形の値だけを使う（読みこんだバックアップに変な値が入っていても、画面に出さない）
+  function clean(s) {
+    const DATE = /^\d{4}-\d{2}-\d{2}$/, ID = /^[A-Za-z0-9_]{1,80}$/;
+    const num = (x, max) => (Number.isInteger(x) && x >= 0 && x <= max ? x : 0);
+    const date = (x) => (typeof x === "string" && DATE.test(x) ? x : undefined);
+    const out = { v: 1, items: {} };
+    if (s && typeof s.items === "object" && !Array.isArray(s.items)) {
+      Object.keys(s.items).forEach((id) => {
+        const r = s.items[id];
+        if (!ID.test(id) || id === "__proto__" || id === "constructor" || id === "prototype" || !r || typeof r !== "object") return;
+        const o = { box: num(r.box, 10), ok: num(r.ok, 1e6), ng: num(r.ng, 1e6), due: date(r.due) || today() };
+        if (date(r.last)) o.last = r.last;
+        if (date(r.first)) o.first = r.first;
+        if (r.done === true) o.done = true;
+        if (r.manual === true) o.manual = true;
+        out.items[id] = o;
+      });
+    }
+    if (s && s.sets && date(s.sets.date)) out.sets = { date: s.sets.date, n: num(s.sets.n, 99) };
+    return out;
   }
   // 以前の間隔（1・3・7・14・30日）の記録を、今の間隔（1・3・7・30日）に合わせる
   function migrate(s) {
@@ -169,7 +190,11 @@
   /* ---------- 効果音（設定でOFFにできる） ---------- */
   const SET_KEY = "bamen.settings";
   let settings = { sound: true };
-  try { Object.assign(settings, JSON.parse(localStorage.getItem(SET_KEY) || "{}")); } catch (e) {}
+  try { // 決まった設定だけを読む
+    const s = JSON.parse(localStorage.getItem(SET_KEY) || "{}");
+    if (typeof s.sound === "boolean") settings.sound = s.sound;
+    if (typeof s.lastBackup === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s.lastBackup)) settings.lastBackup = s.lastBackup;
+  } catch (e) {}
   function saveSettings() { try { localStorage.setItem(SET_KEY, JSON.stringify(settings)); } catch (e) {} }
   // 効果音は小さめの音量で、Web Audio を使って鳴らす。
   // iPhone・iPad（Safari 16.4以降）は "ambient" にして、消音スイッチがONのときは鳴らないようにする。
@@ -712,7 +737,7 @@
       let s; try { s = JSON.parse(text); } catch (e) { toast("このアプリの記録ではありません"); return; }
       if (!s || typeof s.items !== "object") { toast("このアプリの記録ではありません"); return; }
       modal("今の記録を、読み込んだ記録と入れかえますか？", [
-        { label: "入れかえる", onClick: () => { state = migrate(s); saveState(); toast("読み込みました"); menu(); } },
+        { label: "入れかえる", onClick: () => { state = migrate(clean(s)); saveState(); toast("読み込みました"); menu(); } },
         { label: "やめる", cls: "sub" }]);
     };
     $("fileIn").onchange = (ev) => { const f = ev.target.files[0]; if (!f) return; f.text().then(load); ev.target.value = ""; };
